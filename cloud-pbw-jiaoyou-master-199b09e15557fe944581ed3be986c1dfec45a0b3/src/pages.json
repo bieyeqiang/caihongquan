@@ -1,0 +1,950 @@
+{
+  "easycom": {
+    "^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+  },
+  "pages": [
+    // #ifdef APP-PLUS
+    {
+      "path": "pages/map/map",
+      "style": {
+        "navigationBarTitleText": "实时",
+        "backgroundTextStyle": "dark",
+        "app-plus": {
+          "bounce": "none",
+          "titleColor": "#333333",
+          "titleNView": {
+            "type": "transparent",
+            "searchInput": {
+              "backgroundColor": "rgba(0, 0, 0,.2)",
+              "borderRadius": "16px",
+              "placeholder": "查找目的地/景点/美食",
+              "disabled": true,
+              "placeholderColor": "#ffffff"
+            },
+            "buttons": [
+              {
+                "fontSrc": "/static/iconfont/yticon.ttf",
+                "fontSize": "26",
+                "color": "#333333",
+                "float": "left",
+                "background": "rgba(0,0,0,0)"
+              },
+              {
+                "fontSrc": "/static/iconfont/yticon.ttf",
+                "fontSize": "27",
+                "color": "#E7653D",
+                "background": "rgba(0,0,0,0)"
+              }
+            ]
+          }
+        }
+      }
+    },
+    // #endif
+	//#ifdef MP-WEIXIN || H5
+	{
+		"path": "pages/video/index",
+		"style": {
+			"navigationBarTitleText": "彩虹圈",
+			"app-plus": {
+				"titleNView": false,
+				"bounce": "none",
+				//关闭窗口回弹效果
+				"scrollIndicator": "none"
+			},
+			"navigationStyle": "custom",
+			"enablePullDownRefresh": false
+		}
+	},
+	//#endif
+	//#ifdef MP-WEIXIN || H5
+	{
+		"path": "pages/video/yingshi_list",
+		"style": {
+			"navigationBarTitleText": "视频列表",
+			"app-plus": {
+				"titleNView": false,
+				"bounce": "none",
+				//关闭窗口回弹效果
+				"scrollIndicator": "none"
+			},
+			"navigationStyle": "custom",
+			"enablePullDownRefresh": false
+		}
+	},
+	//#endif
+	//#ifdef MP-WEIXIN || H5
+	{
+		"path": "pages/video/upload_detail",
+		"style": {
+			"navigationBarTitleText": "用户详情",
+			"app-plus": {
+				"titleNView": false,
+				"bounce": "none",
+				//关闭窗口回弹效果
+				"scrollIndicator": "none"
+			},
+			"navigationStyle": "custom",
+			"enablePullDownRefresh": false
+		}
+	},
+	//#endif
+	//#ifdef MP-WEIXIN || H5
+	{
+		"path": "pages/video/login",
+		"style": {
+			"navigationBarTitleText": "登录",
+			"app-plus": {
+				"titleNView": false,
+				"bounce": "none",
+				//关闭窗口回弹效果
+				"scrollIndicator": "none"
+			},
+			"navigationStyle": "custom",
+			"enablePullDownRefresh": false
+		}
+	},
+	//#endif
+    // #ifdef MP-WEIXIN || H5
+    {
+      "path": "pages/map/map",
+      "style": {
+        "navigationBarTitleText": "哈哈交友",
+        "app-plus": {
+          "titleNView": false,
+          "bounce": "none",
+          //关闭窗口回弹效果
+          "scrollIndicator": "none"
+        },
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": false
+      }
+    },
+    // #endif
+    {
+      "path": "pages/map/image",
+      "style": {}
+    },
+    // #ifdef APP-PLUS
+    {
+      "path": "pages/nearby/nearby",
+      "style": {
+        "navigationBarTitleText": "附近",
+        "backgroundColorTop": "#ffffff",
+        "enablePullDownRefresh": false,
+        "app-plus": {
+          "titleNView": false,
+          "bounce": "none"
+        }
+      }
+    },
+    // #endif
+    // #ifdef MP-WEIXIN || H5
+    {
+      "path": "pages/nearby/nearby",
+      "style": {
+        "navigationBarBackgroundColor": "#8636F8",
+        "navigationBarTitleText": "哈哈交友",
+        "backgroundColorTop": "#ffffff",
+        "enablePullDownRefresh": false,
+        "navigationBarTextStyle": "white",
+        "navigationStyle": "custom",
+        "app-plus": {
+          "bounce": "none"
+          // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
+        }
+      }
+    },
+    // #endif
+    // #ifdef APP-PLUS
+    {
+      "path": "pages/explore/explore",
+      "style": {
+        "navigationBarTitleText": "探索",
+        "navigationStyle": "custom",
+        "backgroundTextStyle": "dark",
+        "enablePullDownRefresh": false,
+        "backgroundColorTop": "#ffffff",
+        "app-plus": {
+          "bounce": "none"
+        }
+      }
+    },
+    // #endif
+    // #ifdef MP-WEIXIN || H5
+    {
+      "path": "pages/explore/explore",
+      "style": {
+        "navigationBarTitleText": "哈哈交友",
+        "app-plus": {
+          "titleNView": false,
+          "bounce": "none",
+          //关闭窗口回弹效果
+          "scrollIndicator": "none"
+        },
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": false
+      }
+    },
+    // #endif
+    // #ifdef APP-PLUS
+    {
+      "path": "pages/myhome/myhome",
+      "style": {
+        "navigationBarTitleText": "个人中心",
+        "navigationBarBackgroundColor": "#596bf3",
+        "navigationBarTextStyle": "white",
+        "backgroundColorTop": "#fe586b",
+        "app-plus": {
+          "bounce": "none",
+          //关闭窗口回弹效果
+          "titleNView": {
+            "buttons": [
+              //原生标题栏按钮配置,
+              {
+                "text": "\ue532",
+                "fontSrc": "/static/iconfont/uni.ttf",
+                "fontSize": "28",
+                "color": "#fff"
+              }
+            ],
+            "type": "transparent"
+          },
+          "scrollIndicator": "none"
+        }
+      }
+    },
+    // #endif
+    // #ifdef MP-WEIXIN || H5
+    {
+      "path": "pages/myhome/myhome",
+      "style": {
+        "navigationBarTitleText": "哈哈交友",
+        "backgroundColorTop": "#ffffff",
+        "navigationBarBackgroundColor": "#ffffff",
+        "navigationBarTextStyle": "white",
+        "navigationStyle": "custom"
+      }
+    },
+    // #endif
+    // #ifdef APP-PLUS
+    {
+      "path": "pages/message/message",
+      "style": {
+        "navigationBarTitleText": "消息",
+        "enablePullDownRefresh": false,
+        "app-plus": {
+          "titleNView": false,
+          "bounce": "none",
+          "scrollIndicator": "none"
+        }
+      }
+    },
+    // #endif
+    // #ifdef MP-WEIXIN || H5
+    {
+      "path": "pages/message/message",
+      "style": {
+        "navigationBarBackgroundColor": "#8636F8",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "哈哈交友",
+        "enablePullDownRefresh": false,
+        "navigationStyle": "custom"
+      }
+    },
+    // #endif
+    {
+      "path": "pages/map/mianList"
+    }
+  ],
+  "subPackages": [
+    {
+      "root": "pagesA",
+      "pages": [
+        {
+          "path": "activity/actDetail",
+          "style": {
+            "navigationBarTitleText": "活动详情",
+            "app-plus": {
+              "titleNView": {
+                "type": "transparent",
+                "buttons": [
+                  {
+                    "type": "share",
+                    "fontSize": "30",
+                    "color": "#303133",
+                    "background": "rgba(0,0,0,0)"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "path": "news/friends",
+          "style": {
+            "navigationBarTitleText": "我的好友"
+          }
+        },
+        {
+          "path": "news/fabulous",
+          "style": {
+            "navigationStyle": "custom"
+          }
+        },
+        {
+          "path": "news/report",
+          "style": {
+            "navigationStyle": "custom"
+          }
+        },
+        {
+          "path": "news/comment",
+          "style": {
+            "navigationStyle": "custom"
+          }
+        },
+        {
+          "path": "news/myComment",
+          "style": {
+            "navigationStyle": "custom"
+          }
+        },
+        // 卡片匹配
+        {
+          "path": "alone/card",
+          "style": {
+            "navigationBarTitleText": "匹配Ta",
+            "navigationBarBackgroundColor": "#696ED2",
+            "navigationBarTextStyle": "white",
+            "app-plus": {
+              "titleNView": {
+                "type": "transparent"
+              },
+              "bounce": "none"
+            },
+            "enablePullDownRefresh": false
+          }
+        },
+        {
+          "path": "club/category",
+          "style": {
+            "navigationBarTitleText": "俱乐部"
+          }
+        },
+        {
+          "path": "club/release",
+          "style": {
+            "navigationBarTitleText": "发布互动"
+          }
+        },
+        {
+          "path": "club/info",
+          "style": {
+            "navigationStyle": "custom"
+          }
+        },
+        {
+          "path": "club/set",
+          "style": {
+            "navigationStyle": "custom"
+          }
+        },
+        {
+          "path": "club/name",
+          "style": {
+            "navigationBarTitleText": ""
+          }
+        },
+        {
+          "path": "report/report",
+          "style": {
+            "navigationBarTitleText": "举报"
+          }
+        },
+        {
+          "path": "friends/index",
+          "style": {
+            "navigationStyle": "custom"
+          }
+        },
+        {
+          "path": "friends/like",
+          "style": {
+            "navigationStyle": "custom"
+          }
+        },
+        {
+          "path": "friends/visitor",
+          "style": {
+            "navigationBarTitleText": "访客"
+          }
+        },
+        {
+          "path": "myhome/member/member",
+          "style": {
+            "navigationBarTitleText": "会员中心",
+            "app-plus": {
+              "titleNView": {
+                "buttons": [
+                  {
+                    "color": "#666666",
+                    "fontSize": "28rpx",
+                    "float": "right",
+                    "text": "记录"
+                  }
+                ]
+              }
+            }
+          }
+        },
+         {
+           "path": "wallet/pay",
+           "style": {
+             "navigationBarTitleText": "支付"
+           }
+         },
+         {
+           "path": "wallet/recLog",
+           "style": {
+             "navigationBarTitleText": ""
+           }
+         },
+        {
+          "path": "myhome/member/memberOrder",
+          "style": {
+            "navigationBarTitleText": "会员购买记录"
+          }
+        },
+        {
+          "path": "myhome/personal/personal",
+          "style": {
+            "navigationBarTitleText": "资料设置"
+          }
+        },
+        {
+          "path": "myhome/serviceOrder/serviceOrder",
+          "style": {
+            "navigationBarTitleText": "我的服务订单"
+          }
+        },
+        {
+          "path": "myhome/orderList/orderList",
+          "style": {
+            "navigationBarTitleText": "我的约玩"
+          }
+        },
+        {
+          "path": "map/map/mianju",
+          "style": {
+            "navigationBarTitleText": "面具公园",
+            "app-plus": {
+              "bounce": "none",
+              //关闭窗口回弹效果
+              "titleNView": {
+                "buttons": [
+                  //原生标题栏按钮配置,
+                  {
+                    "text": "\ue560",
+                    "fontSrc": "/static/iconfont/uni.ttf",
+                    "fontSize": "28",
+                    "background": "#999999"
+                  }
+                ],
+                "type": "transparent"
+              },
+              "scrollIndicator": "none"
+            }
+          }
+        },
+        {
+          "path": "map/map/swiper",
+          "style": {
+            "app-plus": {
+              "titleNView": false
+            }
+          }
+        },
+        {
+          "path": "login/auth/login",
+          "style": {
+            "navigationBarTitleText": "登录",
+            "navigationStyle": "custom",
+            "app-plus": {
+              "animationType": "slide-in-bottom"
+            }
+          }
+        },
+        {
+          "path": "login/auth/bindMobile",
+          "style": {
+            "navigationBarTitleText": "绑定手机号码"
+          }
+        },
+        //    服务
+        {
+          "path": "service/homePage/homePage",
+          "style": {
+            "navigationBarTitleText": "Ta的主页",
+            "app-plus": {
+              "titleNView": {
+                "type": "transparent",
+                "buttons": [
+                  {
+                    "type": "share",
+                    "fontSize": "30",
+                    "color": "#303133",
+                    "background": "rgba(0,0,0,0)"
+                  }
+                ]
+              },
+              "bounce": "none",
+              "scrollIndicator": "none"
+            }
+          }
+        },
+        {
+          "path": "service/certification/certification",
+          "style": {
+            "navigationBarTitleText": "认证技能服务"
+          }
+        },
+        {
+          "path": "service/service/service",
+          "style": {
+            "navigationBarTitleText": "发布服务技能"
+          }
+        },
+        {
+          "path": "service/serviceList/serviceList",
+          "style": {
+            "navigationBarTitleText": "我的服务技能列表"
+          }
+        },
+        {
+          "path": "service/serviceInfo/serviceInfo",
+          "style": {
+            "navigationBarTitleText": "服务详情",
+            "app-plus": {
+              "titleNView": {
+                "type": "transparent",
+                "buttons": [
+                  {
+                    "type": "share",
+                    "fontSize": "30",
+                    "color": "#303133",
+                    "background": "rgba(0,0,0,0)"
+                  }
+                ]
+              },
+              "bounce": "none"
+            }
+          }
+        },
+        {
+          "path": "card/card",
+          "style": {
+            "navigationBarTitleText": "匹配Ta",
+            "navigationBarBackgroundColor": "#696ED2",
+            "navigationBarTextStyle": "white",
+            "app-plus": {
+              "titleNView": {
+                "type": "transparent"
+              },
+              "bounce": "none"
+              //关闭窗口回弹效果2
+            },
+            "enablePullDownRefresh": false
+          }
+        },
+        {
+          "path": "nearby/nearbyAdd/nearbyAdd",
+          "style": {
+            "navigationBarTitleText": "发布动态心情"
+          }
+        },
+        {
+          "path": "nearby/nearbyAdd/topic",
+          "style": {
+            "navigationBarTitleText": "话题列表"
+          }
+        },
+        {
+          "path": "nearby/nearbyText/nearbyText",
+          "style": {
+            "navigationBarTitleText": "动态详情"
+          }
+        },
+        {
+          "path": "nearby/nearbyText/topicList",
+          "style": {
+            "navigationBarTitleText": "话题"
+          }
+        },
+        {
+          "path": "explore/spellAdd",
+          "style": {
+            "navigationBarTitleText": "发布拼单"
+          }
+        },
+        {
+          "path": "explore/spellDetail",
+          "style": {
+            "navigationBarTitleText": "拼单详情",
+            "app-plus": {
+              "titleNView": {
+                "type": "transparent"
+              },
+              "bounce": "none"
+            }
+          }
+        },
+        {
+          "path": "explore/travelDetail",
+          "style": {
+            "navigationBarTitleText": "详情",
+            "app-plus": {
+              "titleNView": {
+                "type": "transparent"
+              },
+              "bounce": "none"
+            }
+          }
+        },
+        {
+          "path": "explore/search/search",
+          "style": {
+            "navigationBarTitleText": "搜索"
+          }
+        },
+        {
+          "path": "notice/notice",
+          "style": {
+            "navigationBarTitleText": "通知"
+          }
+        },
+        {
+          "path": "notice/demand",
+          "style": {
+            "navigationBarTitleText": "需求派单"
+          }
+        },
+        {
+          "path": "explore/cityList/city",
+          "style": {
+            "navigationBarTitleText": "城市服务",
+            "app-plus": {
+              "titleNView": {
+                "type": "transparent"
+              },
+              "bounce": "none"
+            }
+          }
+        },
+        {
+          "path": "coupon/getCoupon",
+          "style": {
+            "navigationBarTitleText": "领券大厅"
+          }
+        },
+        {
+          "path": "explore/typeList/dtList",
+          "style": {
+            "navigationBarTitleText": "电台列表",
+            "app-plus": {
+              "bounce": "none"
+            }
+          }
+        },
+        {
+          "path": "explore/cityList/foodList",
+          "style": {
+            "navigationBarTitleText": "美食",
+            "app-plus": {
+              "bounce": "none"
+            }
+          }
+        },
+        {
+          "path": "explore/cityList/travelList",
+          "style": {
+            "navigationBarTitleText": "景点",
+            "app-plus": {
+              "bounce": "none"
+            }
+          }
+        },
+        {
+          "path": "explore/cityList/hotelList",
+          "style": {
+            "navigationBarTitleText": "城市服务",
+            "app-plus": {
+              "bounce": "none"
+            }
+          }
+        },
+        {
+          "path": "message/friend/friend",
+          "style": {
+            "navigationBarTitleText": "我的好友",
+            "enablePullDownRefresh": true
+          }
+        },
+        {
+          "path": "myhome/nearbtList/nearbtList",
+          "style": {
+            "navigationBarTitleText": "动态列表"
+          }
+        },
+        {
+          "path": "myhome/money/money",
+          "style": {
+            "navigationBarTitleText": "账户资产"
+          }
+        },
+        {
+          "path": "myhome/photoSort/photoSort",
+          "style": {
+            "navigationBarTitleText": "相册列表"
+          }
+        },
+        {
+          "path": "myhome/photoList/photoList",
+          "style": {
+            "navigationBarTitleText": "照片集"
+          }
+        },
+        {
+          "path": "myhome/task/task",
+          "style": {
+            "navigationBarTitleText": "任务中心"
+          }
+        },
+        {
+          "path": "feedback/feedback",
+          "style": {
+            "navigationBarTitleText": "意见反馈"
+          }
+        },
+        {
+          "path": "myhome/help/help",
+          "style": {
+            "navigationBarTitleText": "帮助中心"
+          }
+        },
+        {
+          "path": "myhome/about/about",
+          "style": {
+            "navigationBarTitleText": "小程序"
+          }
+        },
+        {
+          "path": "set/set",
+          "style": {
+            "navigationBarTitleText": "设置"
+          }
+        },
+        {
+          "path": "set/about",
+          "style": {
+            "navigationBarTitleText": "关于我们"
+          }
+        },
+        {
+          "path": "set/deactivate",
+          "style": {
+            "navigationBarTitleText": "注销提醒"
+          }
+        },
+        {
+          "path": "setting/setting/privacy",
+          "style": {
+            "navigationBarTitleText": "隐私设置"
+          }
+        },
+        {
+          "path": "login/auth/payPassword",
+          "style": {
+            "navigationBarTitleText": "支付密码"
+          }
+        },
+        {
+          "path": "public/article",
+          "style": {
+            "navigationBarTitleText": ""
+          }
+        },
+        //    小屋 我的家
+        {
+          "path": "house/house1/open/open",
+          "style": {
+            "navigationBarTitleText": "Ta的家门口",
+            "app-plus": {
+              "bounce": "none",
+              //关闭窗口回弹效果
+              "scrollIndicator": "none",
+              "titleNView": false,
+              "animationType": "slide-in-bottom"
+            },
+            "navigationStyle": "custom"
+          }
+        },
+        {
+          "path": "house/house1/home/home",
+          "style": {
+            "navigationBarTitleText": "Ta的屋子",
+            "app-plus": {
+              "bounce": "none",
+              //关闭窗口回弹效果
+              "scrollIndicator": "none",
+              "titleNView": false,
+              "animationType": "slide-in-bottom"
+            },
+            "navigationStyle": "custom"
+          }
+        },
+        {
+          "path": "login/nickname",
+          "style": {
+            "navigationBarTitleText": "设置昵称"
+          }
+        },
+        {
+          "path": "login/sex",
+          "style": {
+            "navigationBarTitleText": "选择性别"
+          }
+        },
+        {
+          "path": "login/birthday",
+          "style": {
+            "navigationBarTitleText": "完善生日"
+          }
+        },
+        {
+          "path": "login/photo",
+          "style": {
+            "navigationBarTitleText": "上传头像"
+          }
+        },
+        {
+          "path": "login/label",
+          "style": {
+            "navigationBarTitleText": "选择标签"
+          }
+        },
+        {
+          "path": "login/photoWall",
+          "style": {
+            "navigationBarTitleText": "定义你的个人形象"
+          }
+        },
+        {
+          "path": "login/mask",
+          "style": {
+            "navigationBarTitleText": "装扮面具",
+            "app-plus": {
+              "titleNView": {
+                "type": "transparent"
+              },
+              "bounce": "none"
+            }
+          }
+        },
+        {
+          "path": "login/cutImage/cut",
+          "style": {
+            "navigationStyle": "custom",
+            "navigationBarTextStyle": "white"
+          }
+        },
+        {
+          "path": "open/url",
+          "style": {
+            "navigationBarTitleText": " "
+          }
+        },
+        {
+          "path": "open/iframe",
+          "style": {
+            "navigationBarTitleText": " "
+          }
+        }
+      ]
+    },
+    //分包-im聊天
+    {
+      "root": "im",
+      "pages": [
+        {
+          "path": "chat/chat",
+          "style": {
+            "navigationBarTitleText": "聊天"
+          }
+        },
+        {
+          "path": "details/details",
+          "style": {
+            "navigationBarTitleText": "红包"
+          }
+        },
+        {
+          "path": "hand/hand",
+          "style": {
+            "navigationBarTitleText": "红包"
+          }
+        }
+      ]
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "哈哈交友",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#f8f8f8",
+    "app-plus": {
+      "pullToRefresh": {
+        "style": "circle",
+        "color": "#ff536f"
+      }
+    }
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#333333",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/video/index",
+        "iconPath": "/static/sy2.png",
+        "selectedIconPath": "/static/select_index.png",
+        "text": "附近"
+      },
+      {
+        "pagePath": "pages/nearby/nearby",
+        "iconPath": "/static/qz.png",
+        "selectedIconPath": "/static/select_qz.png",
+        "text": "圈子"
+      },
+      {
+        "pagePath": "pages/video/yingshi_list",
+        "iconPath": "/static/fx.png",
+        "selectedIconPath": "/static/select_fx.png",
+        "text": "发现"
+      },
+      {
+        "pagePath": "pages/message/message",
+        "iconPath": "/static/select_xx.png",
+        "selectedIconPath": "/static/xx.png",
+        "text": "消息"
+      },
+      {
+        "pagePath": "pages/myhome/myhome",
+        "iconPath": "/static/my.png",
+        "selectedIconPath": "/static/select_my.png",
+        "text": "我的"
+      }
+    ]
+  }
+}

@@ -1,0 +1,274 @@
+{
+    "name" : "陪伴玩",
+    "appid" : "__UNI__10BC501",
+    "description" : "附近1公里交友聊天聚会陪玩 - 哈哈交友",
+    "versionName" : "3.12.05",
+    "versionCode" : 371205,
+    "transformPx" : false,
+    "h5" : {
+        "devServer" : {
+            "port" : 9988,
+            "https" : false
+        },
+        "uniStatistics" : {
+            "enable" : false
+        },
+        "router" : {
+            "mode" : "history",
+            "base" : ""
+        },
+        "sdkConfigs" : {
+            "maps" : {
+                "qqmap" : {
+                    "key" : "S5PBZ-27FWD-GUI4Y-P4GZC-V2CCO-6KBJE"
+                }
+            }
+        },
+        "optimization" : {
+            "treeShaking" : {
+                "enable" : true
+            }
+        },
+        "title" : "哈哈交友",
+        "domain" : "m.peibanwan.com",
+        "unipush" : {
+            "enable" : true
+        }
+    },
+    // 是否全局关闭uni统计
+    "uniStatistics" : {
+        "enable" : false //全局关闭
+    },
+    /* 5+App特有相关 */
+    "app-plus" : {
+        "compatible" : {
+            "ignoreVersion" : true //true表示忽略版本检查提示框，HBuilderX1.9.0及以上版本支持
+        },
+        "usingComponents" : true,
+        "nvueCompiler" : "uni-app",
+        "compilerVersion" : 3,
+        "splashscreen" : {
+            "alwaysShowBeforeRender" : true,
+            "waiting" : true,
+            "autoclose" : true,
+            "delay" : 0
+        },
+        /* 模块配置 */
+        "modules" : {
+            "Maps" : {},
+            "OAuth" : {},
+            "Share" : {},
+            "Barcode" : {},
+            "Camera" : {},
+            "Geolocation" : {},
+            "Payment" : {},
+            "Record" : {},
+            "VideoPlayer" : {},
+            "Webview-x5" : {},
+            "UIWebview" : {},
+            "SQLite" : {}
+        },
+        /* 应用发布信息 */
+        "distribute" : {
+            /* android打包配置 */
+            "android" : {
+                "permissions" : [
+                    "<uses-feature android:name=\"android.hardware.camera\"/>",
+                    "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
+                    "<uses-permission android:name=\"android.permission.CAMERA\"/>",
+                    "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
+                    "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
+                    "<uses-permission android:name=\"android.permission.INTERNET\"/>",
+                    "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
+                    "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
+                    "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
+                    "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
+                ],
+                "abiFilters" : [ "armeabi-v7a", "arm64-v8a", "x86" ]
+            },
+            /* ios打包配置 */
+            "ios" : {
+                "privacyDescription" : {
+                    "NSPhotoLibraryUsageDescription" : "我们需要这样做，为了帮您可以拍摄和共享动态照片和发送视频等功能",
+                    "NSPhotoLibraryAddUsageDescription" : "我们需要这样做，为了帮助您可以保存照片，保存图片到您的设备中",
+                    "NSCameraUsageDescription" : "我们需要这样做，为了帮助您拍摄照片、发布动态及上传拍摄照片等功能",
+                    "NSMicrophoneUsageDescription" : "我们需要这样做，以便您可以进行麦克风语音说话、麦克风视频说话聊天等功能",
+                    "NSLocationWhenInUseUsageDescription" : "如果不允许，你将无法在运行期间定位到自己的位置，无法查看附近动态的信息",
+                    "NSLocationAlwaysUsageDescription" : "如果不允许，你将无法在后台时刻定位到自己的位置，我们需要这样做，帮助您定位位置展示给用户",
+                    "NSLocationAlwaysAndWhenInUseUsageDescription" : "如果不允许，你将无法定位到自己的位置，无法查看附近的信息、附近的动态等功能",
+                    "NSLocalNetworkUsageDescription" : "如果不允许，你将无法访问本地网络，使用本地网络等功能。",
+                    "NSCalendarsUsageDescription" : "",
+                    "NSContactsUsageDescription" : ""
+                },
+                "dSYMs" : false,
+                "idfa" : false
+            },
+            /* SDK配置 */
+            "sdkConfigs" : {
+                "ad" : {},
+                "maps" : {
+                    "amap" : {
+                        "appkey_ios" : "41acb43f80ec5344d96510cc189e48cb",
+                        "appkey_android" : "a33b73d7120d8dc4920aae877088c673"
+                    }
+                },
+                "oauth" : {
+                    "weixin" : {
+                        "appid" : "wx204f0f65d71e2291",
+                        "appsecret" : "37db5922f647dcb6cca850955c692f74",
+                        "UniversalLinks" : "https://www.peibanwan.com/ios/"
+                    },
+                    "apple" : {}
+                },
+                "payment" : {
+                    "weixin" : {
+                        "__platform__" : [ "ios", "android" ],
+                        "appid" : "wx204f0f65d71e2291",
+                        "UniversalLinks" : "https://www.peibanwan.com/ios/"
+                    },
+                    "alipay" : {
+                        "__platform__" : [ "ios", "android" ]
+                    },
+                    "appleiap" : {}
+                },
+                "push" : {
+                    "unipush" : {
+                        "version" : "2",
+                        "offline" : false
+                    }
+                },
+                "share" : {
+                    "weixin" : {
+                        "appid" : "wx204f0f65d71e2291",
+                        "UniversalLinks" : "https://www.peibanwan.com/ios/"
+                    }
+                },
+                "geolocation" : {
+                    "amap" : {
+                        "__platform__" : [ "ios", "android" ],
+                        "appkey_ios" : "41acb43f80ec5344d96510cc189e48cb",
+                        "appkey_android" : "a33b73d7120d8dc4920aae877088c673"
+                    }
+                }
+            },
+            "icons" : {
+                "android" : {
+                    "hdpi" : "unpackage/res/icons/72x72.png",
+                    "xhdpi" : "unpackage/res/icons/96x96.png",
+                    "xxhdpi" : "unpackage/res/icons/144x144.png",
+                    "xxxhdpi" : "unpackage/res/icons/192x192.png"
+                },
+                "ios" : {
+                    "appstore" : "unpackage/res/icons/1024x1024.png",
+                    "ipad" : {
+                        "app" : "unpackage/res/icons/76x76.png",
+                        "app@2x" : "unpackage/res/icons/152x152.png",
+                        "notification" : "unpackage/res/icons/20x20.png",
+                        "notification@2x" : "unpackage/res/icons/40x40.png",
+                        "proapp@2x" : "unpackage/res/icons/167x167.png",
+                        "settings" : "unpackage/res/icons/29x29.png",
+                        "settings@2x" : "unpackage/res/icons/58x58.png",
+                        "spotlight" : "unpackage/res/icons/40x40.png",
+                        "spotlight@2x" : "unpackage/res/icons/80x80.png"
+                    },
+                    "iphone" : {
+                        "app@2x" : "unpackage/res/icons/120x120.png",
+                        "app@3x" : "unpackage/res/icons/180x180.png",
+                        "notification@2x" : "unpackage/res/icons/40x40.png",
+                        "notification@3x" : "unpackage/res/icons/60x60.png",
+                        "settings@2x" : "unpackage/res/icons/58x58.png",
+                        "settings@3x" : "unpackage/res/icons/87x87.png",
+                        "spotlight@2x" : "unpackage/res/icons/80x80.png",
+                        "spotlight@3x" : "unpackage/res/icons/120x120.png"
+                    }
+                }
+            },
+            "splashscreen" : {
+                "androidStyle" : "common",
+                "iosStyle" : "common",
+                "useOriginalMsgbox" : true,
+                "android" : {
+                    "hdpi" : "/Users/jinbiao/Desktop/pbw归档/启动页/480 × 762.png",
+                    "xhdpi" : "/Users/jinbiao/Desktop/pbw归档/启动页/720 × 1242.png",
+                    "xxhdpi" : "/Users/jinbiao/Desktop/pbw归档/启动页/1080 × 1882.png"
+                }
+            }
+        },
+        "nativePlugins" : {},
+        "uniStatistics" : {
+            "enable" : false
+        },
+        "safearea" : {
+            "background" : "#ffffff",
+            "bottom" : {
+                "offset" : "auto"
+            }
+        }
+    },
+    /* 快应用特有相关 */
+    "quickapp" : {},
+    /* 小程序特有相关 */
+    "mp-weixin" : {
+        "appid" : "wx14fbf18c5906e5da",
+        "setting" : {
+            "urlCheck" : false,
+            "minified" : true,
+            "es6" : false,
+            "postcss" : true
+        },
+        "usingComponents" : true,
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : "查找附近的Ta"
+            }
+        },
+        "uniStatistics" : {
+            "enable" : false
+        },
+        "requiredPrivateInfos" : [ "chooseLocation", "getLocation" ],
+        "optimization" : {
+            "subPackages" : true
+        },
+        "unipush" : {
+            "enable" : true
+        },
+        "__usePrivacyCheck__" : true
+    },
+    "mp-alipay" : {
+        "usingComponents" : true,
+        "uniStatistics" : {
+            "enable" : false
+        }
+    },
+    "mp-baidu" : {
+        "usingComponents" : true,
+        "uniStatistics" : {
+            "enable" : false
+        }
+    },
+    "mp-toutiao" : {
+        "usingComponents" : true,
+        "uniStatistics" : {
+            "enable" : false
+        }
+    },
+    "mp-qq" : {
+        "uniStatistics" : {
+            "enable" : false
+        }
+    }
+}

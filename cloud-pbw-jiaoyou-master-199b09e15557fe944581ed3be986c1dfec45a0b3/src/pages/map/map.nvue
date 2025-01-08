@@ -1,0 +1,1919 @@
+<template>
+  <view class="mapContent">
+    <view style="width: 100%; height: 100%; position: relative">
+      <!-- 地图 -->
+      <map
+        class="mapStyle"
+        :style="{ width: windowWidth, height: windowHeight }"
+        id="myMap"
+        show-location="true"
+        :enable-satellite="satellite"
+        :enable-traffic="traffic"
+        :enable-3D="true"
+        :enable-overlooking="true"
+        enable-poi
+        enable-indoorMap
+        skew="60"
+        :latitude="latitude"
+        :longitude="longitude"
+        :markers="covers"
+        :scale="scaleData"
+        @markertap="markerAppBtn"
+        :enable-poi="true"
+        :enable-indoorMap="true"
+        @regionchange="mapMove"
+      >
+        <!-- 下雨 -->
+        <!-- <cover-image class="map_xiayu"  src="https://pbw-uploadfile.oss-cn-beijing.aliyuncs.com/image/appIcon/xiayu.gif"></cover-image> -->
+        <!--播报-->
+        <!-- <cover-image class="bobao"  @click="bobao" :src="bobaoShow ? 'https://pbw-uploadfile.oss-cn-beijing.aliyuncs.com/image/img/map/bobao.png' : 'https://pbw-uploadfile.oss-cn-beijing.aliyuncs.com/image/img/map/bobaoNot.png'"></cover-image> -->
+        <!--定位-->
+        <cover-image
+          class="map_move"
+          v-if="map_auto != ''"
+          src="https://pbw-uploadfile.oss-cn-beijing.aliyuncs.com/image/img/map/locate.png"
+        ></cover-image>
+        <!-- 筛选 -->
+        <cover-image
+          class="search"
+          @click="searchFor"
+          src="https://pbw-uploadfile.oss-cn-beijing.aliyuncs.com/image/img/map/searchFor.png"
+        ></cover-image>
+        <!--隐私-->
+        <cover-image
+          class="harbor"
+          @click="privacy"
+          src="https://pbw-uploadfile.oss-cn-beijing.aliyuncs.com/image/img/map/privacy.png"
+        ></cover-image>
+        <!-- 港湾 -->
+        <cover-image
+          class="makeAWish"
+          @click="harborBtn"
+          src="https://pbw-uploadfile.oss-cn-beijing.aliyuncs.com/image/img/map/gang.png"
+        ></cover-image>
+        <!-- 许愿 -->
+        <!-- <cover-image  class="makeAWish" @click="makeAWish" src="https://pbw-uploadfile.oss-cn-beijing.aliyuncs.com/image/img/map/makeAWish.png"></cover-image> -->
+        <!-- 匹配-->
+        <cover-image
+          class="bottle"
+          @click="bottle"
+          src="https://pbw-uploadfile.oss-cn-beijing.aliyuncs.com/image/img/map/bottle.png"
+        ></cover-image>
+        <!--状态-->
+        <view class="map_Text" v-if="privacyShow">状态：屏蔽地图所有人</view>
+        <!--刷新-->
+        <cover-image
+          class="Refresh"
+          @click="Refresh"
+          src="https://pbw-uploadfile.oss-cn-beijing.aliyuncs.com/image/img/map/Refresh.png"
+        ></cover-image>
+        <!--定位-->
+        <cover-image
+          class="location"
+          @click="mapBtn"
+          src="https://pbw-uploadfile.oss-cn-beijing.aliyuncs.com/image/img/map/map.png"
+        ></cover-image>
+      </map>
+      <!-- 导航栏 -->
+      <view
+        class="tabBgNot"
+        :style="{ width: windowWidth }"
+        v-if="openModule && !openModule.mapOrderShow"
+      >
+        <view class="tabList">
+          <text class="textTitle tabLf zwyHeight">实时地图</text>
+          <text @click="mianju" class="textTitle tabRt zwyHeight"
+            >面具公园</text
+          >
+        </view>
+      </view>
+    </view>
+
+    <!-- 新卡片 -->
+    <view
+      class="businessCard"
+      v-if="cardNameShow"
+      @click.stop="cardNameShow = false"
+    >
+      <view class="detail-wrapper" @click.stop="">
+        <view class="fengche">
+          <image
+            class="fengimg"
+            src="https://pbw-uploadfile.oss-cn-beijing.aliyuncs.com/image/loading.gif"
+          >
+          </image>
+        </view>
+        <view class="content-wrapper">
+          <view class="avatar" @click="details()">
+            <image class="avatar_img" :src="UserData.user.avatar" />
+            <text class="user_name">{{ UserData.user.nickname }}</text>
+            <text v-if="UserData.user.gender == 1"
+              ><text style="color: #00c7ff; font-weight: bold; font-size: 40rpx"
+                >♂</text
+              ></text
+            >
+            <text v-if="UserData.user.gender == 2"
+              ><text style="color: #fe6ed0; font-weight: bold; font-size: 40rpx"
+                >♀</text
+              ></text
+            >
+          </view>
+        </view>
+        <view
+          class="userImgBg"
+          v-if="UserData.photoList && UserData.photoList.length != 0"
+        >
+          <image
+            class="usernameimg"
+            :src="item.imgPath"
+            v-for="(item, index) of UserData.photoList"
+            :key="index"
+            v-if="index < 8"
+            mode="aspectFill"
+            lazy-load
+            @click.stop="photoLook(item.imgPath)"
+          >
+          </image>
+        </view>
+        <view
+          class="userqiang"
+          v-if="UserData.photoList && UserData.photoList.length == 0"
+          ><text class="userimgtitle">Ta还没有显摆照片</text></view
+        >
+        <view class="container-wrapper">
+          <swiper
+            class="swiper"
+            v-if="UserServes && UserServes.length != 0"
+            indicator-active-color="#EB5248"
+            :indicator-dots="UserServes.length > 1 ? true : false"
+            circular
+            :autoplay="true"
+            :interval="4000"
+            :duration="500"
+          >
+            <swiper-item
+              v-if="UserServes && UserServes.length != 0 && index <= 5"
+              v-for="(item, index) of UserServes"
+              :key="index"
+              @click.stop="service(item.code)"
+            >
+              <view class="swBg">
+                <image
+                  class="swTitleImg"
+                  mode="aspectFill"
+                  :src="
+                    item.serveCoverImg.indexOf(',') > -1
+                      ? item.serveCoverImg.split(',')[0]
+                      : item.serveCoverImg
+                  "
+                />
+                <view class="item-info">
+                  <text class="item-infotitle">{{ item.title }}</text>
+                  <text class="price">
+                    <text class="price-big"
+                      >￥{{ item.pushPrice }}元/{{ item.servePriceName }}</text
+                    >
+                  </text>
+                  <text class="pushTypeStr">[{{ item.pushTypeStr }}]</text>
+                </view>
+              </view>
+            </swiper-item>
+          </swiper>
+          <view class="connect-wrapper">
+            <text class="connect globalCololr" @click="details">Ta的主页</text>
+            <text class="connect globalCololr" @click="msgSo">私聊Ta</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部 -->
+    <view class="boxBt" v-if="openModule && openModule.mapOrderShow">
+      <view
+        :class="isend ? 'fixedbox2 boxbr' : 'fixedbox boxbr'"
+        :style="{
+          height: windowHeight + 'px',
+          width: windowWidth + 'px',
+          top: fixboxtop + 'px'
+        }"
+        @touchmove.stop.prevent="getstart($event)"
+        @touchend.stop.prevent="getend"
+      >
+        <!-- 导航栏 -->
+        <view class="tabBg" :style="{ width: windowWidth }">
+          <view class="tabList">
+            <text class="textTitle tabLf zwyHeight">实时地图</text>
+            <text @click="mianju" class="textTitle tabRt zwyHeight"
+              >面具公园</text
+            >
+          </view>
+        </view>
+        <!-- 内容 -->
+        <view class="boxContent" v-if="openModule && openModule.mapOrderShow">
+          <text class="nearby"
+            >⇣ 附近有{{ covers.length }}名 可以快速接单 ⇣</text
+          >
+          <view class="issueContent">
+            <image
+              class="ad"
+              mode="aspectFill"
+              src="https://pbw-uploadfile.oss-cn-beijing.aliyuncs.com/image/img/map/mapOrder.png"
+            ></image>
+            <view class="main" @click.stop.prevent="moveHandle">
+              <scroll-view
+                scroll-y="true"
+                class="scroll-Y"
+                @tap.stop.prevent="moveHandle"
+                @touchmove.stop.prevent="moveHandle"
+                :show-scrollbar="false"
+              >
+                <text class="mainTitle">约TA做什么</text>
+                <view class="zlist">
+                  <text
+                    class="list_item"
+                    :class="
+                      addMapOrder.internet.includes(item) ? 'actived' : ''
+                    "
+                    v-for="(item, index) in slist"
+                    :key="index"
+                    @click="currentIndexBtn(item, 1)"
+                    >{{ item }}</text
+                  >
+                  <text
+                    class="list_item"
+                    :class="addMapOrder.reality.includes(item) ? 'actived' : ''"
+                    v-for="(item, index) in xlist"
+                    :key="index"
+                    @click="currentIndexBtn(item, 2)"
+                    >{{ item }}</text
+                  >
+                </view>
+                <view class="zitem">
+                  <text class="item_title">地点</text>
+                  <view class="inputBox">
+                    <view v-if="false">{{ location }}</view>
+                    <input
+                      class="inputItem"
+                      v-if="
+                        location &&
+                        addMapOrder.address &&
+                        addMapOrder.address.city
+                      "
+                      :value="
+                        addMapOrder.address.city +
+                        '-' +
+                        addMapOrder.address.area +
+                        '（当前定位）'
+                      "
+                      disabled
+                      placeholder="请选择地点"
+                  /></view>
+                </view>
+                <view class="zitem">
+                  <text class="item_title">性别要求</text>
+                  <view class="zlist">
+                    <text
+                      class="list_item"
+                      :class="
+                        addMapOrder.providerSexType == item ? 'actived' : ''
+                      "
+                      v-for="(item, index) in sex"
+                      :key="index"
+                      @click="currentIndexBtn(item, 3)"
+                      >{{ item }}</text
+                    >
+                  </view>
+                </view>
+                <view class="zitem">
+                  <text class="item_title">时间</text>
+                  <view class="inputBox">
+                    <picker
+                      mode="date"
+                      :value="quantityDate"
+                      @change="bindDateChangeDate"
+                      ><text class="uni-inputTT">{{
+                        quantityDate
+                      }}</text></picker
+                    >
+                    <picker
+                      mode="time"
+                      :value="quantityTime"
+                      @change="bindTimeChangeTime"
+                      ><text class="uni-inputTT"
+                        >-{{ quantityTime }}</text
+                      ></picker
+                    >
+                    <text class="txt">起</text>
+                    <input
+                      class="inputItem timeNum"
+                      :value="addMapOrder.quantity"
+                      placeholder="1小时、1天等"
+                    />
+                  </view>
+                </view>
+                <view class="zitem">
+                  <text class="item_title">你愿意支付的金额</text>
+                  <view class="inputBox">
+                    <input
+                      class="inputItem"
+                      :value="addMapOrder.price_data"
+                      placeholder="xxx元"
+                      type="number"
+                    />
+                  </view>
+                </view>
+                <view class="priceList">
+                  <text
+                    class="priceList_item"
+                    :class="priceCurrentIndex === index ? 'actived' : ''"
+                    v-for="(item, index) in priceList"
+                    :key="index"
+                    @click="handleClick(index)"
+                    >￥{{ item }}</text
+                  >
+                </view>
+                <text class="issueOrderBtn" @click="addOrder">立即预约</text>
+              </scroll-view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+import { $request } from '@/api/nvueApi.js'
+import { mapActions } from 'vuex'
+
+export default {
+  components: {},
+  data () {
+    return {
+      windowHeight: '375',
+      windowWidth: '1000',
+      bobaoShow: uni.getStorage({
+        key: 'bobaoShow'
+      }),
+      pingShow: false,
+      cardShow: false,
+      title: 'map',
+      skewData: 40,
+      scaleData: 5, // 17
+      latitude: 39.909,
+      longitude: 116.39742,
+      moveLatitude: 39.909,
+      moveLongitude: 116.39742,
+      circlesArr: [
+        {
+          latitude: 39.909,
+          longitude: 116.39742,
+          radius: 400,
+          strokeWidth: 1,
+          color: '#428BCA88',
+          fillColor: '#B6E1F288'
+        }
+      ],
+      covers: [],
+      map_TextShow: false,
+      UserData: '',
+      labelVal: '',
+      labelData: '',
+      labelText: '',
+      UserServes: [],
+      userCode: '',
+      attention: '',
+      markerId: '',
+      timeout: '',
+      timer: '',
+      mapListData: '',
+      mapMoveData: '',
+      privacyShow: false,
+      rotateData: 0,
+      traffic: false,
+      satellite: false,
+      map_auto: uni.getStorageSync('map_auto'),
+      myProfile: 0,
+      cardNameShow: false,
+      userInfo: '',
+      photoList: [],
+      gender: '',
+      heightLook: 0,
+      firsttop: 0, // 默认top定位
+      fixboxtop: 0, // 实际top定位
+      phonetop: 500, // 定义滑动分界线，小于该值置顶，大于该值恢复
+      isend: false, // 触摸是否结束
+      isfirst: true, // 手指第一次触摸
+      tapboxtop: 0, // 手指距离view顶部距离
+      slist: ['游戏', '聊天', '哄人', '语音', '视频', '谈心'],
+      xlist: ['去吃饭', '去逛街', '去唱歌', '看电影', '去旅行'],
+      sex: ['不限', '男士', '女士'],
+      currentIndex: 0,
+      priceList: ['300', '521', '800', '1200', '2400'],
+      priceCurrentIndex: 0,
+      addMapOrder: {
+        providerSex: '',
+        providerSexType: '不限',
+        providerTime: '',
+        providerTimeType: '',
+        address: '',
+        products: '',
+        quantity: '1小时',
+        remarks: '',
+        price_data: 200,
+        internet: [],
+        reality: [],
+        source_type: 2
+      },
+      startTimeShow: false,
+      params: {
+        year: true,
+        month: true,
+        day: true,
+        hour: true,
+        minute: true,
+        second: false
+      },
+      quantityTime: '00:00',
+      quantityDate: '选择时间'
+    }
+  },
+  computed: {
+    openExamineWx () {
+      return this.$store.state.openExamineWx
+    },
+    openModule () {
+      return this.$store.state.openModule
+    },
+    location () {
+      let myLocation = this.$store.state.location
+      this.addMapOrder.address = myLocation
+      console.log(myLocation, '我的位置')
+      return myLocation
+    }
+  },
+  watch: {
+    map_TextShow (val) {
+      if (val) {
+        setTimeout(() => {
+          this.map_TextShow = false
+        }, 5000)
+      }
+    }
+  },
+  methods: {
+    ...mapActions({
+      getConversation: 'uniIm/getConversation'
+    }),
+    bindDateChangeDate (e) {
+      this.quantityDate = e.detail.value
+    },
+    bindTimeChangeTime (e) {
+      this.quantityTime = e.detail.value
+    },
+    moveHandle () {},
+    randomNum (min, max) {
+      return Math.floor(min + Math.random() * (max - min))
+    },
+    currentIndexBtn (item, index) {
+      if (index == 1) {
+        var index = this.addMapOrder.internet.indexOf(item)
+        if (index > -1) {
+          this.addMapOrder.internet.splice(index, 1)
+        } else {
+          this.addMapOrder.internet.push(item)
+        }
+      }
+      if (index == 2) {
+        var index = this.addMapOrder.reality.indexOf(item)
+        if (index > -1) {
+          this.addMapOrder.reality.splice(index, 1)
+        } else {
+          this.addMapOrder.reality.push(item)
+        }
+      }
+      if (index == 3) {
+        this.addMapOrder.providerSexType =
+          item == '男士' ? '男士' : item == '女士' ? '女士' : '不限'
+        this.addMapOrder.providerSex =
+          item == '男士' ? 1 : item == '女士' ? 2 : ''
+      }
+    },
+    timeBtn (val) {
+      let time =
+        val.year +
+        '-' +
+        val.month +
+        '-' +
+        val.day +
+        ' ' +
+        val.hour +
+        ':' +
+        val.minute +
+        ':00'
+      this.addMapOrder.providerTimeType = time
+      this.addMapOrder.providerTime = Date.parse(new Date(time))
+    },
+    async addOrder () {
+      if (
+        this.addMapOrder.internet.length == 0 &&
+        this.addMapOrder.reality.length == 0
+      ) {
+        uni.showToast({
+          title: '请选择陪玩类型',
+          icon: 'none',
+          duration: 3000
+        })
+        return
+      }
+      console.log(this.addMapOrder)
+      if (this.quantityDate == '选择时间') {
+        uni.showToast({
+          title: '请选择日期',
+          icon: 'none',
+          duration: 3000
+        })
+        return
+      }
+      if (this.addMapOrder.quantity == '') {
+        uni.showToast({
+          title: '请填写几小时时长',
+          icon: 'none',
+          duration: 3000
+        })
+        return
+      }
+      if (this.addMapOrder.price_data == '') {
+        uni.showToast({
+          title: '请填写付给的金额',
+          icon: 'none',
+          duration: 3000
+        })
+        return
+      }
+      uni.showLoading({
+        title: '预约中',
+        mask: true
+      })
+      this.addMapOrder.providerTime = Date.parse(
+        new Date(this.quantityDate + ' ' + this.quantityTime)
+      )
+      this.addMapOrder.providerTimeType =
+        this.quantityDate + ' ' + this.quantityTime
+      console.log(this.addMapOrder)
+      await $request('map', 'addMapOrder', this.addMapOrder).then(res => {
+        uni.hideLoading()
+        this.fixboxtop = this.windowHeight - 100
+        if (res.status == 1) {
+          uni.showToast({
+            title: '预约成功，陪陪正在赶来...',
+            icon: 'none',
+            duration: 3000
+          })
+          this.quantityDate = '选择时间'
+          this.addMapOrder = {
+            providerSex: '',
+            providerSexType: '不限',
+            providerTime: '',
+            providerTimeType: '',
+            address: '',
+            products: '',
+            quantity: '1小时',
+            remarks: '',
+            price_data: 200,
+            internet: [],
+            reality: [],
+            source_type: 2,
+            source_type: 2
+          }
+        } else {
+          uni.showToast({
+            title: '创建失败，请稍后再试',
+            icon: 'none',
+            duration: 3000
+          })
+        }
+      })
+    },
+    handleClick (index) {
+      this.priceCurrentIndex = index
+      this.addMapOrder.price_data = this.priceList[index]
+    },
+    tapBox (e) {
+      this.tapboxtop = 200
+    },
+    getstart (e) {
+      this.isend = false
+      if (this.isfirst) {
+        this.isfirst = false
+        this.tapboxtop = e.touches[0].screenY - this.fixboxtop
+      }
+      this.fixboxtop = e.touches[0].screenY - this.tapboxtop
+      if (this.fixboxtop > this.firsttop) {
+        this.fixboxtop = this.windowHeight - 100
+      } else if (this.fixboxtop < 0) {
+        this.fixboxtop = 0
+      }
+    },
+    getend (e) {
+      this.isend = true
+      this.isfirst = true
+      if (this.fixboxtop <= this.phonetop) {
+        this.fixboxtop = 150
+      } else {
+        this.fixboxtop = this.windowHeight - 100
+      }
+    },
+    // 筛选
+    searchFor () {
+      uni.showActionSheet({
+        itemList: ['看男生', '看女士', '不限'],
+        success: res => {
+          //console.log('选中了第' + (res.tapIndex + 1) + '个按钮');
+          if (res.tapIndex + 1 == 1) {
+            this.$store.commit('setStateAttr', {
+              key: 'sexType',
+              val: 1
+            })
+            this.gender = 1
+          }
+          if (res.tapIndex + 1 == 2) {
+            this.$store.commit('setStateAttr', {
+              key: 'sexType',
+              val: 2
+            })
+            this.gender = 2
+          }
+          if (res.tapIndex + 1 == 3) {
+            this.$store.commit('setStateAttr', {
+              key: 'sexType',
+              val: ''
+            })
+            this.gender = ''
+          }
+        }
+      })
+    },
+    photoLook (img) {
+      let imgList = []
+      for (let item of this.UserData.photoList) {
+        imgList.push(item.imgPath)
+      }
+      setTimeout(() => {
+        this.cardNameShow = true
+      }, 500)
+      uni.previewImage({
+        current: img,
+        urls: imgList
+      })
+    },
+   async msgSo () {
+      if (!uni.getStorageSync('userInfo')) {
+        uni.navigateTo({
+          url: '/pagesA/login/auth/login'
+        })
+        return
+      }
+      setTimeout(() => {
+        this.cardNameShow = true
+      }, 500)
+       //创建会话
+       const currentConversation = await this.getConversation({
+        user_id: this.UserData.user._id
+      })
+      console.log('currentConversation', currentConversation)
+      // 当前用户给对方发个消息
+      uni.navigateTo({
+        url: '/im/chat/chat?conversation_id=' + currentConversation.id
+      })
+      
+    },
+    details () {
+      setTimeout(() => {
+        this.cardNameShow = true
+      }, 500)
+      uni.navigateTo({
+        url: '/pagesA/service/homePage/homePage?code=' + this.UserData.user._id
+      })
+    },
+    mianju () {
+      let userInfoData = uni.getStorageSync('userInfo')
+      console.log(userInfoData,'userInfoData')
+      if (userInfoData) {
+        console.log(userInfoData.secret,'777777')
+        if (
+          !userInfoData.secret ||
+          userInfoData.secret == null ||
+          userInfoData.secret == ''
+        ) {
+          this.goPage('/pagesA/login/mask?uid=' + userInfoData._id)
+        } else {
+          uni.navigateTo({
+            url: '/pagesA/map/map/mianju',
+            animationType: 'slide-in-bottom'
+          })
+        }
+      } else {
+        uni.navigateTo({
+          url: '/pagesA/login/mask',
+          animationType: 'slide-in-bottom'
+        })
+      }
+    },
+    mapIcon (index) {
+      if (index == 1) {
+        this.satellite = !this.satellite
+      }
+      if (index == 2) {
+        this.traffic = !this.traffic
+      }
+    },
+    onShareAppMessage (res) {
+      return {
+        title: '哈哈交友，寻找离你附近1公里的Ta',
+        path: 'pages/map/map'
+      }
+    },
+    mapIcon (index) {
+      if (index == 1) {
+        this.satellite = !this.satellite
+      }
+      if (index == 2) {
+        this.traffic = !this.traffic
+      }
+    },
+    openbtn (code) {
+      uni.navigateTo({
+        url: '/pagesA/house/house1/open/open?code=' + this.UserData.code
+      })
+    },
+    namePage (code) {
+      uni.navigateTo({
+        url: '/pagesA/service/homePage/homePage?code=' + code
+      })
+    },
+    // 服务
+    service (code) {
+      setTimeout(() => {
+        this.cardNameShow = true
+      }, 500)
+      uni.navigateTo({
+        url: '/pagesA/service/serviceInfo/serviceInfo?code=' + code
+      })
+    },
+    // 年龄过滤
+    ages (str) {
+      var r = str.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/)
+      if (r == null) return false
+      var d = new Date(r[1], r[3] - 1, r[4])
+      if (
+        d.getFullYear() == r[1] &&
+        d.getMonth() + 1 == r[3] &&
+        d.getDate() == r[4]
+      ) {
+        var Y = new Date().getFullYear()
+        // return("年龄   =   "+   (Y-r[1])   +"   周岁");
+        return Y - r[1]
+      }
+      return '输入的日期格式错误！'
+    },
+    async markerAppBtn (e) {
+      uni.showLoading({
+        title: '加载中'
+      })
+      const res = await $request('home', 'getUserId', {
+        id: e.detail.markerId
+      })
+      if (res) {
+        this.cardNameShow = true
+        this.UserData = res
+        if (res.user.photoWall) {
+          if (res.user.photoWall.length > 0) {
+            res.user.photoWall.forEach(item => {
+              this.UserData.photoList.push({
+                imgPath: item
+              })
+            })
+          }
+        }
+      }
+      uni.hideLoading()
+    },
+    getUser () {
+      // 获取地图用户列表
+      let userInfoData = uni.getStorageSync('userInfo')
+      $request('map', 'mapUseList', {
+        longitude: this.moveLongitude,
+        latitude: this.moveLatitude,
+        gender: this.gender
+      }).then(res => {
+        uni.hideLoading()
+        if (res.data) {
+          this.mapListData = res.data
+          let arr = []
+          for (let item of res.data) {
+            if (
+              item.gender == 2 &&
+              item.mapUser != undefined &&
+              item.uid != userInfoData.uid
+            ) {
+              let nameList = {
+                type: 'name',
+                id: Number(item.uid),
+                latitude: item.map.coordinates[1],
+                longitude: item.map.coordinates[0],
+                iconPath: item.mapUser,
+                width: 55,
+                height: 75,
+                alpha: 1
+              }
+              arr.push(nameList)
+            }
+
+            if (
+              item.gender == 1 &&
+               item.mapUser != undefined  &&
+              item.uid != userInfoData.uid
+            ) {
+              let nameList = {
+                type: 'name',
+                id: Number(item.uid),
+                latitude: item.map.coordinates[1],
+                longitude: item.map.coordinates[0],
+                iconPath: item.mapUser,
+                width: 55,
+                height: 75,
+                alpha: 1
+              }
+              arr.push(nameList)
+            }
+            this.covers = arr
+
+            clearTimeout(this.timeout)
+            this.timeout = setTimeout(() => {
+              // 地图附近多少人
+              this.map_TextShow = true
+            }, 500 * Math.random())
+          }
+        }
+      })
+
+      return
+      // 景点美食酒店
+      $request('poi', 'getPoi', {
+        longitude: this.longitude,
+        latitude: this.latitude,
+        keywords: '旅游景点',
+        radius: 5000,
+        offset: 10,
+        page: 1
+      }).then(res => {
+        if (res) {
+          for (let item of res.pois) {
+            let nameList = {
+              type: 'travel',
+              id: item.id,
+              latitude: item.location.split(',')[1],
+              longitude: item.location.split(',')[0],
+              iconPath:
+                'https://pbw-uploadfile.oss-cn-beijing.aliyuncs.com/image/map/travel.png',
+              width: 50,
+              height: 50,
+              alpha: 1,
+              callout: {
+                content: item.name,
+                color: '#ffffff',
+                borderRadius: 10,
+                bgColor: '#FBC534',
+                padding: 5,
+                textAlign: 'center',
+                display: 'ALWAYS',
+                fontSize: 10
+              }
+            }
+            this.covers.push(nameList)
+            let arr = this.covers
+            let obj = {}
+            this.covers = this.covers.reduce((cur, next) => {
+              obj[next.id] ? '' : (obj[next.id] = true && cur.push(next))
+              return cur
+            }, [])
+          }
+        }
+      })
+
+      $request('poi', 'getPoi', {
+        longitude: this.longitude,
+        latitude: this.latitude,
+        keywords: '中餐厅|外国餐厅',
+        radius: 5000,
+        offset: 10,
+        page: 1
+      }).then(res => {
+        if (res) {
+          for (let item of res.pois) {
+            let nameList = {
+              type: 'food',
+              id: item.id,
+              latitude: item.location.split(',')[1],
+              longitude: item.location.split(',')[0],
+              iconPath:
+                'https://pbw-uploadfile.oss-cn-beijing.aliyuncs.com/image/map/food.png',
+              width: 50,
+              height: 50,
+              alpha: 1,
+              callout: {
+                content: item.name,
+                color: '#ffffff',
+                borderRadius: 10,
+                bgColor: '#02C7FF',
+                padding: 5,
+                textAlign: 'center',
+                display: 'ALWAYS',
+                fontSize: 10
+              }
+            }
+            this.covers.push(nameList)
+            let arr = this.covers
+            let obj = {}
+            this.covers = this.covers.reduce((cur, next) => {
+              obj[next.id] ? '' : (obj[next.id] = true && cur.push(next))
+              return cur
+            }, [])
+          }
+        }
+      })
+
+      $request('poi', 'getPoi', {
+        longitude: this.longitude,
+        latitude: this.latitude,
+        keywords: '宾馆酒店',
+        radius: 5000,
+        offset: 10,
+        page: 1
+      }).then(res => {
+        if (res) {
+          for (let item of res.pois) {
+            let nameList = {
+              type: 'hotel',
+              id: item.id,
+              latitude: item.location.split(',')[1],
+              longitude: item.location.split(',')[0],
+              iconPath:
+                'https://pbw-uploadfile.oss-cn-beijing.aliyuncs.com/image/map/hotel.png',
+              width: 50,
+              height: 50,
+              alpha: 1,
+              callout: {
+                content: item.name,
+                color: '#ffffff',
+                borderRadius: 10,
+                bgColor: '#FEA8D5',
+                padding: 5,
+                textAlign: 'center',
+                display: 'ALWAYS',
+                fontSize: 10
+              }
+            }
+            this.covers.push(nameList)
+            let arr = this.covers
+            let obj = {}
+            this.covers = this.covers.reduce((cur, next) => {
+              obj[next.id] ? '' : (obj[next.id] = true && cur.push(next))
+              return cur
+            }, [])
+          }
+        }
+      })
+    },
+    // 移动地图
+    mapMove (e) {
+      // console.log(e, "地图")
+      // ios
+      if (e.detail.type == 'end') {
+        // 主动触发地图定位
+        if (this.map_auto == '') {
+          return
+        }
+        this.mapCtx.getCenterLocation({
+          success: res => {
+            console.log(res, '定位')
+            this.moveLatitude = res.latitude
+            this.moveLongitude = res.longitude
+
+            // 隐私设置
+            const shielding = uni.getStorageSync('shielding')
+            if (shielding == '') {
+              this.privacyShow = false
+              this.getUser()
+            } else {
+              if (shielding) {
+                this.privacyShow = false
+                this.getUser()
+              } else {
+                this.privacyShow = true
+              }
+            }
+          }
+        })
+      }
+      // 安卓
+      if (e.type == 'end') {
+        // 主动触发地图定位
+        if (this.map_auto == '') {
+          return
+        }
+        this.mapCtx.getCenterLocation({
+          success: res => {
+            console.log(res, '定位')
+            this.moveLatitude = res.latitude
+            this.moveLongitude = res.longitude
+
+            // 隐私设置
+            const shielding = uni.getStorageSync('shielding')
+            if (shielding == '') {
+              this.privacyShow = false
+              this.getUser()
+            } else {
+              if (shielding) {
+                this.privacyShow = false
+                this.getUser()
+              } else {
+                this.privacyShow = true
+              }
+            }
+          }
+        })
+      }
+    },
+    mapBtn () {
+      // 开启定位
+      uni.setStorageSync('shielding', true)
+      uni.setStorageSync('map_auto', true)
+      this.map_auto = true
+      this.mapSet()
+    },
+    // 返回定位点
+    mapSet () {
+      // 获取当前位置
+      uni.getLocation({
+        type: 'gcj02',
+        success: res => {
+          // 圆初始化
+          if (this.circlesArr.length == 0) {
+            this.circlesArr = [
+              {
+                latitude: 39.909,
+                longitude: 116.39742,
+                radius: 400,
+                strokeWidth: 1,
+                color: '#428BCA88',
+                fillColor: '#B6E1F288'
+              }
+            ]
+          }
+
+          this.latitude = res.latitude
+          this.longitude = res.longitude
+          // 圆的定位点
+          this.circlesArr[0].latitude = res.latitude
+          this.circlesArr[0].longitude = res.longitude
+          this.mapCtx = uni.createMapContext('myMap', this) // 使用 uni.createMapContext 获取 map 上下文
+          this.mapCtx.moveToLocation() //将地图中心移动到当前定位点
+          // 视图缩放
+          if (this.skewData == 40) {
+            this.skewData = 39
+          } else {
+            this.skewData = 40
+          }
+          if (this.scaleData == 17) {
+            this.scaleData = 16
+          } else {
+            this.scaleData = 17
+          }
+          if (this.rotateData == 0) {
+            this.rotateData = 1
+          } else {
+            this.rotateData = 0
+          }
+          // 定位
+          this.updateMap()
+        },
+        fail: error => {
+          ////console.log(error, '获取坐标失败')
+          uni.showModal({
+            title: '获取坐标失败',
+            content:
+              '获取坐标失败，无法为您定位，请检查 右上角-[设置] 里是否打开了坐标定位',
+            success: function (res) {
+              if (res.confirm) {
+                ////console.log('用户点击确定');
+              } else if (res.cancel) {
+                ////console.log('用户点击取消');
+              }
+            }
+          })
+        }
+      })
+    },
+    async updateMap () {
+      // 定位
+      if (uni.getStorageSync('userInfo')) {
+        // 登记坐标
+        const mapres = await $request('user', 'update', {
+          longitude: this.longitude,
+          latitude: this.latitude,
+          last_login_date: Date.parse(new Date())
+        })
+        if (mapres.status === 1) {
+          //成功
+          //console.log('登记成功');
+        }
+      }
+    },
+    bobao () {
+      this.bobaoShow = !this.bobaoShow
+      if (this.bobaoShow) {
+        uni.showToast({
+          title: '自动播报附近用户语音留言,已开启',
+          icon: 'none'
+        })
+        uni.setStorageSync('bobaoShow', this.bobaoShow)
+      } else {
+        uni.showToast({
+          title: '已关闭,自动播报附近语音留言',
+          icon: 'none'
+        })
+        uni.setStorageSync('bobaoShow', this.bobaoShow)
+      }
+    },
+    bottle () {
+      this.pingShow = true
+      uni.showToast({
+        title: '正在匹配附近的用户...',
+        icon: 'none',
+        duration: 3000
+      })
+      var Stime = setTimeout(() => {
+        // uni.showToast({
+        //   title: '暂时没有匹配到',
+        //   icon: 'none',
+        // });
+        this.pingShow = false
+        uni.navigateTo({
+          url: '/pagesA/card/card',
+          animationType: 'slide-in-bottom'
+        })
+      }, 2000)
+    },
+    harborBtn () {
+      uni.switchTab({
+        url: '/pages/message/message'
+      })
+    },
+    makeAWish () {
+      uni.navigateTo({
+        url: '/pagesA/sponsor/sponsor/sponsorAll',
+        animationType: 'slide-in-bottom'
+      })
+    },
+    privacy () {
+      uni.navigateTo({
+        url: '/pagesA/setting/setting/privacy'
+      })
+    },
+    // 刷新
+    Refresh () {
+      uni.showToast({
+        title: '附近用户已刷新...',
+        icon: 'none',
+        duration: 1000
+      })
+      this.mapSet()
+    },
+    // 视野发生变化
+    getRegionchange (res) {
+      ////////console.log(res,"shiye")
+    },
+    // 获取坐标上报
+    getMap () {
+      let vm = this
+      // 实时获取定位
+      // 获取当前位置
+      uni.getLocation({
+        type: 'gcj02',
+        success: res => {
+          // 圆的定位点
+          vm.circlesArr[0].latitude = res.latitude
+          vm.circlesArr[0].longitude = res.longitude
+          // 上报坐标
+          const map_auto = uni.getStorageSync('map_auto')
+          if (map_auto == '') {
+            // 定位
+            vm.updateMap()
+          } else {
+            if (JSON.parse(map_auto)) {
+              // 定位
+              vm.updateMap()
+            }
+          }
+        },
+        fail: error => {
+          ////console.log(error, '获取坐标失败')
+        }
+      })
+    },
+    loadExecution: function () {
+      /**
+       * 获取本地存储中launchFlag的值
+       * 若存在，说明不是首次启动，直接进入首页；
+       * 若不存在，说明是首次启动，进入引导页；
+       */
+      try {
+        const value = uni.getStorageSync('launchFlag')
+        if (value) {
+          if (value == true) {
+            // APP需要强制登录
+            if (!uni.getStorageSync('userInfo')) {
+              uni.navigateTo({
+                url: '/pagesA/login/auth/login'
+              })
+              return
+            }
+            uni.switchTab({
+              url: '/pages/map/map'
+            })
+          } else {
+            uni.redirectTo({
+              url: '/pagesA/map/map/swiper'
+            })
+          }
+        } else {
+          uni.redirectTo({
+            url: '/pagesA/map/map/swiper'
+          })
+        }
+      } catch (e) {
+        uni.redirectTo({
+          url: '/pagesA/map/map/swiper'
+        })
+      }
+      return
+    },
+    getMapAuto () {
+      // APP用户主动定位
+      if (this.map_auto != '' || this.map_auto != false) {
+        this.scaleData = 17
+        if (this.circlesArr.length == 0) {
+          this.circlesArr = [
+            {
+              latitude: 39.909,
+              longitude: 116.39742,
+              radius: 400,
+              strokeWidth: 1,
+              color: '#428BCA88',
+              fillColor: '#B6E1F288'
+            }
+          ]
+        }
+        // 获取当前位置
+        uni.getLocation({
+          type: 'gcj02',
+          success: res => {
+            // 位置点
+            this.latitude = res.latitude
+            this.longitude = res.longitude
+            // 圆的定位点
+            this.circlesArr[0].latitude = res.latitude
+            this.circlesArr[0].longitude = res.longitude
+
+            this.mapSet()
+            // 30秒一次获取定位上报
+            this.getMap()
+          },
+          fail: error => {
+            uni.showModal({
+              title: '获取坐标失败',
+              content:
+                '您拒绝了授权获取坐标，无法为您定位，请在[设置]-[隐私]-[定位服务]中打开坐标定位',
+              success: function (res) {}
+            })
+          }
+        })
+      } else {
+        // uni.showModal({
+        // 	title: '获取位置',
+        // 	content: '获取您的位置在地图上显示？',
+        // 	cancelText: '拒绝',
+        // 	confirmText: '同意',
+        // 	success: function(res) {
+        // 		if (res.confirm) {
+        // 			////console.log('用户点击确定');
+        // 			uni.showToast({
+        // 				title: '您可主动触发定位',
+        // 				icon: 'none',
+        // 				duration: 3000
+        // 			})
+        // 		} else if (res.cancel) {
+        // 			////console.log('用户点击取消');
+        // 			uni.showToast({
+        // 				title: '已拒绝获取位置',
+        // 				icon: 'none',
+        // 				duration: 3000
+        // 			})
+        // 		}
+        // 	}
+        // });
+      }
+    }
+  },
+  onShow () {
+    if (!uni.getStorageSync('userInfo')) {
+      setTimeout(() => {
+        uni.navigateTo({
+          url: '/pagesA/login/auth/login'
+        })
+      }, 2000)
+    }
+    // 小程序半秒震动
+    //#ifdef MP-WEIXIN
+    uni.vibrateShort({
+      success: function () {}
+    })
+    //#endif
+
+    this.map_auto = uni.getStorageSync('map_auto')
+    // 播报
+    if (uni.getStorageSync('bobaoShow') == '') {
+      uni.setStorageSync('bobaoShow', true)
+    }
+    // 获取上线
+    $request('advert', 'getOpenExamine', {}).then(res => {
+      this.$store.commit('setStateAttr', {
+        key: 'mapOrderShow',
+        val: res.mapOrderShow
+      })
+      this.$store.commit('setStateAttr', {
+        key: 'openExamineApp',
+        val: res.openExamineApp
+      })
+    })
+  },
+  onLoad () {
+    // 初始化map
+    this.mapCtx = uni.createMapContext('myMap', this) // 使用 uni.createMapContext 获取 map 上下文
+    // 获取屏幕高度宽度
+    uni.getSystemInfo({
+      success: res => {
+        this.windowWidth = res.windowWidth
+        this.windowHeight = res.windowHeight
+        this.fixboxtop = res.windowHeight - 100
+        this.heightLook = res.windowHeight - 120
+        this.firsttop = res.windowHeight - 120
+      }
+    })
+
+    // 引导页
+    const value = uni.getStorageSync('launchFlag')
+    if (value == true) {
+      this.getMapAuto() //获取定位
+    } else {
+      this.loadExecution() //打开引导页
+    }
+  },
+  // #ifndef MP
+  // 标题栏input搜索框点击
+  onNavigationBarSearchInputClicked: async function (e) {
+    uni.navigateTo({
+      url: '/pagesA/open/url?url=https://m.ctrip.com/webapp/vacations/tour/destination?&allianceId=3213881&sid=6937954&ouid=H5B2Bonline&sourceid=2055&Popup=close&openapp=3'
+    })
+  },
+  //点击导航栏 buttons 时触发
+  onNavigationBarButtonTap (e) {}
+  // #endif
+}
+</script>
+
+<style lang="scss" scoped>
+.mapContent {
+  position: relative;
+}
+
+.issueContent {
+  width: 375px;
+  padding: 20px;
+}
+
+.fixedbox {
+  position: fixed;
+  left: 0;
+  background-color: #ffffff;
+}
+
+.fixedbox2 {
+  position: fixed;
+  left: 0;
+  background-color: #ffffff;
+  transition-property: top;
+  transition-duration: 0.5s;
+}
+
+.nearby {
+  width: 375px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  justify-content: center;
+}
+
+.number {
+  font-size: 38rpx;
+  color: #5a5fb9;
+}
+
+.scroll-Y {
+  width: 375px;
+  align-items: center;
+}
+
+.mainTitle {
+  font-size: 15px;
+  font-weight: bold;
+  color: #4443bc;
+  margin-top: 10px;
+}
+
+.boxBt {
+  width: 375px;
+  position: relative;
+}
+
+.boxContent {
+  width: 375px;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.ad {
+  width: 375px;
+  height: 130px;
+  border-radius: 20px;
+}
+
+.main {
+  width: 375px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.zlist {
+  width: 375px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+
+.list_item {
+  width: 65px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  background: #ffffff;
+  margin: 0 5px 7px 0;
+  font-size: 12px;
+  border-radius: 15px;
+  color: #5560a9;
+  border: 1px solid #5560a9;
+}
+
+.actived {
+  background: #575db3;
+  color: #ffffff;
+}
+.txt {
+  font-size: 15px;
+}
+.timeNum {
+  width: 10px;
+  padding-left: 10px;
+}
+
+.zitem {
+  width: 375px;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.item_title {
+  color: #5f64a8;
+  font-size: 28rpx;
+  font-weight: bold;
+  margin: 0 20rpx;
+}
+.uni-inputTT {
+  font-size: 14px;
+  color: #5f64a8;
+}
+.inputBox {
+  font-size: 14px;
+  flex: 1;
+  background: #e6e6f3;
+  padding: 5px 6px;
+  border-radius: 10rpx;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.inputItem {
+  color: #1e1f23;
+  font-weight: 100;
+  font-size: 28rpx;
+  flex: 1;
+}
+
+.priceList {
+  width: 375px;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.priceList_item {
+  width: 55px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  margin-right: 10px;
+  background: #ffffff;
+  font-size: 12px;
+  border-radius: 10px;
+  color: #5560a9;
+  border: 1px solid #5560a9;
+}
+
+.actived {
+  background: #575db3;
+  color: #ffffff;
+}
+
+.boxbr {
+  border-radius: 30rpx 30rpx 0 0;
+  box-shadow: -4rpx -4rpx 25rpx #999;
+}
+
+.issueOrderBtn {
+  width: 350px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  color: #ffffff;
+  background: #575db3;
+  margin: 20px 0 130px 0;
+  border-radius: 18px;
+  font-size: 16px;
+}
+
+.tabLf {
+  background-color: #6665f6;
+  border-bottom-right-radius: 100rpx;
+  border-top-right-radius: 20rpx;
+  border-top-width: 4rpx;
+  border-color: #fa709a;
+  border-style: solid;
+}
+
+.tabRt {
+  background-color: #00b26a;
+  border-bottom-left-radius: 20rpx;
+  border-top-left-radius: 100rpx;
+}
+
+.userqiang {
+  padding: 60rpx 0;
+
+  justify-content: center;
+  text-align: center;
+}
+
+.map_Text {
+  position: absolute;
+  left: 150%;
+  top: 700rpx;
+  margin-top: -200rpx;
+  padding: 7rpx 15rpx;
+  border-radius: 20rpx;
+  background-color: #ffffff;
+  color: #909399;
+  font-size: 20rpx;
+}
+
+.userimgtitle {
+  font-size: 28rpx;
+  width: 600rpx;
+  color: #999999;
+  text-align: center;
+  padding: 10rpx 20rpx;
+}
+
+.userImgBg {
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.usernameimg {
+  width: 132rpx;
+  height: 130rpx;
+  margin: 10rpx;
+  border-radius: 20rpx;
+  border-style: solid;
+  border-width: 1rpx;
+  border-color: #f5f5f5;
+  background-color: #f5f5f5;
+}
+
+.swBg {
+  margin-bottom: 10rpx;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  padding: 20rpx;
+}
+
+.swTitleImg {
+  width: 250rpx;
+  height: 150rpx;
+}
+
+.item-info {
+  width: 350rpx;
+  color: #666666;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.item-infotitle {
+  width: 350rpx;
+  font-size: 30rpx;
+  font-weight: bold;
+  text-align: left;
+  padding-left: 20rpx;
+}
+
+.price {
+  font-size: 30rpx;
+  width: 100%;
+  color: #6665f6;
+  width: 350rpx;
+  text-align: left;
+  padding-left: 20rpx;
+}
+
+.pushTypeStr {
+  font-size: 30rpx;
+  color: #6665f6;
+  width: 350rpx;
+  text-align: left;
+  padding-left: 30rpx;
+}
+
+.price-big {
+  font-size: 30rpx;
+  color: #6665f6;
+}
+
+.globalCololr {
+  color: #ffffff;
+  background-image: linear-gradient(to right, #6665f6, #fa709a);
+}
+
+.connect-wrapper {
+  width: 600rpx;
+  flex-direction: row;
+  justify-content: center;
+  margin: 30rpx 0;
+}
+
+.connect {
+  height: 60rpx;
+  line-height: 60rpx;
+  width: 250rpx;
+  text-align: center;
+  border-radius: 8rpx;
+  font-size: 27rpx;
+  margin: 0 5%;
+}
+
+.user_name {
+  font-size: 35rpx;
+  color: #ffffff;
+  padding-left: 20rpx;
+}
+
+.others {
+  font-size: 26rpx;
+  margin-top: 8rpx;
+  color: #fff;
+}
+
+.address {
+  color: #fff;
+}
+
+.avatar {
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+.avatar_img {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 50%;
+}
+
+.content-wrapper {
+  padding: 30rpx;
+  background-image: linear-gradient(to right, #6665f6, #fa709a);
+  border-top-right-radius: 12rpx;
+  border-top-left-radius: 12rpx;
+}
+
+.header {
+  position: relative;
+  color: #fff;
+  width: 100%;
+  height: 300rpx;
+  border-top-left-radius: 12rpx;
+  border-top-right-radius: 12rpx;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.fengche {
+  position: absolute;
+  right: 0;
+  top: -100px;
+  z-index: -1;
+}
+
+.fengimg {
+  width: 192px;
+  height: 108px;
+}
+
+.businessCard {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+}
+
+.detail-wrapper {
+  position: relative;
+  width: 600rpx;
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding-bottom: 20rpx;
+  box-shadow: 4rpx 40rpx 100rpx #666666;
+  z-index: 99999;
+}
+.tabBgNot {
+  align-items: center;
+  z-index: 99999;
+  position: absolute;
+  bottom: 101rpx;
+}
+.tabBg {
+  align-items: center;
+  z-index: 99999;
+  position: absolute;
+  top: -91rpx;
+}
+
+.search {
+  position: absolute;
+  bottom: 700rpx;
+  left: 20rpx;
+  width: 98rpx;
+  height: 98rpx;
+}
+
+.harbor {
+  position: absolute;
+  bottom: 550rpx;
+  left: 20rpx;
+  width: 98rpx;
+  height: 98rpx;
+}
+
+.tabList {
+  border-radius: 50rpx;
+  flex-wrap: nowrap;
+  background-color: #ffffff;
+  flex-direction: row;
+}
+
+.textTitle {
+  border-radius: 50rpx;
+  font-size: 24rpx;
+  padding: 10rpx 0rpx;
+  margin: 10rpx;
+  color: #ffffff;
+  width: 160rpx;
+  height: 40rpx !important;
+  line-height: 20rpx;
+
+  text-align: center;
+}
+
+.map_feiji {
+  width: 500rpx;
+  height: 500rpx;
+  position: absolute;
+  left: 50%;
+  right: 0;
+  top: 50%;
+  bottom: 0;
+  margin-top: -250rpx;
+}
+
+.map_move {
+  width: 23px;
+  height: 37px;
+  top: -50rpx;
+}
+
+.bottle {
+  position: absolute;
+  bottom: 400rpx;
+  left: 20rpx;
+  width: 98rpx;
+  height: 98rpx;
+}
+
+.satellite {
+  position: absolute;
+  top: 150rpx;
+  right: 20rpx;
+  width: 98rpx;
+  height: 98rpx;
+}
+
+.traffic {
+  position: absolute;
+  top: 300rpx;
+  right: 20rpx;
+  width: 98rpx;
+  height: 98rpx;
+}
+
+.privacy {
+  position: absolute;
+  top: 450rpx;
+  right: 20rpx;
+  width: 98rpx;
+  height: 98rpx;
+}
+
+.makeAWish {
+  position: absolute;
+  bottom: 250rpx;
+  left: 20rpx;
+  width: 98rpx;
+  height: 98rpx;
+}
+
+.Refresh {
+  position: absolute;
+  bottom: 250rpx;
+  right: 20rpx;
+  width: 98rpx;
+  height: 98rpx;
+}
+
+.location {
+  position: absolute;
+  bottom: 400rpx;
+  right: 20rpx;
+  width: 98rpx;
+  height: 98rpx;
+}
+
+.mapStyle {
+  width: 1300px;
+  height: 800px;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+}
+</style>

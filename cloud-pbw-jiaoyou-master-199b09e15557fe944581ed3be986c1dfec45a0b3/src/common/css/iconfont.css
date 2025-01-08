@@ -1,0 +1,24 @@
+/*
+ * @Author: Jin Biao
+ * @Date: 2018-12-22 21:25:29
+ * @Title: 阿里icon https://www.iconfont.cn/
+ * @Description: 描述
+ */
+@font-face {
+  font-family: 'iconfont';
+  /* project id 652827 */
+  src: url('https://at.alicdn.com/t/font_652827_taeaz7e4a1.eot');
+  src: url('https://at.alicdn.com/t/font_652827_taeaz7e4a1.eot?#iefix') format('embedded-opentype');
+  src: url('https://at.alicdn.com/t/font_652827_taeaz7e4a1.woff2') format('woff2');
+  src: url('https://at.alicdn.com/t/font_652827_taeaz7e4a1.woff') format('woff');
+  src: url('https://at.alicdn.com/t/font_652827_taeaz7e4a1.ttf') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
