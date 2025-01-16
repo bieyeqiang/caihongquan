@@ -112,11 +112,11 @@ export default {
 		  title: '请先登录',
 		  icon: 'none'
 		});
-		// setTimeout(() => {
-		//   uni.navigateTo({
-		//     url: '/pages/video/login'
-		//   });
-		// }, 1000);  
+		setTimeout(() => {
+		  uni.navigateTo({
+		    url: '/pages/video/login'
+		  });
+		}, 1000);  
 	  }
     },
     /**

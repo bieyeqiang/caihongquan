@@ -109,7 +109,7 @@ export default {
           // 提交数据
           let param = this.form;
           let header = {};
-          let url = config.basePath+"api/auth/unified-login"; // 在这里配置您的提交地址
+          let url = config.basePath+"api/user/unified_login"; // 在这里配置您的提交地址
           if (!url) {
             this.showToast('请先配置表单提交地址', 'none');
             return false;
@@ -118,17 +118,17 @@ export default {
           let res = await this.$http.post(url, param, header, 'json');
           console.log(res)
 			  
-          if (res.code == 200) {
+          if (res.code == 1) {
 			var data = res.data;
-			uni.setStorageSync('userInfo', data.userInfo);
+			uni.setStorageSync('userInfo', data.user_info);
 			uni.setStorageSync('token', data.token);
-			if(data.isNewUser){
+			if(data.is_new_user){
 				uni.navigateTo({
 					url:"./upload_detail"
 				})
 			}else{
 				uni.navigateTo({
-					url:"./upload_detail"
+					url:"./index"
 				})
 			}
 			

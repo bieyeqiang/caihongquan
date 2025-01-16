@@ -15,33 +15,60 @@
 				<view class="diygw-tab-item tabs-item-title" :class="index == tabsIndex ? ' font-bold   cur text-green  ' : ''" v-for="(item, index) in tabsDatas" :key="index" @click="changeTabs" :data-index="index"> <text v-if="item.icon" :class="item.icon"></text> {{ item.text }} </view>
 			</view>
 			<view class="">
-				<view v-if="tabsIndex == 0" class="flex-sub">
-					<view class="flex tabs1 diygw-col-24 flex-direction-column">
+				<view v-if="tabsIndex == 0" class="flex-sub listitem">
+					<view class="flex tabs1 diygw-col-24 flex-direction-column" >
 						<view class="diygw-tabs text-center solid-bottom justify-start not-border small-border tabs1-title">
 							<view class="diygw-tab-item tabs1-item-title" :class="index == tabs1Index ? '    cur text-green  ' : ''" v-for="(item, index) in tabs1Datas" :key="index" @click="changeTabs1" :data-index="index"> <text v-if="item.icon" :class="item.icon"></text> {{ item.text }} </view>
 						</view>
 						<view class="">
-							<view v-if="tabs1Index == 0" class="flex-sub"> </view>
-							<view v-if="tabs1Index == 1" class="flex-sub">
-								<view class="flex flex-wrap diygw-col-24 flex-direction-column">
+							<view v-if="tabs1Index == 0" class="flex-sub">
+							    <view class="flex flex-wrap diygw-col-24 flex-direction-column" v-for="(item0,index0) in dataList" :key="index0">
+							    	<view class="flex flex-wrap diygw-col-24 flex10-clz">
+							    		<view class="flex diygw-col-4 justify-end avatar3-clz">
+							    			<view class="diygw-avatar radius bg-none">
+							    				<image mode="aspectFit" class="diygw-avatar-img radius" :src="item0.avatar"></image>
+							    			</view>
+							    		</view>
+							    		<text class="diygw-col-5 text6-clz"> {{item0.nickname}} </text>
+							    		<image src="/static/icons.png" class="response diygw-col-24 image11-clz" mode="widthFix"></image>
+							    	</view>
+							    	<text class="diygw-col-24">{{item0.content}}</text>
+							    	<view class="flex flex-wrap diygw-col-24 flex-direction-column justify-center items-center flex13-clz">
+							    		<video id="myVideo" :src="item0.resources_files"
+							    		                    @error="videoErrorCallback" object-fit="cover" controls></video>
+							    		<!-- <text class="flex icon diygw-col-0 icon-clz diy-icon-playfill"></text> -->
+							    		<!-- <text class="diygw-col-0 text9-clz"> {{item0.duration}} </text> -->
+							    	</view>
+							    	<view class="flex diygw-col-24 justify-end tag-clz">
+							    		<view class="bg_icon">
+							    			<image  class="bg_img" :src="likespng" @click="edit_img"></image>
+							    			<text class="number_likes"> {{item0.number_likes}} </text>
+							    		</view>
+							    	</view>
+							    </view>
+							</view>
+							<view v-if="tabs1Index == 1" class="flex-sub listitem">
+								<view class="flex flex-wrap diygw-col-24 flex-direction-column" v-for="(item0,index0) in dataList" :key="index0">
 									<view class="flex flex-wrap diygw-col-24 flex10-clz">
 										<view class="flex diygw-col-4 justify-end avatar3-clz">
 											<view class="diygw-avatar radius bg-none">
-												<image mode="aspectFit" class="diygw-avatar-img radius" src="/static/34e4b24d1c5bf18184d7d18fea013df8.png"></image>
+												<image mode="aspectFit" class="diygw-avatar-img radius" :src="item0.avatar"></image>
 											</view>
 										</view>
-										<text class="diygw-col-5 text6-clz"> 用户昵称 </text>
+										<text class="diygw-col-5 text6-clz"> {{item0.nickname}} </text>
 										<image src="/static/icons.png" class="response diygw-col-24 image11-clz" mode="widthFix"></image>
 									</view>
-									<text class="diygw-col-24 text7-clz"> DIY官网可视化工具做好的可视化拖拽开发工具，无须编程、零代码基础、所见即所得设计工具，轻松制作微信小程序、支付宝小程序、Vue3、H5、WebApp、UNIAPP、单页动画 </text>
+									<text class="diygw-col-24">{{item0.content}}</text>
 									<view class="flex flex-wrap diygw-col-24 flex-direction-column justify-center items-center flex13-clz">
-										<text class="flex icon diygw-col-0 icon-clz diy-icon-playfill"></text>
-										<text class="diygw-col-0 text9-clz"> 02:08 </text>
+										<video id="myVideo" :src="item0.resources_files"
+										                     object-fit="cover" controls></video>
+										<!-- <text class="flex icon diygw-col-0 icon-clz diy-icon-playfill"></text> -->
+										<!-- <text class="diygw-col-0 text9-clz"> {{item0.duration}} </text> -->
 									</view>
-									<view class="flex diygw-col-24 justify-end tag3-clz">
-										<view class="diygw-tag md radius">
-											<text class="diygw-icon diy-icon-likefill"></text>
-											<text> 14.4k </text>
+									<view class="flex diygw-col-24 justify-end tag-clz">
+										<view class="bg_icon">
+											<image  class="bg_img" :src="likespng" @click="edit_img"></image>
+											<text class="number_likes"> {{item0.number_likes}} </text>
 										</view>
 									</view>
 								</view>
@@ -50,55 +77,56 @@
 						</view>
 					</view>
 				</view>
-				<view v-if="tabsIndex == 1" class="flex-sub">
+				<view v-if="tabsIndex == 1" class="flex-sub listitem" >
 					<view class="flex tabs2 diygw-col-24 flex-direction-column">
 						<view class="diygw-tabs text-center solid-bottom justify-start not-border small-border tabs2-title">
 							<view class="diygw-tab-item tabs2-item-title" :class="index == tabs2Index ? '    cur text-green  ' : ''" v-for="(item, index) in tabs2Datas" :key="index" @click="changeTabs2" :data-index="index"> <text v-if="item.icon" :class="item.icon"></text> {{ item.text }} </view>
 						</view>
 						<view class="">
-							<view v-if="tabs2Index == 0" class="flex-sub"> </view>
-							<view v-if="tabs2Index == 1" class="flex-sub">
-								<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-									<view class="flex flex-wrap diygw-col-24 flex3-clz">
-										<view class="flex diygw-col-4 justify-end avatar1-clz">
-											<view class="diygw-avatar avatar1-avatar radius bg-none">
-												<image mode="aspectFit" class="diygw-avatar-img radius" src="/static/34e4b24d1c5bf18184d7d18fea013df8.png"></image>
+							<view v-if="tabs2Index == 0" class="flex-sub">
+								<view class="flex flex-wrap diygw-col-24 flex-direction-column" v-for="(item0,index0) in dataList" :key="index0">
+									<view class="flex flex-wrap diygw-col-24 flex10-clz">
+										<view class="flex diygw-col-4 justify-end avatar3-clz">
+											<view class="diygw-avatar radius bg-none">
+												<image mode="aspectFit" class="diygw-avatar-img radius" :src="item0.avatar"></image>
 											</view>
 										</view>
-										<text class="diygw-col-5 text2-clz"> 用户昵称 </text>
-										<image src="/static/icons.png" class="response diygw-col-24 image5-clz" mode="widthFix"></image>
+										<text class="diygw-col-5 text6-clz"> {{item0.nickname}} </text>
+										<image src="/static/icons.png" class="response diygw-col-24 image11-clz" mode="widthFix"></image>
 									</view>
-									<text class="diygw-col-24 text3-clz"> DIY官网可视化工具做好的可视化拖拽开发工具，无须编程、零代码基础、所见即所得设计工具，轻松制作微信小程序、支付宝小程序、Vue3、H5、WebApp、UNIAPP、单页动画 </text>
-									<view class="flex diygw-col-24 items-center flex-nowrap flex4-clz">
+									<text class="diygw-col-24"> {{item0.content}} </text>
+									<view class="flex diygw-col-24 items-center flex-nowrap ">
 										<image src="/static/pic1.jpg" class="image6-size diygw-image diygw-col-24 image6-clz" mode="widthFix"></image>
 										<image src="/static/diygwjpg.jpg" class="image7-size diygw-image diygw-col-24 image7-clz" mode="widthFix"></image>
 									</view>
 									<view class="flex diygw-col-24 justify-end tag-clz">
-										<view class="diygw-tag md radius">
-											<text class="diygw-icon diy-icon-likefill"></text>
-											<text> 14.4k </text>
+										<view class="bg_icon">
+											<image  class="bg_img" :src="likespng" @click="edit_img"></image>
+											<text class="number_likes"> {{item0.number_likes}} </text>
 										</view>
 									</view>
 								</view>
-								<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-									<view class="flex flex-wrap diygw-col-24 flex6-clz">
-										<view class="flex diygw-col-4 justify-end avatar2-clz">
-											<view class="diygw-avatar avatar2-avatar radius bg-none">
-												<image mode="aspectFit" class="diygw-avatar-img radius" src="/static/34e4b24d1c5bf18184d7d18fea013df8.png"></image>
+							</view>
+							<view v-if="tabs2Index == 1" class="flex-sub">
+								<view class="flex flex-wrap diygw-col-24 flex-direction-column" v-for="(item0,index0) in dataList" :key="index0">
+									<view class="flex flex-wrap diygw-col-24 flex10-clz">
+										<view class="flex diygw-col-4 justify-end avatar3-clz">
+											<view class="diygw-avatar radius bg-none">
+												<image mode="aspectFit" class="diygw-avatar-img radius" :src="item0.avatar"></image>
 											</view>
 										</view>
-										<text class="diygw-col-5 text4-clz"> 用户昵称 </text>
-										<image src="/static/icons.png" class="response diygw-col-24 image8-clz" mode="widthFix"></image>
+										<text class="diygw-col-5 text6-clz"> {{item0.nickname}} </text>
+										<image src="/static/icons.png" class="response diygw-col-24 image11-clz" mode="widthFix"></image>
 									</view>
-									<text class="diygw-col-24 text5-clz"> DIY官网可视化工具做好的可视化拖拽开发工具，无须编程、零代码基础、所见即所得设计工具，轻松制作微信小程序、支付宝小程序、Vue3、H5、WebApp、UNIAPP、单页动画 </text>
-									<view class="flex diygw-col-24 items-center flex-nowrap">
-										<image src="/static/pic1.jpg" class="image9-size diygw-image diygw-col-24 image9-clz" mode="widthFix"></image>
-										<image src="/static/diygwjpg.jpg" class="image10-size diygw-image diygw-col-24 image10-clz" mode="widthFix"></image>
+									<text class="diygw-col-24"> {{item0.content}} </text>
+									<view class="flex diygw-col-24 items-center flex-nowrap" >
+										<image :src="item1" class="image10-size diygw-image diygw-col-24 image10-clz" v-for="(item1,index1) in item0.resources_files" :key="index1" mode="widthFix"></image>
+										<!-- <image :src="item1" class="image7-size diygw-image diygw-col-24 image7-clz" mode="widthFix"></image> -->
 									</view>
-									<view class="flex diygw-col-24 justify-end">
-										<view class="diygw-tag md radius">
-											<text class="diygw-icon diy-icon-likefill"></text>
-											<text> 14.4k </text>
+									<view class="flex diygw-col-24 justify-end tag-clz">
+										<view class="bg_icon">
+											<image  class="bg_img" :src="likespng" @click="edit_img"></image>
+											<text class="number_likes"> {{item0.number_likes}} </text>
 										</view>
 									</view>
 								</view>
@@ -107,33 +135,55 @@
 						</view>
 					</view>
 				</view>
-				<view v-if="tabsIndex == 2" class="flex-sub">
+				<view v-if="tabsIndex == 2" class="flex-sub listitem">
 					<view class="flex tabs3 diygw-col-24 flex-direction-column tabs3-clz">
 						<view class="diygw-tabs text-center solid-bottom justify-start not-border small-border tabs3-title">
 							<view class="diygw-tab-item tabs3-item-title" :class="index == tabs3Index ? '    cur text-green  ' : ''" v-for="(item, index) in tabs3Datas" :key="index" @click="changeTabs3" :data-index="index"> <text v-if="item.icon" :class="item.icon"></text> {{ item.text }} </view>
 						</view>
 						<view class="">
-							<view v-if="tabs3Index == 0" class="flex-sub"> </view>
-							<view v-if="tabs3Index == 1" class="flex-sub">
-								<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-									<view class="flex flex-wrap diygw-col-24 flex1-clz">
-										<view class="flex diygw-col-4 justify-end avatar-clz">
-											<view class="diygw-avatar avatar-avatar radius bg-none">
-												<image mode="aspectFit" class="diygw-avatar-img radius" src="/static/34e4b24d1c5bf18184d7d18fea013df8.png"></image>
+							<view v-if="tabs3Index == 0" class="flex-sub">
+								<view class="flex flex-wrap diygw-col-24 flex-direction-column" v-for="(item0,index0) in dataList" :key="index0">
+									<view class="flex flex-wrap diygw-col-24 flex10-clz">
+										<view class="flex diygw-col-4 justify-end avatar3-clz">
+											<view class="diygw-avatar radius bg-none">
+												<image mode="aspectFit" class="diygw-avatar-img radius" :src="item0.avatar"></image>
 											</view>
 										</view>
-										<text class="diygw-col-5 text-clz"> 用户昵称 </text>
-										<image src="/static/icons.png" class="response diygw-col-24 image4-clz" mode="widthFix"></image>
+										<text class="diygw-col-5 text6-clz"> {{item0.nickname}} </text>
+										<image src="/static/icons.png" class="response diygw-col-24 image11-clz" mode="widthFix"></image>
 									</view>
-									<text class="diygw-col-24 text1-clz"> DIY官网可视化工具做好的可视化拖拽开发工具，无须编程、零代码基础、所见即所得设计工具，轻松制作微信小程序、支付宝小程序、Vue3、H5、WebApp、UNIAPP、单页动画 </text>
+									<text class="diygw-col-24 text1-clz"> {{item0.content}} </text>
 									<view class="flex diygw-col-24 items-center flex-nowrap flex-clz">
 										<image src="/static/pic1.jpg" class="image2-size diygw-image diygw-col-24 image2-clz" mode="widthFix"></image>
 										<image src="/static/diygwjpg.jpg" class="image3-size diygw-image diygw-col-24 image3-clz" mode="widthFix"></image>
 									</view>
-									<view class="flex diygw-col-24 justify-end tag1-clz">
-										<view class="diygw-tag md radius">
-											<text class="diygw-icon diy-icon-likefill"></text>
-											<text> 14.4k </text>
+									<view class="flex diygw-col-24 justify-end tag-clz">
+										<view class="bg_icon">
+											<image  class="bg_img" :src="likespng" @click="edit_img"></image>
+											<text class="number_likes"> {{item0.number_likes}} </text>
+										</view>
+									</view>
+								</view> </view>
+							<view v-if="tabs3Index == 1" class="flex-sub">
+								<view class="flex flex-wrap diygw-col-24 flex-direction-column" v-for="(item0,index0) in dataList" :key="index0">
+									<view class="flex flex-wrap diygw-col-24 flex10-clz">
+										<view class="flex diygw-col-4 justify-end avatar3-clz">
+											<view class="diygw-avatar radius bg-none">
+												<image mode="aspectFit" class="diygw-avatar-img radius" :src="item0.avatar"></image>
+											</view>
+										</view>
+										<text class="diygw-col-5 text6-clz"> {{item0.nickname}} </text>
+										<image src="/static/icons.png" class="response diygw-col-24 image11-clz" mode="widthFix"></image>
+									</view>
+									<text class="diygw-col-24 text1-clz"> {{item0.content}} </text>
+									<view class="flex diygw-col-24 items-center flex-nowrap flex-clz">
+										<image src="/static/pic1.jpg" class="image2-size diygw-image diygw-col-24 image2-clz" mode="widthFix"></image>
+										<image src="/static/diygwjpg.jpg" class="image3-size diygw-image diygw-col-24 image3-clz" mode="widthFix"></image>
+									</view>
+									<view class="flex diygw-col-24 justify-end tag-clz">
+										<view class="bg_icon">
+											<image  class="bg_img" :src="likespng" @click="edit_img"></image>
+											<text class="number_likes"> {{item0.number_likes}} </text>
 										</view>
 									</view>
 								</view>
@@ -193,6 +243,7 @@
 </template>
 
 <script>
+	import config from "../../siteinfo.js";
 	export default {
 		data() {
 			return {
@@ -203,43 +254,47 @@
 				//自定义全局变量
 				globalData: {},
 				inputFocus: false,
+				likespng:"/static/heart.png",
 				input: '',
 				tabsDatas: [
-					{ text: `视频`, icon: `` },
-					{ text: `图文`, icon: `` },
-					{ text: `附近`, icon: `` }
+					{ text: `视频`, icon: ``,type:"video" },
+					{ text: `图文`, icon: `` ,type:"image" },
+					{ text: `附近`, icon: `` ,type:"nearby"}
 				],
 				tabsLeft: 0,
 				tabsWidth: 0,
 				tabsItemWidth: 0,
 				tabsIndex: 0,
+				tabsDatasItem:0,
 				tabs1Datas: [
-					{ text: `关注`, icon: `` },
-					{ text: `推荐`, icon: `` },
-					{ text: `其他`, icon: `` }
+					{ text: `关注`, icon: ``,type:"focusOn" },
+					{ text: `推荐`, icon: ``,type:"recommend" },
+					{ text: `其他`, icon: ``,type:"other"}
 				],
 				tabs1Left: 0,
 				tabs1Width: 0,
 				tabs1ItemWidth: 0,
 				tabs1Index: 0,
 				tabs2Datas: [
-					{ text: `关注`, icon: `` },
-					{ text: `推荐`, icon: `` },
-					{ text: `其他`, icon: `` }
+					{ text: `关注`, icon: ``,type:"focusOn" },
+					{ text: `推荐`, icon: ``,type:"recommend" },
+					{ text: `其他`, icon: ``,type:"other"}
 				],
 				tabs2Left: 0,
 				tabs2Width: 0,
 				tabs2ItemWidth: 0,
 				tabs2Index: 0,
 				tabs3Datas: [
-					{ text: `关注`, icon: `` },
-					{ text: `推荐`, icon: `` },
-					{ text: `其他`, icon: `` }
+					{ text: `关注`, icon: ``,type:"focusOn" },
+					{ text: `推荐`, icon: ``,type:"recommend" },
+					{ text: `其他`, icon: ``,type:"other"}
 				],
 				tabs3Left: 0,
 				tabs3Width: 0,
 				tabs3ItemWidth: 0,
-				tabs3Index: 0
+				tabs3Index: 0,
+				dataList:{},
+				page:1
 			};
 		},
 		onShow() {
@@ -247,7 +302,7 @@
 		
 			    const app = getApp();
 			  
-			      
+			   this.getDynamic();   
 			      return false;
 			   
 		
@@ -270,26 +325,109 @@
 				this.setData({
 					tabsIndex: index
 				});
+				console.log(index);
+				this.getDynamic();
 			},
 			changeTabs1(evt) {
 				let { index } = evt.currentTarget.dataset;
 				if (index == this.tabs1Index) return;
 				this.setData({
-					tabs1Index: index
+					tabs1Index: index,
+					tabsDatasItem:index
 				});
+				console.log(index);
+				this.getDynamic();
 			},
 			changeTabs2(evt) {
 				let { index } = evt.currentTarget.dataset;
 				if (index == this.tabs2Index) return;
 				this.setData({
-					tabs2Index: index
+					tabs2Index: index,
+					tabsDatasItem:index
 				});
+				console.log(index);
+				this.getDynamic();
 			},
 			changeTabs3(evt) {
 				let { index } = evt.currentTarget.dataset;
 				if (index == this.tabs3Index) return;
 				this.setData({
-					tabs3Index: index
+					tabs3Index: index,
+					tabsDatasItem:index
+				});
+				console.log(index);
+				this.getDynamic();
+			},
+			edit_img(){
+				this.likespng = "/static/like.png";
+			},
+			getDynamic(){
+				let tabsIndex = this.tabsIndex;
+				var tabsDatasItem = this.tabsDatasItem;
+				var tabsDatas = this.tabsDatas;
+				var tabsDatas1;
+				switch(tabsIndex){
+					case 0:
+						  tabsDatas1 = this.tabs1Datas; 
+							break;
+					case 1:
+						  tabsDatas1 = this.tabs2Datas;
+						    break;
+					case 2:
+						  tabsDatas1 = this.tabs3Datas;
+						    break;
+				}
+				
+				 var type = tabsDatas[tabsIndex].type;
+				 var content_type = tabsDatas1[tabsDatasItem].type;
+				 this.getDynamicList(type,content_type)
+			},
+			async getDynamicList(type,content_type){
+				console.log(type,content_type);
+				const that = this;
+				this.$nextTick(async () => {
+						let token = uni.getStorageSync("token");
+						console.log(token)
+						//保存数据
+						let param = {
+							type:type,
+							content_type:content_type,
+							page:that.page
+						};
+						let header = {
+							  'Content-Type': 'application/json',
+							  'Authorization': `Bearer ${token}`
+							  };
+						let url = config.basePath+"api/Dynamic/getDynamicList";
+						if (!url) {
+							this.showToast('请先配置地址', 'none');
+							return false;
+						}
+				
+						let res = await this.$http.post(url, param, header, 'json');
+				
+						if (res.code == 1) {
+							 
+							 var dataList = res.data.list;
+							 var newDataList = {};
+							  for(var i=0;i<dataList.length;i++){
+								  if(dataList[i].dynamic_type=="0"){
+									  for(var j=0;j<dataList[i].resources_files.length;j++){
+										  dataList[i].resources_files[j] = config.basePath+dataList[i].resources_files[j];
+									  }
+								  }else{
+									 dataList[i].resources_files = config.basePath+dataList[i].resources_files; 
+								  }
+								  
+								  		
+								  
+							  }
+							 that.dataList = dataList;
+							 console.log(dataList)
+						} else {
+							this.showModal(res.message, '提示', false);
+						}
+					
 				});
 			}
 		}
@@ -304,6 +442,12 @@ html, body {
   margin: 0;
   padding: 0;
 }
+#myVideo{
+	width:100%;
+	height:100%;
+	padding:0px;
+	margin: 0px;
+}
 
 /* 页面背景 */
 page {
@@ -312,7 +456,23 @@ page {
   background: url('/static/bg.png') no-repeat center center;
   background-size: cover; /* 背景铺满 */
 }
-
+.diygw-col-5{
+	width:auto !important;
+}
+.number_likes{
+	    display: block;
+	    width: 45rpx;
+		height:45rpx;
+		line-height:45rpx;
+		text-align: center;
+}
+.bg_icon{
+	display: flex;
+	
+}
+.imagese{
+	width: 40% !important;
+}
 	.flex21-clz {
 		padding-top: 10rpx;
 		padding-left: 20rpx;
@@ -375,7 +535,10 @@ page {
 		color: #999999 !important;
 		font-size: 16px !important;
 	}
-
+    .listitem{
+		width:686rpx;
+		margin: 0 auto;
+	}
 	.tabs-title {
 	}
 	.tabs-item-title.cur {
@@ -390,20 +553,25 @@ page {
 	.tabs1-item-title.cur {
 		color: #333333 !important;
 	}
+	.bg_img{
+		width:45rpx;
+		height:45rpx;
+	}
 	.flex10-clz {
-		margin-left: 10rpx;
+		// margin-left:0;
 		top: 0rpx;
 		left: 0rpx;
-		width: calc(100% - 10rpx - 10rpx) !important;
+		// width: 686rpx !important;
 		margin-top: 10rpx;
 		position: relative;
 		margin-bottom: 10rpx;
-		margin-right: 10rpx;
+		// margin-right: 0;
+		margin:0 auto;
 	}
 	.avatar3-clz {
 		margin-left: 0rpx;
 		flex-shrink: 0;
-		width: calc(16.6666666667% - 0rpx - 0rpx) !important;
+		width: auto !important;
 		margin-top: 0rpx;
 		margin-bottom: 0rpx;
 		height: 88rpx !important;
@@ -412,7 +580,7 @@ page {
 	.text6-clz {
 		margin-left: 10rpx;
 		flex-shrink: 0;
-		width: calc(20.8333333333% - 10rpx - 10rpx) !important;
+		// width: calc(20.8333333333% - 10rpx - 10rpx) !important;
 		font-size: 32rpx !important;
 		font-family: 黑体;
 		margin-top: 10rpx;
@@ -430,31 +598,31 @@ page {
 		height: 48rpx !important;
 	}
 	.text7-clz {
-		margin-left: 10rpx;
-		padding-top: 0rpx;
-		padding-left: 20rpx;
-		width: calc(100% - 10rpx - 10rpx) !important;
-		padding-bottom: 0rpx;
-		margin-top: 10rpx;
-		margin-bottom: 10rpx;
-		margin-right: 10rpx;
-		padding-right: 20rpx;
+		// margin-left: 10rpx;
+		// padding-top: 0rpx;
+		// padding-left: 20rpx;
+		// // width: calc(100% - 10rpx - 10rpx) !important;
+		// padding-bottom: 0rpx;
+		// margin-top: 10rpx;
+		// margin-bottom: 10rpx;
+		// margin-right: 10rpx;
+		// padding-right: 20rpx;
 	}
 	.flex13-clz {
 		border: 2rpx solid #eee;
 		border-bottom-left-radius: 12rpx;
 		background-size: cover;
 		border-top-right-radius: 12rpx;
-		margin-right: 10rpx;
-		margin-left: 10rpx;
+		// margin-right: 10rpx;
+		// margin-left: 10rpx;
 		flex-shrink: 0;
 		background-repeat: no-repeat;
 		overflow: hidden;
-		width: calc(100% - 10rpx - 10rpx) !important;
+		// width: calc(100% - 10rpx - 10rpx) !important;
 		border-top-left-radius: 12rpx;
 		margin-top: 10rpx;
 		border-bottom-right-radius: 12rpx;
-		background-image: url(/static/wx.png);
+		// background-image: url(/static/wx.png);
 		margin-bottom: 10rpx;
 		height: 420rpx;
 	}
