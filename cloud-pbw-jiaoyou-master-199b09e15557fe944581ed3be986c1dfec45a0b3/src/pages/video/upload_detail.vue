@@ -17,7 +17,7 @@
 				<u-form-item class="diygw-col-21 input-clz" labelPosition="top" prop="nickname">
 					<u-input :focus="formData.inputFocus" class="nick_name" placeholder="请输入昵称" v-model="form.nickname"></u-input>
 				</u-form-item>
-				<text class="flex icon diygw-col-3 icon-clz diy-icon-refresh"></text>
+				<text class="flex icon diygw-col-3 icon-clz diy-icon-refresh" @click="getRandNikeName"></text>
 			</view>
 			<text class="diygw-col-24 text1-clz"> 你的性别（性别不能修改，谨慎选择） </text>
 			<view class="flex flex-wrap diygw-col-24 flex1-clz">
@@ -98,6 +98,7 @@
 		onShow() {
 			
 			this.setCurrentPage(this);
+			this.getRandNikeName();
 		},
 		onLoad(option) {
 			this.setCurrentPage(this);
@@ -127,6 +128,24 @@
 			},
 			bindDateChange: function(e) {
 			            this.form.birthday = e.detail.value
+			},
+			async getRandNikeName(){
+				let url = config.basePath+"api/user/random_nickname"; // 在这里配置您的提交地址
+				if (!url) {
+				  this.showToast('请先配置提交地址', 'none');
+				  return false;
+				}
+			    let token = uni.getStorageSync("token");
+				let header = {
+					'Content-Type': 'application/json',
+					'Authorization': `Bearer ${token}`
+				};
+				let res = await this.$http.post(url,{}, header, 'json');
+				if(res.code==1){
+					this.form.nickname = res.data.nickname;
+				}else{
+					this.showToast('昵称获取失败', 'none');
+				}
 			},
 			btnChange:function(e){
 				 const gender = event.target.dataset.gender;
@@ -264,8 +283,7 @@
 							  'Content-Type': 'application/json',
 							  'Authorization': `Bearer ${token}`
 							  };
-							  console.log("****************",header)
-						let url = config.basePath+"api/user/update";
+						let url = config.basePath+"api/user/profile";
 						if (!url) {
 							this.showToast('请先配置表单提交地址', 'none');
 							return false;
@@ -273,7 +291,7 @@
 
 						let res = await this.$http.post(url, param, header, 'json');
 
-						if (res.code == 200) {
+						if (res.code == 1) {
 							const userinfo = uni.getStorageSync('userInfo');
 							console.log(userinfo,"*******");
 							userinfo.nickname = that.form.nickname;
@@ -312,7 +330,21 @@
 		box-sizing: border-box;
 		position: relative;
 	}
-		
+	// .diy-icon-refresh{
+	// 	 --rotation-angle: 0deg;
+	// }
+	.diy-icon-refresh::before{
+		 content: "\e712";
+		  // position: absolute;
+		  // top: 50%;
+		  // left: 50%;
+		  // width: 80px;
+		  // height: 80px;
+		  // background-color: lightcoral;
+		  transform: translate(-50%, -50%) rotate(var(--rotation-angle));
+		  transform-origin: center;
+		  transition: transform 0.5s ease;
+	}	
 	.birthday::after{
 		content: "";
 		width: 29rpx;
@@ -461,7 +493,13 @@
 	.u-border{
 		border:none;
 	}
+.u-input{
 
+		border:0px;
+	}
+	.u-border:after{
+		border: 0px;
+	}
 	.btn2-clz {
 		padding-top: 20rpx;
 		border-bottom-left-radius: 44rpx;
