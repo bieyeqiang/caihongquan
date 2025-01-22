@@ -11,7 +11,7 @@ export default {
   globalData: {
 	  userInfo: null,
 	  tabBar: [],
-	  homePage: '/pages/login',
+	  homePage: '/pages/video/login',
 	  pages: ['/pages/video/login', '/pages/video/upload_detail', '/pages/video/index', '/pages/video/dynamic_detail'],
 	  userData: {},
     //2. 初始化uniIm全局变量

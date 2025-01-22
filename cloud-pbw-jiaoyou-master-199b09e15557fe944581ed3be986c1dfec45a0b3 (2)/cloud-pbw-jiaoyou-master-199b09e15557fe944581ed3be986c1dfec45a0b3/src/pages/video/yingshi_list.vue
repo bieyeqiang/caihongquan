@@ -1,207 +1,81 @@
 <template>
 	<view class="container container331385">
-		<view class="flex tabs diygw-col-24 flex-direction-column">
+		<view class="head">
+			<view class="back"></view>
+			<view class="title"></view>
+			<view class="icon" ></view>
+		</view>
+		<view class="flex tabs diygw-col-24 flex-direction-column tab_content">
 			<view class="diygw-tabs text-center solid-bottom justify-around tabs-title">
 				<view class="diygw-tab-item tabs-item-title" :class="index == tabsIndex ? ' font-bold   cur text-green  ' : ''" v-for="(item, index) in tabsDatas" :key="index" @click="changeTabs" :data-index="index"> <text v-if="item.icon" :class="item.icon"></text> {{ item.text }} </view>
 			</view>
-			<view class="">
+			<scroll-view
+			  :scroll-y="true"
+			  class="block-main block-two-level block-pad"
+			  @scrolltolower="scrollBottom">
 				<view v-if="tabsIndex == 0" class="flex-sub">
-					<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-						<view class="flex flex-wrap diygw-col-24 flex-direction-column flex4-clz">
+					<view class="flex flex-wrap diygw-col-24 flex-direction-column flex177-clz" v-for="(item,index) in dataList" :key="index">
+						<view class="flex flex-wrap diygw-col-24 flex-direction-column">
 							<view class="flex flex-wrap diygw-col-24 items-center flex1-clz">
-								<text class="diygw-col-12 text-clz"> 国产影视 </text>
+								<text class="diygw-col-12 text-clz"> {{item.category_name}}</text>
 								<view class="flex flex-wrap diygw-col-12 items-center">
 									<text class="diygw-col-21 text1-clz"> 更多 </text>
 									<text class="flex icon diygw-col-24 icon-clz diy-icon-right"></text>
 								</view>
 							</view>
-							<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-								<view class="flex flex-wrap diygw-col-24 flex-direction-column flex7-clz">
-									<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image-clz" mode="widthFix"></image>
-									<view class="flex flex-wrap diygw-col-24 justify-around items-center flex166-clz">
-										<text class="diygw-col-12"> 播放：10.0k </text>
-										<text class="diygw-col-10 text73-clz"> 15:00 </text>
+							<view class="flex flex-wrap diygw-col-24 flex-direction-column" @click="jump(item.list[0].id)">
+								<view class="flex flex-wrap diygw-col-24 flex-direction-column flex181-clz">
+									<image :src="item.list[0].coverfiles" class="response diygw-col-24 image50-clz" mode="widthFix"></image>
+									<view class="flex flex-wrap diygw-col-24 justify-around items-center flex182-clz">
+										<text class="diygw-col-12"> 播放：{{item.list[0].view_num}} </text>
+										<text class="diygw-col-10 text93-clz"> {{item.list[0].duration}} </text>
 									</view>
 								</view>
-								<text class="diygw-col-24 text2-clz"> 东京爱情故事 </text>
+								<text class="diygw-col-24 text94-clz video_name"> {{item.list[0].video_name}} </text>
 							</view>
-							<view class="flex flex-wrap diygw-col-24 flex-direction-column">
+							<view class="flex flex-wrap diygw-col-24 flex-direction-column" @click="jump(item.list[1].id)">
 								<view class="flex flex-wrap diygw-col-24 justify-between items-center">
 									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex6-clz">
 										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex9-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image1-clz" mode="widthFix"></image>
+											<image :src="item.list[1].coverfiles" class="response diygw-col-24 image1-clz" mode="widthFix"></image>
 											<view class="flex flex-wrap diygw-col-24 justify-around items-center flex165-clz">
-												<text class="diygw-col-12"> 播放：10.0k </text>
-												<text class="diygw-col-10 text71-clz"> 15:00 </text>
+												<text class="diygw-col-12"> 播放：{{item.list[1].view_num}} </text>
+												<text class="diygw-col-10 text71-clz"> {{item.list[1].duration}} </text>
 											</view>
 										</view>
-										<text class="diygw-col-24 text3-clz"> 东京爱情故事 </text>
+										<text class="diygw-col-24 text3-clz video_name"> {{item.list[1].video_name}} </text>
 									</view>
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex8-clz">
+									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex8-clz" @click="jump(item.list[2].id)">
 										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex10-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image2-clz" mode="widthFix"></image>
+											<image :src="item.list[2].coverfiles" class="response diygw-col-24 image2-clz" mode="widthFix"></image>
 											<view class="flex flex-wrap diygw-col-24 justify-around items-center flex167-clz">
-												<text class="diygw-col-12"> 播放：10.0k </text>
-												<text class="diygw-col-10 text75-clz"> 15:00 </text>
+												<text class="diygw-col-12"> 播放：{{item.list[2].view_num}} </text>
+												<text class="diygw-col-10 text75-clz"> {{item.list[2].duration}} </text>
 											</view>
 										</view>
-										<text class="diygw-col-24 text4-clz"> 东京爱情故事 </text>
+										<text class="diygw-col-24 text4-clz video_name"> {{item.list[2].video_name}} </text>
 									</view>
 								</view>
-								<view class="flex flex-wrap diygw-col-24 justify-between items-center">
+								<view class="flex flex-wrap diygw-col-24 justify-between items-center" @click="jump(item.list[3].id)">
 									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex12-clz">
 										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex13-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image3-clz" mode="widthFix"></image>
+											<image :src="item.list[3].coverfiles" class="response diygw-col-24 image3-clz" mode="widthFix"></image>
 											<view class="flex flex-wrap diygw-col-24 justify-around items-center flex14-clz">
-												<text class="diygw-col-12"> 播放：10.0k </text>
-												<text class="diygw-col-10 text6-clz"> 15:00 </text>
+												<text class="diygw-col-12"> 播放：{{item.list[3].view_num}} </text>
+												<text class="diygw-col-10 text6-clz"> {{item.list[3].duration}}</text>
 											</view>
 										</view>
-										<text class="diygw-col-24 text76-clz"> 东京爱情故事 </text>
+										<text class="diygw-col-24 text76-clz video_name"> {{item.list[3].video_name}} </text>
 									</view>
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex15-clz">
+									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex15-clz" @click="jump(item.list[4].id)">
 										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex168-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image4-clz" mode="widthFix"></image>
+											<image :src="item.list[4].coverfiles" class="response diygw-col-24 image4-clz" mode="widthFix"></image>
 											<view class="flex flex-wrap diygw-col-24 justify-around items-center flex169-clz">
-												<text class="diygw-col-12"> 播放：10.0k </text>
-												<text class="diygw-col-10 text78-clz"> 15:00 </text>
+												<text class="diygw-col-12"> 播放：{{item.list[4].view_num}} </text>
+												<text class="diygw-col-10 text78-clz"> {{item.list[4].duration}} </text>
 											</view>
 										</view>
-										<text class="diygw-col-24 text79-clz"> 东京爱情故事 </text>
-									</view>
-								</view>
-							</view>
-						</view>
-					</view>
-					<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-						<view class="flex flex-wrap diygw-col-24 flex-direction-column flex177-clz">
-							<view class="flex flex-wrap diygw-col-24 items-center flex178-clz">
-								<text class="diygw-col-12 text90-clz"> 国产影视 </text>
-								<view class="flex flex-wrap diygw-col-12 items-center">
-									<text class="diygw-col-21 text91-clz"> 更多 </text>
-									<text class="flex icon10 diygw-col-24 icon10-clz diy-icon-right"></text>
-								</view>
-							</view>
-							<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-								<view class="flex flex-wrap diygw-col-24 flex-direction-column flex181-clz">
-									<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image50-clz" mode="widthFix"></image>
-									<view class="flex flex-wrap diygw-col-24 justify-around items-center flex182-clz">
-										<text class="diygw-col-12"> 播放：10.0k </text>
-										<text class="diygw-col-10 text93-clz"> 15:00 </text>
-									</view>
-								</view>
-								<text class="diygw-col-24 text94-clz"> 东京爱情故事 </text>
-							</view>
-							<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-								<view class="flex flex-wrap diygw-col-24 justify-between items-center">
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex185-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex186-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image51-clz" mode="widthFix"></image>
-											<view class="flex flex-wrap diygw-col-24 justify-around items-center flex187-clz">
-												<text class="diygw-col-12"> 播放：10.0k </text>
-												<text class="diygw-col-10 text96-clz"> 15:00 </text>
-											</view>
-										</view>
-										<text class="diygw-col-24 text97-clz"> 东京爱情故事 </text>
-									</view>
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex188-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex189-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image52-clz" mode="widthFix"></image>
-											<view class="flex flex-wrap diygw-col-24 justify-around items-center flex190-clz">
-												<text class="diygw-col-12"> 播放：10.0k </text>
-												<text class="diygw-col-10 text99-clz"> 15:00 </text>
-											</view>
-										</view>
-										<text class="diygw-col-24 text100-clz"> 东京爱情故事 </text>
-									</view>
-								</view>
-								<view class="flex flex-wrap diygw-col-24 justify-between items-center">
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex192-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex193-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image53-clz" mode="widthFix"></image>
-											<view class="flex flex-wrap diygw-col-24 justify-around items-center flex194-clz">
-												<text class="diygw-col-12"> 播放：10.0k </text>
-												<text class="diygw-col-10 text102-clz"> 15:00 </text>
-											</view>
-										</view>
-										<text class="diygw-col-24 text103-clz"> 东京爱情故事 </text>
-									</view>
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex195-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex196-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image54-clz" mode="widthFix"></image>
-											<view class="flex flex-wrap diygw-col-24 justify-around items-center flex197-clz">
-												<text class="diygw-col-12"> 播放：10.0k </text>
-												<text class="diygw-col-10 text105-clz"> 15:00 </text>
-											</view>
-										</view>
-										<text class="diygw-col-24 text106-clz"> 东京爱情故事 </text>
-									</view>
-								</view>
-							</view>
-						</view>
-					</view>
-					<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-						<view class="flex flex-wrap diygw-col-24 flex-direction-column flex18-clz">
-							<view class="flex flex-wrap diygw-col-24 items-center flex19-clz">
-								<text class="diygw-col-12 text7-clz"> 国产影视 </text>
-								<view class="flex flex-wrap diygw-col-12 items-center">
-									<text class="diygw-col-21 text8-clz"> 更多 </text>
-									<text class="flex icon1 diygw-col-24 icon1-clz diy-icon-right"></text>
-								</view>
-							</view>
-							<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-								<view class="flex flex-wrap diygw-col-24 flex-direction-column flex22-clz">
-									<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image5-clz" mode="widthFix"></image>
-									<view class="flex flex-wrap diygw-col-24 justify-around items-center flex23-clz">
-										<text class="diygw-col-12"> 播放：10.0k </text>
-										<text class="diygw-col-10 text10-clz"> 15:00 </text>
-									</view>
-								</view>
-								<text class="diygw-col-24 text11-clz"> 东京爱情故事 </text>
-							</view>
-							<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-								<view class="flex flex-wrap diygw-col-24 justify-between items-center">
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex26-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex27-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image6-clz" mode="widthFix"></image>
-											<view class="flex flex-wrap diygw-col-24 justify-around items-center flex28-clz">
-												<text class="diygw-col-12"> 播放：10.0k </text>
-												<text class="diygw-col-10 text13-clz"> 15:00 </text>
-											</view>
-										</view>
-										<text class="diygw-col-24 text80-clz"> 东京爱情故事 </text>
-									</view>
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex29-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex30-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image7-clz" mode="widthFix"></image>
-											<view class="flex flex-wrap diygw-col-24 justify-around items-center flex31-clz">
-												<text class="diygw-col-12"> 播放：10.0k </text>
-												<text class="diygw-col-10 text82-clz"> 15:00 </text>
-											</view>
-										</view>
-										<text class="diygw-col-24 text83-clz"> 东京爱情故事 </text>
-									</view>
-								</view>
-								<view class="flex flex-wrap diygw-col-24 justify-between items-center">
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex170-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex171-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image8-clz" mode="widthFix"></image>
-											<view class="flex flex-wrap diygw-col-24 justify-around items-center flex172-clz">
-												<text class="diygw-col-12"> 播放：10.0k </text>
-												<text class="diygw-col-10 text85-clz"> 15:00 </text>
-											</view>
-										</view>
-										<text class="diygw-col-24 text86-clz"> 东京爱情故事 </text>
-									</view>
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex173-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex174-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image9-clz" mode="widthFix"></image>
-											<view class="flex flex-wrap diygw-col-24 justify-around items-center flex175-clz">
-												<text class="diygw-col-12"> 播放：10.0k </text>
-												<text class="diygw-col-10 text88-clz"> 15:00 </text>
-											</view>
-										</view>
-										<text class="diygw-col-24 text89-clz"> 东京爱情故事 </text>
+										<text class="diygw-col-24 text79-clz video_name"> {{item.list[4].video_name}} </text>
 									</view>
 								</view>
 							</view>
@@ -209,388 +83,221 @@
 					</view>
 				</view>
 				<view v-if="tabsIndex == 1" class="flex-sub">
+				<view class="flex flex-wrap diygw-col-24 flex-direction-column flex177-clz" v-for="(item,index) in dataList" :key="index">
 					<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-						<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-							<view class="flex flex-wrap diygw-col-24 items-center flex68-clz">
-								<text class="diygw-col-12 text28-clz"> 国产影视 </text>
-								<view class="flex flex-wrap diygw-col-12 items-center">
-									<text class="diygw-col-21 text29-clz"> 更多 </text>
-									<text class="flex icon4 diygw-col-24 icon4-clz diy-icon-right"></text>
-								</view>
-							</view>
-							<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-								<view class="flex flex-wrap diygw-col-24 flex-direction-column flex71-clz">
-									<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image20-clz" mode="widthFix"></image>
-								</view>
-								<text class="diygw-col-24 text30-clz"> 东京爱情故事 </text>
-							</view>
-							<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-								<view class="flex flex-wrap diygw-col-24 justify-between items-center flex73-clz">
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex74-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex75-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image21-clz" mode="widthFix"></image>
-										</view>
-										<text class="diygw-col-24 text31-clz"> 东京爱情故事 </text>
-									</view>
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex76-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex77-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image22-clz" mode="widthFix"></image>
-										</view>
-										<text class="diygw-col-24 text32-clz"> 东京爱情故事 </text>
-									</view>
-								</view>
-								<view class="flex flex-wrap diygw-col-24 justify-between items-center flex78-clz">
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex79-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex80-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image23-clz" mode="widthFix"></image>
-										</view>
-										<text class="diygw-col-24 text33-clz"> 东京爱情故事 </text>
-									</view>
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex81-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex82-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image24-clz" mode="widthFix"></image>
-										</view>
-										<text class="diygw-col-24 text34-clz"> 东京爱情故事 </text>
-									</view>
-								</view>
+						<view class="flex flex-wrap diygw-col-24 items-center flex1-clz">
+							<text class="diygw-col-12 text-clz"> {{item.category_name}}</text>
+							<view class="flex flex-wrap diygw-col-12 items-center">
+								<text class="diygw-col-21 text1-clz"> 更多 </text>
+								<text class="flex icon diygw-col-24 icon-clz diy-icon-right"></text>
 							</view>
 						</view>
-						<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-							<view class="flex flex-wrap diygw-col-24 items-center flex84-clz">
-								<text class="diygw-col-12 text35-clz"> 国产影视 </text>
-								<view class="flex flex-wrap diygw-col-12 items-center">
-									<text class="diygw-col-21 text36-clz"> 更多 </text>
-									<text class="flex icon5 diygw-col-24 icon5-clz diy-icon-right"></text>
+						<view class="flex flex-wrap diygw-col-24 flex-direction-column" @click="jump(item.list[0].id)">
+							<view class="flex flex-wrap diygw-col-24 flex-direction-column flex181-clz">
+								<image :src="item.list[0].coverfiles" class="response diygw-col-24 image50-clz" mode="widthFix"></image>
+								<view class="flex flex-wrap diygw-col-24 justify-around items-center flex182-clz">
+									<text class="diygw-col-12"> 播放：{{item.list[0].view_num}} </text>
+									<text class="diygw-col-10 text93-clz"> {{item.list[0].duration}} </text>
 								</view>
 							</view>
-							<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-								<view class="flex flex-wrap diygw-col-24 flex-direction-column flex87-clz">
-									<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image25-clz" mode="widthFix"></image>
+							<text class="diygw-col-24 text94-clz video_name"> {{item.list[0].video_name}} </text>
+						</view>
+						<view class="flex flex-wrap diygw-col-24 flex-direction-column" @click="jump(item.list[1].id)">
+							<view class="flex flex-wrap diygw-col-24 justify-between items-center">
+								<view class="flex flex-wrap diygw-col-24 flex-direction-column flex6-clz">
+									<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex9-clz">
+										<image :src="item.list[1].coverfiles" class="response diygw-col-24 image1-clz" mode="widthFix"></image>
+										<view class="flex flex-wrap diygw-col-24 justify-around items-center flex165-clz">
+											<text class="diygw-col-12"> 播放：{{item.list[1].view_num}} </text>
+											<text class="diygw-col-10 text71-clz"> {{item.list[1].duration}} </text>
+										</view>
+									</view>
+									<text class="diygw-col-24 text3-clz video_name"> {{item.list[1].video_name}} </text>
 								</view>
-								<text class="diygw-col-24 text37-clz"> 东京爱情故事 </text>
+								<view class="flex flex-wrap diygw-col-24 flex-direction-column flex8-clz" @click="jump(item.list[2].id)">
+									<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex10-clz">
+										<image :src="item.list[2].coverfiles" class="response diygw-col-24 image2-clz" mode="widthFix"></image>
+										<view class="flex flex-wrap diygw-col-24 justify-around items-center flex167-clz">
+											<text class="diygw-col-12"> 播放：{{item.list[2].view_num}} </text>
+											<text class="diygw-col-10 text75-clz"> {{item.list[2].duration}} </text>
+										</view>
+									</view>
+									<text class="diygw-col-24 text4-clz video_name"> {{item.list[2].video_name}} </text>
+								</view>
 							</view>
-							<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-								<view class="flex flex-wrap diygw-col-24 justify-between items-center flex89-clz">
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex90-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex91-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image26-clz" mode="widthFix"></image>
+							<view class="flex flex-wrap diygw-col-24 justify-between items-center" @click="jump(item.list[3].id)">
+								<view class="flex flex-wrap diygw-col-24 flex-direction-column flex12-clz">
+									<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex13-clz">
+										<image :src="item.list[3].coverfiles" class="response diygw-col-24 image3-clz" mode="widthFix"></image>
+										<view class="flex flex-wrap diygw-col-24 justify-around items-center flex14-clz">
+											<text class="diygw-col-12"> 播放：{{item.list[3].view_num}} </text>
+											<text class="diygw-col-10 text6-clz"> {{item.list[3].duration}}</text>
 										</view>
-										<text class="diygw-col-24 text38-clz"> 东京爱情故事 </text>
 									</view>
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex92-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex93-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image27-clz" mode="widthFix"></image>
-										</view>
-										<text class="diygw-col-24 text39-clz"> 东京爱情故事 </text>
-									</view>
+									<text class="diygw-col-24 text76-clz video_name"> {{item.list[3].video_name}} </text>
 								</view>
-								<view class="flex flex-wrap diygw-col-24 justify-between items-center flex94-clz">
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex95-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex96-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image28-clz" mode="widthFix"></image>
+								<view class="flex flex-wrap diygw-col-24 flex-direction-column flex15-clz" @click="jump(item.list[4].id)">
+									<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex168-clz">
+										<image :src="item.list[4].coverfiles" class="response diygw-col-24 image4-clz" mode="widthFix"></image>
+										<view class="flex flex-wrap diygw-col-24 justify-around items-center flex169-clz">
+											<text class="diygw-col-12"> 播放：{{item.list[4].view_num}} </text>
+											<text class="diygw-col-10 text78-clz"> {{item.list[4].duration}} </text>
 										</view>
-										<text class="diygw-col-24 text40-clz"> 东京爱情故事 </text>
 									</view>
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex97-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex98-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image29-clz" mode="widthFix"></image>
-										</view>
-										<text class="diygw-col-24 text41-clz"> 东京爱情故事 </text>
-									</view>
+									<text class="diygw-col-24 text79-clz video_name"> {{item.list[4].video_name}} </text>
 								</view>
 							</view>
 						</view>
 					</view>
+				</view>
 				</view>
 				<view v-if="tabsIndex == 2" class="flex-sub">
+				<view class="flex flex-wrap diygw-col-24 flex-direction-column flex177-clz" v-for="(item,index) in dataList" :key="index">
 					<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-						<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-							<view class="flex flex-wrap diygw-col-24 items-center flex35-clz">
-								<text class="diygw-col-12 text14-clz"> 国产影视 </text>
-								<view class="flex flex-wrap diygw-col-12 items-center">
-									<text class="diygw-col-21 text15-clz"> 更多 </text>
-									<text class="flex icon2 diygw-col-24 icon2-clz diy-icon-right"></text>
-								</view>
-							</view>
-							<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-								<view class="flex flex-wrap diygw-col-24 flex-direction-column flex38-clz">
-									<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image10-clz" mode="widthFix"></image>
-								</view>
-								<text class="diygw-col-24 text16-clz"> 东京爱情故事 </text>
-							</view>
-							<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-								<view class="flex flex-wrap diygw-col-24 justify-between items-center flex40-clz">
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex41-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex42-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image11-clz" mode="widthFix"></image>
-										</view>
-										<text class="diygw-col-24 text17-clz"> 东京爱情故事 </text>
-									</view>
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex43-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex44-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image12-clz" mode="widthFix"></image>
-										</view>
-										<text class="diygw-col-24 text18-clz"> 东京爱情故事 </text>
-									</view>
-								</view>
-								<view class="flex flex-wrap diygw-col-24 justify-between items-center flex45-clz">
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex46-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex47-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image13-clz" mode="widthFix"></image>
-										</view>
-										<text class="diygw-col-24 text19-clz"> 东京爱情故事 </text>
-									</view>
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex48-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex49-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image14-clz" mode="widthFix"></image>
-										</view>
-										<text class="diygw-col-24 text20-clz"> 东京爱情故事 </text>
-									</view>
-								</view>
+						<view class="flex flex-wrap diygw-col-24 items-center flex1-clz">
+							<text class="diygw-col-12 text-clz"> {{item.category_name}}</text>
+							<view class="flex flex-wrap diygw-col-12 items-center">
+								<text class="diygw-col-21 text1-clz"> 更多 </text>
+								<text class="flex icon diygw-col-24 icon-clz diy-icon-right"></text>
 							</view>
 						</view>
-						<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-							<view class="flex flex-wrap diygw-col-24 items-center flex51-clz">
-								<text class="diygw-col-12 text21-clz"> 国产影视 </text>
-								<view class="flex flex-wrap diygw-col-12 items-center">
-									<text class="diygw-col-21 text22-clz"> 更多 </text>
-									<text class="flex icon3 diygw-col-24 icon3-clz diy-icon-right"></text>
+						<view class="flex flex-wrap diygw-col-24 flex-direction-column" @click="jump(item.list[0].id)">
+							<view class="flex flex-wrap diygw-col-24 flex-direction-column flex181-clz">
+								<image :src="item.list[0].coverfiles" class="response diygw-col-24 image50-clz" mode="widthFix"></image>
+								<view class="flex flex-wrap diygw-col-24 justify-around items-center flex182-clz">
+									<text class="diygw-col-12"> 播放：{{item.list[0].view_num}} </text>
+									<text class="diygw-col-10 text93-clz"> {{item.list[0].duration}} </text>
 								</view>
 							</view>
-							<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-								<view class="flex flex-wrap diygw-col-24 flex-direction-column flex54-clz">
-									<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image15-clz" mode="widthFix"></image>
+							<text class="diygw-col-24 text94-clz video_name"> {{item.list[0].video_name}} </text>
+						</view>
+						<view class="flex flex-wrap diygw-col-24 flex-direction-column" @click="jump(item.list[1].id)">
+							<view class="flex flex-wrap diygw-col-24 justify-between items-center">
+								<view class="flex flex-wrap diygw-col-24 flex-direction-column flex6-clz">
+									<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex9-clz">
+										<image :src="item.list[1].coverfiles" class="response diygw-col-24 image1-clz" mode="widthFix"></image>
+										<view class="flex flex-wrap diygw-col-24 justify-around items-center flex165-clz">
+											<text class="diygw-col-12"> 播放：{{item.list[1].view_num}} </text>
+											<text class="diygw-col-10 text71-clz"> {{item.list[1].duration}} </text>
+										</view>
+									</view>
+									<text class="diygw-col-24 text3-clz video_name"> {{item.list[1].video_name}} </text>
 								</view>
-								<text class="diygw-col-24 text23-clz"> 东京爱情故事 </text>
+								<view class="flex flex-wrap diygw-col-24 flex-direction-column flex8-clz" @click="jump(item.list[2].id)">
+									<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex10-clz">
+										<image :src="item.list[2].coverfiles" class="response diygw-col-24 image2-clz" mode="widthFix"></image>
+										<view class="flex flex-wrap diygw-col-24 justify-around items-center flex167-clz">
+											<text class="diygw-col-12"> 播放：{{item.list[2].view_num}} </text>
+											<text class="diygw-col-10 text75-clz"> {{item.list[2].duration}} </text>
+										</view>
+									</view>
+									<text class="diygw-col-24 text4-clz video_name"> {{item.list[2].video_name}} </text>
+								</view>
 							</view>
-							<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-								<view class="flex flex-wrap diygw-col-24 justify-between items-center flex56-clz">
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex57-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex58-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image16-clz" mode="widthFix"></image>
+							<view class="flex flex-wrap diygw-col-24 justify-between items-center" @click="jump(item.list[3].id)">
+								<view class="flex flex-wrap diygw-col-24 flex-direction-column flex12-clz">
+									<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex13-clz">
+										<image :src="item.list[3].coverfiles" class="response diygw-col-24 image3-clz" mode="widthFix"></image>
+										<view class="flex flex-wrap diygw-col-24 justify-around items-center flex14-clz">
+											<text class="diygw-col-12"> 播放：{{item.list[3].view_num}} </text>
+											<text class="diygw-col-10 text6-clz"> {{item.list[3].duration}}</text>
 										</view>
-										<text class="diygw-col-24 text24-clz"> 东京爱情故事 </text>
 									</view>
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex59-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex60-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image17-clz" mode="widthFix"></image>
-										</view>
-										<text class="diygw-col-24 text25-clz"> 东京爱情故事 </text>
-									</view>
+									<text class="diygw-col-24 text76-clz video_name"> {{item.list[3].video_name}} </text>
 								</view>
-								<view class="flex flex-wrap diygw-col-24 justify-between items-center flex61-clz">
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex62-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex63-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image18-clz" mode="widthFix"></image>
+								<view class="flex flex-wrap diygw-col-24 flex-direction-column flex15-clz" @click="jump(item.list[4].id)">
+									<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex168-clz">
+										<image :src="item.list[4].coverfiles" class="response diygw-col-24 image4-clz" mode="widthFix"></image>
+										<view class="flex flex-wrap diygw-col-24 justify-around items-center flex169-clz">
+											<text class="diygw-col-12"> 播放：{{item.list[4].view_num}} </text>
+											<text class="diygw-col-10 text78-clz"> {{item.list[4].duration}} </text>
 										</view>
-										<text class="diygw-col-24 text26-clz"> 东京爱情故事 </text>
 									</view>
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex64-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex65-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image19-clz" mode="widthFix"></image>
-										</view>
-										<text class="diygw-col-24 text27-clz"> 东京爱情故事 </text>
-									</view>
+									<text class="diygw-col-24 text79-clz video_name"> {{item.list[4].video_name}} </text>
 								</view>
 							</view>
 						</view>
 					</view>
 				</view>
-				<view v-if="tabsIndex == 3" class="flex-sub">
-					<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-						<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-							<view class="flex flex-wrap diygw-col-24 items-center flex101-clz">
-								<text class="diygw-col-12 text42-clz"> 国产影视 </text>
-								<view class="flex flex-wrap diygw-col-12 items-center">
-									<text class="diygw-col-21 text43-clz"> 更多 </text>
-									<text class="flex icon6 diygw-col-24 icon6-clz diy-icon-right"></text>
-								</view>
-							</view>
-							<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-								<view class="flex flex-wrap diygw-col-24 flex-direction-column flex104-clz">
-									<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image30-clz" mode="widthFix"></image>
-								</view>
-								<text class="diygw-col-24 text44-clz"> 东京爱情故事 </text>
-							</view>
-							<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-								<view class="flex flex-wrap diygw-col-24 justify-between items-center flex106-clz">
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex107-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex108-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image31-clz" mode="widthFix"></image>
-										</view>
-										<text class="diygw-col-24 text45-clz"> 东京爱情故事 </text>
-									</view>
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex109-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex110-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image32-clz" mode="widthFix"></image>
-										</view>
-										<text class="diygw-col-24 text46-clz"> 东京爱情故事 </text>
-									</view>
-								</view>
-								<view class="flex flex-wrap diygw-col-24 justify-between items-center flex111-clz">
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex112-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex113-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image33-clz" mode="widthFix"></image>
-										</view>
-										<text class="diygw-col-24 text47-clz"> 东京爱情故事 </text>
-									</view>
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex114-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex115-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image34-clz" mode="widthFix"></image>
-										</view>
-										<text class="diygw-col-24 text48-clz"> 东京爱情故事 </text>
-									</view>
-								</view>
-							</view>
-						</view>
-						<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-							<view class="flex flex-wrap diygw-col-24 items-center flex117-clz">
-								<text class="diygw-col-12 text49-clz"> 国产影视 </text>
-								<view class="flex flex-wrap diygw-col-12 items-center">
-									<text class="diygw-col-21 text50-clz"> 更多 </text>
-									<text class="flex icon7 diygw-col-24 icon7-clz diy-icon-right"></text>
-								</view>
-							</view>
-							<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-								<view class="flex flex-wrap diygw-col-24 flex-direction-column flex120-clz">
-									<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image35-clz" mode="widthFix"></image>
-								</view>
-								<text class="diygw-col-24 text51-clz"> 东京爱情故事 </text>
-							</view>
-							<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-								<view class="flex flex-wrap diygw-col-24 justify-between items-center flex122-clz">
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex123-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex124-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image36-clz" mode="widthFix"></image>
-										</view>
-										<text class="diygw-col-24 text52-clz"> 东京爱情故事 </text>
-									</view>
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex125-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex126-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image37-clz" mode="widthFix"></image>
-										</view>
-										<text class="diygw-col-24 text53-clz"> 东京爱情故事 </text>
-									</view>
-								</view>
-								<view class="flex flex-wrap diygw-col-24 justify-between items-center flex127-clz">
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex128-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex129-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image38-clz" mode="widthFix"></image>
-										</view>
-										<text class="diygw-col-24 text54-clz"> 东京爱情故事 </text>
-									</view>
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex130-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex131-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image39-clz" mode="widthFix"></image>
-										</view>
-										<text class="diygw-col-24 text55-clz"> 东京爱情故事 </text>
-									</view>
-								</view>
-							</view>
-						</view>
-					</view>
 				</view>
 				<view v-if="tabsIndex == 4" class="flex-sub">
-					<view class="flex flex-wrap diygw-col-24 flex-direction-column">
+					<view class="flex flex-wrap diygw-col-24 flex-direction-column flex177-clz" v-for="(item,index) in dataList" :key="index">
 						<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-							<view class="flex flex-wrap diygw-col-24 items-center flex134-clz">
-								<text class="diygw-col-12 text56-clz"> 国产影视 </text>
+							<view class="flex flex-wrap diygw-col-24 items-center flex1-clz">
+								<text class="diygw-col-12 text-clz"> {{item.category_name}}</text>
 								<view class="flex flex-wrap diygw-col-12 items-center">
-									<text class="diygw-col-21 text57-clz"> 更多 </text>
-									<text class="flex icon8 diygw-col-24 icon8-clz diy-icon-right"></text>
+									<text class="diygw-col-21 text1-clz"> 更多 </text>
+									<text class="flex icon diygw-col-24 icon-clz diy-icon-right"></text>
 								</view>
 							</view>
-							<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-								<view class="flex flex-wrap diygw-col-24 flex-direction-column flex137-clz">
-									<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image40-clz" mode="widthFix"></image>
+							<view class="flex flex-wrap diygw-col-24 flex-direction-column" @click="jump(item.list[0].id)">
+								<view class="flex flex-wrap diygw-col-24 flex-direction-column flex181-clz">
+									<image :src="item.list[0].coverfiles" class="response diygw-col-24 image50-clz" mode="widthFix"></image>
+									<view class="flex flex-wrap diygw-col-24 justify-around items-center flex182-clz">
+										<text class="diygw-col-12"> 播放：{{item.list[0].view_num}} </text>
+										<text class="diygw-col-10 text93-clz"> {{item.list[0].duration}} </text>
+									</view>
 								</view>
-								<text class="diygw-col-24 text58-clz"> 东京爱情故事 </text>
+								<text class="diygw-col-24 text94-clz video_name"> {{item.list[0].video_name}} </text>
 							</view>
-							<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-								<view class="flex flex-wrap diygw-col-24 justify-between items-center flex139-clz">
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex140-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex141-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image41-clz" mode="widthFix"></image>
+							<view class="flex flex-wrap diygw-col-24 flex-direction-column" @click="jump(item.list[1].id)">
+								<view class="flex flex-wrap diygw-col-24 justify-between items-center">
+									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex6-clz">
+										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex9-clz">
+											<image :src="item.list[1].coverfiles" class="response diygw-col-24 image1-clz" mode="widthFix"></image>
+											<view class="flex flex-wrap diygw-col-24 justify-around items-center flex165-clz">
+												<text class="diygw-col-12"> 播放：{{item.list[1].view_num}} </text>
+												<text class="diygw-col-10 text71-clz"> {{item.list[1].duration}} </text>
+											</view>
 										</view>
-										<text class="diygw-col-24 text59-clz"> 东京爱情故事 </text>
+										<text class="diygw-col-24 text3-clz video_name"> {{item.list[1].video_name}} </text>
 									</view>
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex142-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex143-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image42-clz" mode="widthFix"></image>
+									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex8-clz" @click="jump(item.list[2].id)">
+										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex10-clz">
+											<image :src="item.list[2].coverfiles" class="response diygw-col-24 image2-clz" mode="widthFix"></image>
+											<view class="flex flex-wrap diygw-col-24 justify-around items-center flex167-clz">
+												<text class="diygw-col-12"> 播放：{{item.list[2].view_num}} </text>
+												<text class="diygw-col-10 text75-clz"> {{item.list[2].duration}} </text>
+											</view>
 										</view>
-										<text class="diygw-col-24 text60-clz"> 东京爱情故事 </text>
-									</view>
-								</view>
-								<view class="flex flex-wrap diygw-col-24 justify-between items-center flex144-clz">
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex145-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex146-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image43-clz" mode="widthFix"></image>
-										</view>
-										<text class="diygw-col-24 text61-clz"> 东京爱情故事 </text>
-									</view>
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex147-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex148-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image44-clz" mode="widthFix"></image>
-										</view>
-										<text class="diygw-col-24 text62-clz"> 东京爱情故事 </text>
+										<text class="diygw-col-24 text4-clz video_name"> {{item.list[2].video_name}} </text>
 									</view>
 								</view>
-							</view>
-						</view>
-						<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-							<view class="flex flex-wrap diygw-col-24 items-center flex150-clz">
-								<text class="diygw-col-12 text63-clz"> 国产影视 </text>
-								<view class="flex flex-wrap diygw-col-12 items-center">
-									<text class="diygw-col-21 text64-clz"> 更多 </text>
-									<text class="flex icon9 diygw-col-24 icon9-clz diy-icon-right"></text>
-								</view>
-							</view>
-							<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-								<view class="flex flex-wrap diygw-col-24 flex-direction-column flex153-clz">
-									<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image45-clz" mode="widthFix"></image>
-								</view>
-								<text class="diygw-col-24 text65-clz"> 东京爱情故事 </text>
-							</view>
-							<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-								<view class="flex flex-wrap diygw-col-24 justify-between items-center flex155-clz">
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex156-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex157-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image46-clz" mode="widthFix"></image>
+								<view class="flex flex-wrap diygw-col-24 justify-between items-center" @click="jump(item.list[3].id)">
+									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex12-clz">
+										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex13-clz">
+											<image :src="item.list[3].coverfiles" class="response diygw-col-24 image3-clz" mode="widthFix"></image>
+											<view class="flex flex-wrap diygw-col-24 justify-around items-center flex14-clz">
+												<text class="diygw-col-12"> 播放：{{item.list[3].view_num}} </text>
+												<text class="diygw-col-10 text6-clz"> {{item.list[3].duration}}</text>
+											</view>
 										</view>
-										<text class="diygw-col-24 text66-clz"> 东京爱情故事 </text>
+										<text class="diygw-col-24 text76-clz video_name"> {{item.list[3].video_name}} </text>
 									</view>
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex158-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex159-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image47-clz" mode="widthFix"></image>
+									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex15-clz" @click="jump(item.list[4].id)">
+										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex168-clz">
+											<image :src="item.list[4].coverfiles" class="response diygw-col-24 image4-clz" mode="widthFix"></image>
+											<view class="flex flex-wrap diygw-col-24 justify-around items-center flex169-clz">
+												<text class="diygw-col-12"> 播放：{{item.list[4].view_num}} </text>
+												<text class="diygw-col-10 text78-clz"> {{item.list[4].duration}} </text>
+											</view>
 										</view>
-										<text class="diygw-col-24 text67-clz"> 东京爱情故事 </text>
-									</view>
-								</view>
-								<view class="flex flex-wrap diygw-col-24 justify-between items-center flex160-clz">
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex161-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex162-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image48-clz" mode="widthFix"></image>
-										</view>
-										<text class="diygw-col-24 text68-clz"> 东京爱情故事 </text>
-									</view>
-									<view class="flex flex-wrap diygw-col-24 flex-direction-column flex163-clz">
-										<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center flex164-clz">
-											<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image49-clz" mode="widthFix"></image>
-										</view>
-										<text class="diygw-col-24 text69-clz"> 东京爱情故事 </text>
+										<text class="diygw-col-24 text79-clz video_name"> {{item.list[4].video_name}} </text>
 									</view>
 								</view>
 							</view>
 						</view>
 					</view>
 				</view>
-			</view>
+			</scroll-view>
 		</view>
 		<view class="clearfix"></view>
+		
 	</view>
 </template>
 
 <script>
+	import config from "../../siteinfo.js";
 	export default {
 		data() {
 			return {
@@ -601,16 +308,19 @@
 				//自定义全局变量
 				globalData: {},
 				tabsDatas: [
-					{ text: `推荐`, icon: `` },
-					{ text: `热点`, icon: `` },
-					{ text: `最新`, icon: `` },
-					{ text: `免费`, icon: `` },
-					{ text: `VIP`, icon: `` }
+					{ text: `推荐`, icon: ``,type:"recommend" },
+					{ text: `热点`, icon: ``,type:"hotspot" },
+					{ text: `最新`, icon: ``,type:"news" },
+					{ text: `免费`, icon: ``,type:"free" },
+					{ text: `VIP`, icon: ``,type:"vip" }
 				],
 				tabsLeft: 0,
 				tabsWidth: 0,
 				tabsItemWidth: 0,
-				tabsIndex: 0
+				tabsIndex: 0,
+				dataList:{},
+				page:1,
+				loading: false, // 是否正在加载
 			};
 		},
 		onPageScroll(e) {
@@ -620,9 +330,15 @@
 				const opacity = scrollTop / 100;
 				const color = `rgba(22, 22, 30, ${opacity})`;
 				this.headerBackgroundStyle.background = color;
+				
 			} else {
 				this.headerBackgroundStyle.background = '#16161e';
 			}
+		},
+		// 上拉触底事件
+		onReachBottom() {
+			console.log("123123");
+				      
 		},
 		onShow() {
 			this.setCurrentPage(this);
@@ -637,7 +353,16 @@
 
 			this.init();
 		},
+		mounted() {
+		  this.loadData(); // 页面加载时加载第一页数据
+		},
 		methods: {
+			scrollBottom(){
+				if (!this.loading) {
+				  this.page++;
+				  this.loadData(); // 触发加载数据
+				}
+			},
 			async init() {},
 			changeTabs(evt) {
 				let { index } = evt.currentTarget.dataset;
@@ -645,7 +370,70 @@
 				this.setData({
 					tabsIndex: index
 				});
-			}
+				this.dataList = [];
+				this.loadData();
+			},
+			jump(id){
+				
+				if(!id){
+					this.showModal("视频id不能为空！", '提示', false);
+				}
+				uni.navigateTo({
+					url:"./yingshi_detail?id="+id
+				})
+			},
+		
+			 // 加载数据的方法
+			async loadData() {
+			      this.loading = true;
+			      const that = this;
+				  var index = this.tabsIndex;
+				  var type = this.tabsDatas[index].type;
+				  console.log(type);
+			      this.$nextTick(async () => {
+			      		let token = uni.getStorageSync("token");
+			      		console.log(token)
+			      		//保存数据
+			      		let param = {
+			      			type:type,
+			      			page:that.page
+			      		};
+			      		let header = {
+			      			  'Content-Type': 'application/json',
+			      			  'Authorization': `Bearer ${token}`
+			      			  };
+			      		let url = config.basePath+"api/Video/getVideoList";
+			      		if (!url) {
+			      			this.showToast('请先配置地址', 'none');
+			      			return false;
+			      		}
+			      
+			      		let res = await this.$http.post(url, param, header, 'json');
+			           
+			      		if (res.code == 1) {
+			      			 
+			      			 var dataList = res.data;
+							 var old = that.dataList;
+							const merged = {};
+							for (let key in dataList) {
+							  merged[key] = dataList[key];
+							}
+							for (let key in old) {
+							  merged[key] = old[key];
+							}
+							 that.loading = false;
+			      			 this.dataList = merged;
+			      		} else {
+			      			this.showModal(res.message, '提示', false);
+			      		}
+			      	
+			      });
+			     
+			    },
+			  // 上拉触底事件
+			onReachBottom() {
+			     
+			},
 		}
 	};
 </script>
@@ -659,10 +447,41 @@
 		color: #999999 !important;
 		font-size: 16px !important;
 	}
+	.head{
+		height:83rpx;
+	}
+	// .tab_content{
+	// 	height:100%;
+	// }
+	.video_name{
+		 // height:100rpx;
+		 white-space: nowrap;        /* 不换行 */
+		    overflow: hidden;           /* 超出部分隐藏 */
+		    text-overflow: ellipsis;
+	}
+	.items{
+		float: left;
+		border:1px solid #000;
+		width: 298rpx;
+		height:222  rpx;
+		margin-left:30rpx;
+		margin-top:30rpx;
+		border-radius:10rpx;
+		font-size:26rpx;
+				// display:block;
+	}
+	.block-main{
+		height: 88.2vh;
+	}
 	.tabs-title {
 	}
 	.tabs-item-title.cur {
 		color: #333333 !important;
+	}
+	.loading {
+	  text-align: center;
+	  padding: 10px;
+	  color: #888;
 	}
 	.flex4-clz {
 		padding-top: 0rpx;
@@ -696,8 +515,8 @@
 	}
 	.flex7-clz {
 		flex-shrink: 0;
-		width: 100% !important;
-		height: 384rpx !important;
+		// width: 100% !important;
+		// height: 384rpx !important;
 	}
 	.image-clz {
 		border-bottom-left-radius: 20rpx;
@@ -2692,5 +2511,9 @@
 		margin-right: 0rpx;
 	}
 	.container331385 {
+	}
+	.item_title{
+	 padding-left:30rpx;
+	 padding-right:30rpx;
 	}
 </style>

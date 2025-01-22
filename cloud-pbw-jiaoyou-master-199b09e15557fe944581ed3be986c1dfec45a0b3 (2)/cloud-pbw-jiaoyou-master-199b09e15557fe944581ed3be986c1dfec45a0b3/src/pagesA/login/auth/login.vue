@@ -3,7 +3,7 @@
     <image src="/static/b619fa5643d7d65148c208b18f887b75.png" class="response diygw-col-24 image-clz" mode="widthFix"></image>
     <text class="diygw-col-24 text-clz app_name"> 彩虹圈 </text>
     <text class="diygw-col-24 text1-clz"> 彩虹世界·幸福就好 </text>
-    <u-form :model="form" :rules="formRules" :errorType="message" ref="formRef" class="flex diygw-form diygw-col-24 form-clz">
+    <u-form :model="form" :rules="formRules"  ref="formRef" class="flex diygw-form diygw-col-24 form-clz">
       <u-form-item class="diygw-col-24 input-clz" labelPosition="top" prop="username">
         <u-input :focus="formData.inputFocus" placeholder="请输入账号" v-model="form.username"></u-input>
       </u-form-item>
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import config from "../../siteinfo.js";
+import config from "../../../siteinfo.js";
 
 export default {
   data() {
@@ -66,6 +66,13 @@ export default {
   onShow() {
     console.log(config.basePath);
     this.setCurrentPage(this);
+	let token = uni.getStorageSync("token");
+	if(token){
+		console.log(token);
+		uni.switchTab({
+			url: '/pages/video/index'
+		});
+	}
   },
   onLoad(option) {
     this.setCurrentPage(this);
@@ -99,10 +106,12 @@ export default {
         this.showToast('请先同意用户协议和隐私政策', 'none');
         return;
       }
-
-      console.log(e);
+    //      uni.navigateTo({
+		  // 	url: '/pages/video/yingshi_detail'
+		  // });
+    //   console.log(e);
       this.$refs.formRef?.setRules(this.formRules);
-
+	 
       this.$nextTick(async () => {
         let valid = await this.$refs.formRef.validate();
         if (valid) {
@@ -116,20 +125,23 @@ export default {
           }
 
           let res = await this.$http.post(url, param, header, 'json');
-          console.log(res)
-			  
+          // this.showModal("31231231", '提示', false);
+	
+		 // console.log(res.code==1);
           if (res.code == 1) {
 			var data = res.data;
 			uni.setStorageSync('userInfo', data.user_info);
 			uni.setStorageSync('token', data.token);
+			
 			if(data.is_new_user){
 				uni.navigateTo({
 					url:"./upload_detail"
 				})
 			}else{
-				uni.navigateTo({
-					url:"./index"
-				})
+				console.log(data.is_new_user)
+				uni.switchTab({
+					url: '/pages/video/index'
+				});
 			}
 			
             this.showToast(res.message, 'success');

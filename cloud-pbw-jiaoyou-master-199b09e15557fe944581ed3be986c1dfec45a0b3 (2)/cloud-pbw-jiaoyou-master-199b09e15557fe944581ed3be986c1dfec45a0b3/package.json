@@ -70,9 +70,12 @@
     "core-js": "^3.16.0",
     "easemob-websdk": "^4.11.0",
     "flyio": "0.6.14",
+    "hls.js": "^1.5.19",
+    "mui-player": "^1.8.1",
     "pinia": "^2.3.0",
     "regenerator-runtime": "^0.12.1",
     "uview-ui": "^2.0.31",
+    "videojs-contrib-hls": "^5.15.0",
     "vue": "^2.7.0",
     "vuex": "3.6.2"
   },

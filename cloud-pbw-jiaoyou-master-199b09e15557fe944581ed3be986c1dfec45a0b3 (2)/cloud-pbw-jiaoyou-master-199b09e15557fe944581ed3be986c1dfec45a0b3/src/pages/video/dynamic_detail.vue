@@ -1,8 +1,12 @@
 <template>
 	<view class="container container331385">
-		<u-navbar titleWidth="500" :isFixed="true" :isSlotTitle="true" title="" :borderBottom="false" :background="{ background: 'none !important' }" titleColor="inherit" backIconColor="inherit" :backTextStyle="{ color: 'inherit' }" :isHome="false" :isBack="true">
-			<template v-slot:title></template>
-		</u-navbar>
+		<view class="head">
+			<view class="back" @click="back()" >
+				<image	src="/static/Vector.png"></image>
+			</view>
+			<view class="title">动态详情</view>
+			<view class="icon" ></view>
+		</view>
 		<view class="flex flex-wrap diygw-col-24 flex-clz">
 			<view class="flex diygw-col-24 avatar1-clz">
 				<view class="diygw-avatar avatar1-avatar lg radius bg-none">

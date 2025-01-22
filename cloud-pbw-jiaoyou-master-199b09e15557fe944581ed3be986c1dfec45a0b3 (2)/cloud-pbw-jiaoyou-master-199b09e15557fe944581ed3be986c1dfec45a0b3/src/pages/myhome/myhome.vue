@@ -110,7 +110,7 @@
       </view>
     </view>
     <!-- 订单 -->
-    <view class="tabWrap" v-if="false">
+  <!--  <view class="tabWrap" v-if="false">
       <view class="tabTitle">我的预约</view>
       <view class="tabList">
         <view class="tabList-item" @click="goPage('/pagesA/myhome/orderList/orderList?index=0', true)">
@@ -131,9 +131,9 @@
         </view>
       </view>
     </view>
-    <wrap :height="16"></wrap>
+    <wrap :height="16"></wrap> -->
     <!-- 动态 -->
-    <view class="tabContent">
+  <!--  <view class="tabContent">
       <view class="titleIcon">
         <view class="moreTitle">显摆</view>
         <view class="moreTitle-more" @click="goPage('/pagesA/myhome/nearbtList/nearbtList?admin=admin&code=' + userInfo._id, true)">
@@ -157,9 +157,9 @@
         </view>
       </view>
     </view>
-    <wrap :height="16"></wrap>
+    <wrap :height="16"></wrap> -->
     <!-- 相册 -->
-    <view class="tabContent">
+  <!--  <view class="tabContent">
       <view class="titleIcon">
         <view class="moreTitle">相册</view>
         <view class="moreTitle-more">
@@ -188,10 +188,10 @@
           </view>
         </view>
       </view>
-    </view>
-    <wrap :height="16"></wrap>
+    </view> -->
+    <!-- <wrap :height="16"></wrap> -->
     <!-- 账户 userInfo-->
-    <view class="tabWrap" v-if="false">
+<!--    <view class="tabWrap" v-if="false">
       <view class="tabTitle">账户资产</view>
       <view class="tabList">
         <view class="tabList-item" @click="goPage('/pagesA/myhome/money/money?index=0', true)">
@@ -211,11 +211,11 @@
           <text class="tabList-item-txt">优惠券</text>
         </view>
       </view>
-    </view>
+    </view> -->
 
-    <wrap :height="16"></wrap>
+    <!-- <wrap :height="16"></wrap> -->
     <!-- 菜单 -->
-    <view class="tabWrap">
+  <!--  <view class="tabWrap">
       <view class="tabTitle">常用功能</view>
       <view class="listBgTab">
         <view @click="goPage('/pagesA/login/mask?uid=' + userInfo._id, true)">
@@ -223,7 +223,7 @@
           <text>我的面具</text>
         </view>
       </view>
-    </view>
+    </view> -->
     <wrap :height="16"></wrap>
     <!-- 认证 -->
     <view class="tabContent">

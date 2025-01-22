@@ -498,7 +498,7 @@ export default {
     addOrder() {
       let userInfo = this.$store.state.userInfo
       if (!userInfo) {
-        this.goPage('/pagesA/login/auth/login')
+        // this.goPage('/pagesA/login/auth/login')
         this.msg('请先登录')
         return
       }

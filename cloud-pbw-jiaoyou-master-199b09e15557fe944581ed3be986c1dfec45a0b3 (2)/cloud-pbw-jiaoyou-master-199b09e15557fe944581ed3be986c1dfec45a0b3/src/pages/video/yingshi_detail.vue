@@ -1,17 +1,20 @@
 <template>
 	<view class="container container331385">
-		<u-navbar :isSlot="true" :isFixed="true" :isMarginRight="false" :borderBottom="false" title="" :background="{ backgroundColor: '#ffffff' }" :backTextStyle="{ color: 'inherit' }" backIconColor="#fff" titleColor="inherit" :isHome="false" :isBack="false">
-			<view class="flex align-center diygw-text-md text-bold align-center flex-nowrap diygw-col-24 flexbar-clz">
-				<text class="flex icon diygw-col-0 icon-clz diy-icon-back"></text>
-				<text class="diygw-col-23 text-clz"> 影片名字 </text>
-				<text class="flex icon1 diygw-col-0 diy-icon-forward"></text>
+		<view class="head">
+			<view class="back" @click="back()" >
+				<image	src="/static/Vector.png"></image>
 			</view>
-		</u-navbar>
-		<view class="flex flex-wrap diygw-col-24 flex-direction-column flex35-clz">
+			<view class="title">视频详情</view>
+			<view class="icon" ></view>
+		</view>
+		<view class="flex flex-wrap diygw-col-24 flex-direction-column flex35-clz" >
 			<view class="flex diygw-col-24">
-				<video ref="refVideo" src="https://agent.diygw.com/diygwcom.mp4" style="width: 100%; height: 420rpx" object-fit="contain" title="视频标题" poster="/static/pic1.jpg"></video>
+				<!-- <view>
+				    <div id="mui-player"></div>
+				</view> -->
+				<video ref="refVideo" :src="video_src" style="width: 100%; height: 420rpx" object-fit="contain" :title="detail.video_name" poster="detail.coverfiles"></video>
 			</view>
-			<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center white flex36-clz">
+			<view class="flex flex-wrap diygw-col-24 flex-direction-column items-center white flex36-clz" v-if="is_buy">
 				<text class="diygw-col-24 text33-clz"> 试看已结束 </text>
 				<text class="diygw-col-24 text34-clz"> 开通VIP会员观看完整视频 </text>
 				<view class="flex flex-wrap diygw-col-24 justify-between flex37-clz">
@@ -22,10 +25,10 @@
 			</view>
 		</view>
 		<view class="flex flex-wrap diygw-col-24 justify-between items-center flex-clz">
-			<text class="diygw-col-12 text1-clz"> 影片介绍：标题文字 </text>
+			<text class="diygw-col-12 text1-clz video_name"> {{detail.video_name}} </text>
 			<button class="diygw-col-12 btn-clz diygw-btn-default">开通VIP解锁观看完整版</button>
 		</view>
-		<text class="diygw-col-24 text3-clz"> 观看次数：1000 </text>
+		<text class="diygw-col-24 text3-clz"> 观看次数：{{detail.view_num}}</text>
 		<view class="flex flex-wrap diygw-col-24 justify-around items-center flex1-clz">
 			<view class="flex flex-wrap diygw-col-24 items-center flex2-clz">
 				<view class="flex diygw-col-24 avatar-clz">
@@ -43,72 +46,41 @@
 		<view class="flex diygw-col-24 line-clz">
 			<view class="diygw-pzx" style="border-bottom: 1px solid #eee"></view>
 		</view>
-		<view class="flex flex-wrap diygw-col-24 flex-direction-column">
+	<!-- 	<view class="flex flex-wrap diygw-col-24 flex-direction-column">
 			<view class="flex flex-wrap diygw-col-24 justify-between items-center flex4-clz">
 				<text class="diygw-col-24 text5-clz"> 评论留言 6666 </text>
 				<text class="diygw-col-5 text8-clz"> 展开 </text>
 			</view>
 			<view class="flex flex-wrap diygw-col-24 flex-direction-column justify-center items-center flex6-clz">
 				<u-form-item class="diygw-col-24 input-clz" labelPosition="top" prop="input">
-					<u-input :focus="inputFocus" placeholder="发表评论" v-model="input"></u-input>
+					<u-input :focus="inputFocus"  placeholder="发表评论" v-model="input"></u-input>
 				</u-form-item>
 			</view>
-		</view>
-		<view class="flex flex-wrap diygw-col-24 flex-direction-column">
+		</view> -->
+		<view class="flex flex-wrap diygw-col-24 flex-direction-column retada">
 			<text class="diygw-col-24 text10-clz"> 相关影片 </text>
 			<u-scroll-list :indicator="false" @right="rightScrolllist" @left="leftScrolllist" class="flex diygw-col-24 scrolllist-clz">
-				<view class="flex flex-wrap diygw-col-0 flex-direction-column items-center flex47-clz">
-					<image src="/static/jx22.png" class="image9-size diygw-image diygw-col-0 image9-clz" mode="widthFix"></image>
-					<text class="diygw-col-24 text12-clz"> 东京爱情故事 </text>
-				</view>
-				<view class="flex flex-wrap diygw-col-0 flex-direction-column items-center flex9-clz">
-					<image src="/static/jx22.png" class="image3-size diygw-image diygw-col-0 image3-clz" mode="widthFix"></image>
-					<text class="diygw-col-24 text7-clz"> 东京爱情故事 </text>
-				</view>
-				<view class="flex flex-wrap diygw-col-0 flex-direction-column items-center flex8-clz">
-					<image src="/static/jx22.png" class="image2-size diygw-image diygw-col-0 image2-clz" mode="widthFix"></image>
-					<text class="diygw-col-24 text6-clz"> 东京爱情故事 </text>
+				<view class="flex flex-wrap diygw-col-0 flex-direction-column items-center flex47-clz" v-for="(item,index) in related" :key="index" @click="jump(item.id)">
+					<image :src="item.coverfiles" class="image9-size diygw-image diygw-col-0 image9-clz" mode="widthFix"></image>
+					<text class="diygw-col-24 text12-clz video_name"> {{item.video_name}} </text>
 				</view>
 			</u-scroll-list>
 		</view>
 		<view class="flex flex-wrap diygw-col-24 flex-direction-column flex10-clz">
 			<text class="diygw-col-24 text9-clz"> 推荐影片 </text>
-			<view class="flex flex-wrap diygw-col-24 flex-direction-column flex12-clz">
+			<view class="flex flex-wrap diygw-col-24 flex-direction-column flex12-clz" v-for="(item,index) in recommend" :key="index" @click="jump(item.id)">
 				<view class="flex flex-wrap diygw-col-24 flex-direction-column flex14-clz">
-					<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image1-clz" mode="widthFix"></image>
+					<image :src="recommend.coverfiles" class="response diygw-col-24 image1-clz" mode="widthFix"></image>
 					<view class="flex flex-wrap diygw-col-24 justify-around items-center flex17-clz">
-						<text class="diygw-col-12"> 播放：10.0k </text>
-						<text class="diygw-col-10 text16-clz"> 15:00 </text>
+						<text class="diygw-col-12"> 播放：{{item.view_num}} </text>
+						<text class="diygw-col-10 text16-clz"> {{item.duration}} </text>
 					</view>
 				</view>
 				<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-					<text class="diygw-col-24 text17-clz"> 东京爱情故事 </text>
+					<text class="diygw-col-24 text17-clz video_name">{{item.video_name}} </text>
 				</view>
 			</view>
-			<view class="flex flex-wrap diygw-col-24 flex-direction-column flex19-clz">
-				<view class="flex flex-wrap diygw-col-24 flex-direction-column flex20-clz">
-					<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image4-clz" mode="widthFix"></image>
-					<view class="flex flex-wrap diygw-col-24 justify-around items-center flex21-clz">
-						<text class="diygw-col-12"> 播放：10.0k </text>
-						<text class="diygw-col-10 text19-clz"> 15:00 </text>
-					</view>
-				</view>
-				<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-					<text class="diygw-col-24 text20-clz"> 东京爱情故事 </text>
-				</view>
-			</view>
-			<view class="flex flex-wrap diygw-col-24 flex-direction-column flex11-clz">
-				<view class="flex flex-wrap diygw-col-24 flex-direction-column flex13-clz">
-					<image src="/static/d3c8f77d0b8fa4bc9f9454330da7ad63.png" class="response diygw-col-24 image-clz" mode="widthFix"></image>
-					<view class="flex flex-wrap diygw-col-24 justify-around items-center flex15-clz">
-						<text class="diygw-col-12"> 播放：10.0k </text>
-						<text class="diygw-col-10 text14-clz"> 15:00 </text>
-					</view>
-				</view>
-				<view class="flex flex-wrap diygw-col-24 flex-direction-column">
-					<text class="diygw-col-24 text15-clz"> 东京爱情故事 </text>
-				</view>
-			</view>
+
 		</view>
 		<view @touchmove.stop.prevent="" v-if="modal" class="diygw-modal basic" :class="modal" style="z-index: 1000000">
 			<view class="diygw-dialog diygw-dialog-modal basis-lg">
@@ -141,6 +113,10 @@
 </template>
 
 <script>
+	
+	import MuiPlayer from 'mui-player';
+	import Hls from 'hls.js';
+	import config from "../../siteinfo.js";
 	export default {
 		data() {
 			return {
@@ -150,17 +126,28 @@
 				globalOption: {},
 				//自定义全局变量
 				globalData: {},
+				detail:{},
 				inputFocus: false,
+				recommend:{},
+				related:{},
 				input: '',
-				modal: ''
+				modal: '',
+			    is_vip:false,
+				is_buy:false,
+				video_src:"https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
 			};
 		},
 		onShow() {
 			this.setCurrentPage(this);
+			this.getVideodetail();
+			this.getRelatedRecommend();  
+			
 		},
 		onLoad(option) {
+			
 			this.setCurrentPage(this);
 			if (option) {
+				console.log(option);
 				this.setData({
 					globalOption: this.getOption(option)
 				});
@@ -169,8 +156,111 @@
 			this.init();
 		},
 		methods: {
-			async init() {},
-
+			async init() {
+				
+				console.log(userInfo,"*********");
+			},
+			back(){
+				uni.switchTab({
+					url: '/pages/video/yingshi_list'
+				});
+			},
+            videopay(){
+				var that = this;
+				console.log(that.video_src);
+				this.$nextTick(()=>{
+				       // 初始化 MuiPlayer 插件，MuiPlayer 方法传递一个对象，该对象包括所有插件的配置
+				       this.mp = new MuiPlayer({
+				           container:document.getElementById("mui-player"),
+				           src:that.video_src,
+				           parse:{
+				               type:'hls',
+				               loader:Hls,
+				               config:{ // hls config to：https://github.com/video-dev/hls.js/blob/HEAD/docs/API.md#fine-tuning
+				                   debug:false,
+				               },
+				           },
+				           pageHead:false,
+				       });
+				   })
+			},
+			async getVideodetail(){
+				this.loading = true;
+				const that = this;
+				var v_id = this.globalOption.id;
+				this.$nextTick(async () => {
+						let token = uni.getStorageSync("token");
+						console.log(token)
+						//保存数据
+						let param = {
+							v_id:v_id
+						};
+						let header = {
+							  'Content-Type': 'application/json',
+							  'Authorization': `Bearer ${token}`
+							  };
+						let url = config.basePath+"api/Video/getVideoDetail";
+						if (!url) {
+							this.showToast('请先配置地址', 'none');
+							return false;
+						}
+				
+						let res = await this.$http.post(url, param, header, 'json');
+				         
+						if (res.code == 1) {
+							  
+							 var data = res.data;
+							   that.detail = data;
+							   that.video_src = data.resourcesfiles;
+							   // this.videopay()
+							// console.log(detail);
+						} else {
+							this.showModal(res.message, '提示', false);
+						}
+					
+				});
+			},
+			jump(id){
+				uni.reLaunch({
+				  url: '/pages/video/yingshi_detail?id='+id  // 替换为当前页面的路径
+				});
+			},
+			async getRelatedRecommend(){
+				this.loading = true;
+				const that = this;
+				var v_id = this.globalOption.id;
+				this.$nextTick(async () => {
+						let token = uni.getStorageSync("token");
+						console.log(token)
+						//保存数据
+						let param = {
+							v_id:v_id
+						};
+						let header = {
+							  'Content-Type': 'application/json',
+							  'Authorization': `Bearer ${token}`
+							  };
+						let url = config.basePath+"api/Video/getRelatedRecommend";
+						if (!url) {
+							this.showToast('请先配置地址', 'none');
+							return false;
+						}
+				
+						let res = await this.$http.post(url, param, header, 'json');
+				        console.log(res,"$$$$$$");
+						if (res.code == 1) {
+							  
+							   var detail = res.data;
+							   that.recommend = detail.recommend;
+							   that.related = detail.related;
+							 //   this.videopay()
+							 //   console.log(detail);
+						} else {
+							this.showModal(res.message, '提示', false);
+						}
+					
+				});
+			},
 			leftScrolllist(evt) {},
 			rightScrolllist(evt) {}
 		}
@@ -178,11 +268,53 @@
 </script>
 
 <style lang="scss" scoped>
+	@import 'mui-player/dist/mui-player.min.css';
 	.flexbar-clz {
 		padding-top: 10rpx;
 		padding-left: 32rpx;
 		padding-bottom: 10rpx;
 		padding-right: 32rpx;
+	}
+	.head{
+		height:83rpx;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-left:30rpx;
+		padding-right:30rpx;
+		line-height:83rpx;
+		font-size: 30rpx;
+	}
+	.back{
+		width:48rpx;
+		height:48rpx;
+		display:flex;
+		align-items: center;
+	}
+	.head image{
+		width:16rpx;
+		height:26rpx;
+		
+	}
+	.title{
+		padding-right:48rpx;
+	}
+	.head view{
+		// width:33%;
+	}
+	.u-input{
+		  border: 0px;
+	}
+	.u-form-item__body{
+		padding:0px !important;
+	}
+	.retada{
+		margin-top:30rpx;
+	}
+	.video_name{
+		white-space: nowrap;        /* 不换行 */
+		   overflow: hidden;           /* 超出部分隐藏 */
+		   text-overflow: ellipsis;
 	}
 	.icon-clz {
 		font-size: 26rpx !important;
@@ -287,7 +419,7 @@
 		flex-shrink: 0;
 		background-repeat: no-repeat;
 		width: 160rpx !important;
-		background-image: url(/static/redozx.png);
+		// background-image: url(/static/redozx.png);
 		background-position: center left;
 		text-align: center;
 	}
@@ -358,7 +490,7 @@
 		margin-right: 10rpx;
 	}
 	.btn1-clz {
-		padding-top: 8rpx;
+		padding-top: 20rpx;
 		border-bottom-left-radius: 44rpx;
 		color: #fff;
 		padding-left: 20rpx;
@@ -454,6 +586,11 @@
 		margin-bottom: 0rpx;
 		margin-right: 0rpx;
 	}
+	
+	
+	
+	
+	
 	.flex47-clz {
 		margin-left: 20rpx;
 		flex-shrink: 0;
@@ -755,7 +892,7 @@
 	.icon5-clz {
 		flex-shrink: 0;
 		width: 44rpx !important;
-		background-image: url(/static/maskgroup.png);
+		// background-image: url(/static/maskgroup.png);
 		height: 44rpx !important;
 	}
 	.icon5 {
@@ -825,6 +962,7 @@
 	.icon6 {
 		font-size: 64rpx;
 	}
-	.container331385 {
-	}
+	// .container331385 {
+	// 	margin-top:80rpx;
+	// }
 </style>

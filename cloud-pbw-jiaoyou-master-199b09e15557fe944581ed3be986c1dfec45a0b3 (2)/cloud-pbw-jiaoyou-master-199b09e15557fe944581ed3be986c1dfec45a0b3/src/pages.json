@@ -3,76 +3,126 @@
     "^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
   },
   "pages": [
-    // #ifdef APP-PLUS
-    {
-      "path": "pages/map/map",
-      "style": {
-        "navigationBarTitleText": "实时",
-        "backgroundTextStyle": "dark",
-        "app-plus": {
-          "bounce": "none",
-          "titleColor": "#333333",
-          "titleNView": {
-            "type": "transparent",
-            "searchInput": {
-              "backgroundColor": "rgba(0, 0, 0,.2)",
-              "borderRadius": "16px",
-              "placeholder": "查找目的地/景点/美食",
-              "disabled": true,
-              "placeholderColor": "#ffffff"
-            },
-            "buttons": [
-              {
-                "fontSrc": "/static/iconfont/yticon.ttf",
-                "fontSize": "26",
-                "color": "#333333",
-                "float": "left",
-                "background": "rgba(0,0,0,0)"
-              },
-              {
-                "fontSrc": "/static/iconfont/yticon.ttf",
-                "fontSize": "27",
-                "color": "#E7653D",
-                "background": "rgba(0,0,0,0)"
-              }
-            ]
-          }
-        }
-      }
-    },
-    // #endif
+	 
+	  {
+	  	"path": "pages/video/index",
+	  	"style": {
+	  		"navigationBarTitleText": "彩虹圈",
+	  		"app-plus": {
+	  			"titleNView": false,
+	  			"bounce": "none",
+	  			//关闭窗口回弹效果
+	  			"scrollIndicator": "none"
+	  		},
+	  		"enablePullDownRefresh": false
+	  	}
+	  },
+	  {
+	  	"path": "pages/video/long_video",
+	  	"style": {
+	  		"navigationBarTitleText": "长视频",
+	  		"app-plus": {
+	  			"titleNView": false,
+	  			"bounce": "none",
+	  			//关闭窗口回弹效果
+	  			"scrollIndicator": "none"
+	  		},
+	  		"enablePullDownRefresh": false
+	  	}
+	  },
+	  {
+	  	"path": "pages/video/short_video2",
+	  	"style": {
+	  		"navigationBarTitleText": "短视频",
+	  		"app-plus": {
+	  			"titleNView": false,
+	  			"bounce": "none",
+	  			//关闭窗口回弹效果
+	  			"scrollIndicator": "none"
+	  		},
+	  		"enablePullDownRefresh": false
+	  	}
+	  },
+	  {
+	  	"path": "pages/video/dynamic_detail",
+	  	"style": {
+	  		"navigationBarTitleText": "动态详情",
+	  		"app-plus": {
+	  			"titleNView": false,
+	  			"bounce": "none",
+	  			//关闭窗口回弹效果
+	  			"scrollIndicator": "none"
+	  		},
+	  		"enablePullDownRefresh": false
+	  	}
+	  },
+    // // #ifdef APP-PLUS
+    // {
+    //   "path": "pages/map/map",
+    //   "style": {
+    //     "navigationBarTitleText": "实时",
+    //     "backgroundTextStyle": "dark",
+    //     "app-plus": {
+    //       "bounce": "none",
+    //       "titleColor": "#333333",
+    //       "titleNView": {
+    //         "type": "transparent",
+    //         "searchInput": {
+    //           "backgroundColor": "rgba(0, 0, 0,.2)",
+    //           "borderRadius": "16px",
+    //           "placeholder": "查找目的地/景点/美食",
+    //           "disabled": true,
+    //           "placeholderColor": "#ffffff"
+    //         },
+    //         "buttons": [
+    //           {
+    //             "fontSrc": "/static/iconfont/yticon.ttf",
+    //             "fontSize": "26",
+    //             "color": "#333333",
+    //             "float": "left",
+    //             "background": "rgba(0,0,0,0)"
+    //           },
+    //           {
+    //             "fontSrc": "/static/iconfont/yticon.ttf",
+    //             "fontSize": "27",
+    //             "color": "#E7653D",
+    //             "background": "rgba(0,0,0,0)"
+    //           }
+    //         ]
+    //       }
+    //     }
+    //   }
+    // },
+    // // #endif
+
 	//#ifdef MP-WEIXIN || H5
 	{
-		"path": "pages/video/index",
-		"style": {
-			"navigationBarTitleText": "彩虹圈",
-			"app-plus": {
-				"titleNView": false,
-				"bounce": "none",
-				//关闭窗口回弹效果
-				"scrollIndicator": "none"
-			},
-			"navigationStyle": "custom",
-			"enablePullDownRefresh": false
-		}
+	  "path": "pages/video/yingshi_list",
+	  "style": {
+	    "navigationBarTitleText": "视频列表",
+	    "app-plus": {
+	      "titleNView": false,
+	      "bounce": "none",
+	      "scrollIndicator": "none"
+	    },
+	    "enablePullDownRefresh": true,
+	    "onReachBottomDistance": 100 // 设置为 10 或适当的值，确保事件触发
+	  }
 	},
 	//#endif
-	//#ifdef MP-WEIXIN || H5
 	{
-		"path": "pages/video/yingshi_list",
-		"style": {
-			"navigationBarTitleText": "视频列表",
-			"app-plus": {
-				"titleNView": false,
-				"bounce": "none",
-				//关闭窗口回弹效果
-				"scrollIndicator": "none"
-			},
-			"navigationStyle": "custom",
-			"enablePullDownRefresh": false
-		}
+	  "path": "pages/video/yingshi_detail",
+	  "style": {
+	    "navigationBarTitleText": "视频详情",
+	    "app-plus": {
+	      "titleNView": false,
+	      "bounce": "none",
+	      "scrollIndicator": "none"
+	    },
+	    "enablePullDownRefresh": true,
+	    "onReachBottomDistance": 100 // 设置为 10 或适当的值，确保事件触发
+	  }
 	},
-	//#endif
 	//#ifdef MP-WEIXIN || H5
 	{
 		"path": "pages/video/upload_detail",
@@ -84,12 +134,11 @@
 				//关闭窗口回弹效果
 				"scrollIndicator": "none"
 			},
-			"navigationStyle": "custom",
 			"enablePullDownRefresh": false
 		}
 	},
 	//#endif
-	//#ifdef MP-WEIXIN || H5
+	
 	{
 		"path": "pages/video/login",
 		"style": {
@@ -100,11 +149,9 @@
 				//关闭窗口回弹效果
 				"scrollIndicator": "none"
 			},
-			"navigationStyle": "custom",
 			"enablePullDownRefresh": false
 		}
 	},
-	//#endif
     // #ifdef MP-WEIXIN || H5
     {
       "path": "pages/map/map",
@@ -116,7 +163,6 @@
           //关闭窗口回弹效果
           "scrollIndicator": "none"
         },
-        "navigationStyle": "custom",
         "enablePullDownRefresh": false
       }
     },
@@ -139,6 +185,34 @@
       }
     },
     // #endif
+	// #ifdef APP-PLUS
+	{
+	  "path": "pages/video/index",
+	  "style": {
+	    "navigationBarTitleText": "首页",
+	    "backgroundColorTop": "#ffffff",
+	    "enablePullDownRefresh": false,
+	    "app-plus": {
+	      "titleNView": false,
+	      "bounce": "none"
+	    }
+	  }
+	},
+	// #endif
+
+	{
+	  "path": "pages/video/yingshi_list",
+	  "style": {
+	    "navigationBarTitleText": "视频列表",
+	    "backgroundColorTop": "#ffffff",
+	    "enablePullDownRefresh": false,
+	    "app-plus": {
+	      "titleNView": false,
+	      "bounce": "none"
+	    }
+	  }
+	},
+
     // #ifdef MP-WEIXIN || H5
     {
       "path": "pages/nearby/nearby",
@@ -919,19 +993,21 @@
         "pagePath": "pages/video/index",
         "iconPath": "/static/sy2.png",
         "selectedIconPath": "/static/select_index.png",
-        "text": "附近"
+        "text": "首页"
       },
+      // {
+      //   "pagePath": "pages/nearby/nearby",
+      //   "iconPath": "/static/qz.png",
+      //   "selectedIconPath": "/static/select_qz.png",
+      //   "text": "圈子"
+      // },
       {
-        "pagePath": "pages/nearby/nearby",
-        "iconPath": "/static/qz.png",
-        "selectedIconPath": "/static/select_qz.png",
-        "text": "圈子"
-      },
-      {
+		
         "pagePath": "pages/video/yingshi_list",
         "iconPath": "/static/fx.png",
         "selectedIconPath": "/static/select_fx.png",
         "text": "发现"
+		
       },
       {
         "pagePath": "pages/message/message",

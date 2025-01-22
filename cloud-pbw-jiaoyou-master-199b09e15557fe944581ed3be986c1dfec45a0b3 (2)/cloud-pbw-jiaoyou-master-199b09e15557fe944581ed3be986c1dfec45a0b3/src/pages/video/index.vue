@@ -1,5 +1,10 @@
 <template>
 	<view class="container container331385">
+		<view class="head">
+			<view class="back"></view>
+			<view class="title"></view>
+			<view class="icon"></view>
+		</view>
 		<view class="flex flex-wrap diygw-col-24 justify-between items-center flex21-clz">
 			<image src="/static/b619fa5643d7d65148c208b18f887b75.png" class="response diygw-col-4 image-clz" mode="widthFix"></image>
 			<view class="flex flex-wrap diygw-col-24 justify-around items-center white flex11-clz">
@@ -22,7 +27,7 @@
 						</view>
 						<view class="">
 							<view v-if="tabs1Index == 0" class="flex-sub">
-							    <view class="flex flex-wrap diygw-col-24 flex-direction-column" v-for="(item0,index0) in dataList" :key="index0">
+							    <view class="flex flex-wrap diygw-col-24 flex-direction-column" v-for="(item0,index0) in dataList" :key="index0" @click="navigateTo1(item0)">
 							    	<view class="flex flex-wrap diygw-col-24 flex10-clz">
 							    		<view class="flex diygw-col-4 justify-end avatar3-clz">
 							    			<view class="diygw-avatar radius bg-none">
@@ -48,7 +53,7 @@
 							    </view>
 							</view>
 							<view v-if="tabs1Index == 1" class="flex-sub listitem">
-								<view class="flex flex-wrap diygw-col-24 flex-direction-column" v-for="(item0,index0) in dataList" :key="index0">
+								<view class="flex flex-wrap diygw-col-24 flex-direction-column" v-for="(item0,index0) in dataList" :key="index0" @click="navigateTo1(item0)">
 									<view class="flex flex-wrap diygw-col-24 flex10-clz">
 										<view class="flex diygw-col-4 justify-end avatar3-clz">
 											<view class="diygw-avatar radius bg-none">
@@ -84,7 +89,7 @@
 						</view>
 						<view class="">
 							<view v-if="tabs2Index == 0" class="flex-sub">
-								<view class="flex flex-wrap diygw-col-24 flex-direction-column" v-for="(item0,index0) in dataList" :key="index0">
+								<view class="flex flex-wrap diygw-col-24 flex-direction-column" v-for="(item0,index0) in dataList" :key="index0" @click="navigateTo1(item0)">
 									<view class="flex flex-wrap diygw-col-24 flex10-clz">
 										<view class="flex diygw-col-4 justify-end avatar3-clz">
 											<view class="diygw-avatar radius bg-none">
@@ -108,7 +113,7 @@
 								</view>
 							</view>
 							<view v-if="tabs2Index == 1" class="flex-sub">
-								<view class="flex flex-wrap diygw-col-24 flex-direction-column" v-for="(item0,index0) in dataList" :key="index0">
+								<view class="flex flex-wrap diygw-col-24 flex-direction-column" v-for="(item0,index0) in dataList" :key="index0" @click="navigateTo1(item0)">
 									<view class="flex flex-wrap diygw-col-24 flex10-clz">
 										<view class="flex diygw-col-4 justify-end avatar3-clz">
 											<view class="diygw-avatar radius bg-none">
@@ -142,7 +147,7 @@
 						</view>
 						<view class="">
 							<view v-if="tabs3Index == 0" class="flex-sub">
-								<view class="flex flex-wrap diygw-col-24 flex-direction-column" v-for="(item0,index0) in dataList" :key="index0">
+								<view class="flex flex-wrap diygw-col-24 flex-direction-column" v-for="(item0,index0) in dataList" :key="index0" @click="navigateTo1(item0)">
 									<view class="flex flex-wrap diygw-col-24 flex10-clz">
 										<view class="flex diygw-col-4 justify-end avatar3-clz">
 											<view class="diygw-avatar radius bg-none">
@@ -165,7 +170,7 @@
 									</view>
 								</view> </view>
 							<view v-if="tabs3Index == 1" class="flex-sub">
-								<view class="flex flex-wrap diygw-col-24 flex-direction-column" v-for="(item0,index0) in dataList" :key="index0">
+								<view class="flex flex-wrap diygw-col-24 flex-direction-column" v-for="(item0,index0) in dataList" :key="index0" @click="navigateTo1(item0)">
 									<view class="flex flex-wrap diygw-col-24 flex10-clz">
 										<view class="flex diygw-col-4 justify-end avatar3-clz">
 											<view class="diygw-avatar radius bg-none">
@@ -194,7 +199,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="flex diygw-col-24 diygw-bottom">
+		<!-- <view class="flex diygw-col-24 diygw-bottom">
 			<view class="diygw-grid diygw-actions">
 				<button @tap="navigateTo" data-type="page" data-url="/pages/index" class="diygw-action">
 					<view class="diygw-grid-inner">
@@ -237,7 +242,7 @@
 					</view>
 				</button>
 			</view>
-		</view>
+		</view> -->
 		<view class="clearfix"></view>
 	</view>
 </template>
@@ -294,7 +299,9 @@
 				tabs3ItemWidth: 0,
 				tabs3Index: 0,
 				dataList:{},
-				page:1
+				page:1,
+				is_back:false,
+				// title:"首页"
 			};
 		},
 		onShow() {
@@ -327,6 +334,23 @@
 				});
 				console.log(index);
 				this.getDynamic();
+			},
+			navigateTo1(e){
+				if(e.dynamic_type==0){
+					uni.navigateTo({
+						url:"./dynamic_detail?id="+e.id
+					})
+				}else if(e.dynamic_type==1){
+					console.log(12321)
+					uni.navigateTo({
+						url:"./shor_video2?id="+e.id
+					})
+				}else{
+					uni.navigateTo({
+						url:"./long_video?id="+e.id
+					})
+				}
+				console.log(e.dynamic_type);
 			},
 			changeTabs1(evt) {
 				let { index } = evt.currentTarget.dataset;
@@ -387,6 +411,11 @@
 				const that = this;
 				this.$nextTick(async () => {
 						let token = uni.getStorageSync("token");
+						if(!token){
+							  uni.redirectTo({
+							    url: '/pages/video/login'
+							  });
+						}
 						console.log(token)
 						//保存数据
 						let param = {
@@ -418,9 +447,6 @@
 								  }else{
 									 dataList[i].resources_files = config.basePath+dataList[i].resources_files; 
 								  }
-								  
-								  		
-								  
 							  }
 							 that.dataList = dataList;
 							 console.log(dataList)
@@ -442,6 +468,9 @@ html, body {
   margin: 0;
   padding: 0;
 }
+.head{
+	height:82rpx;
+}
 #myVideo{
 	width:100%;
 	height:100%;
@@ -453,7 +482,7 @@ html, body {
 page {
   width: 100%;
   height: 100%;
-  background: url('/static/bg.png') no-repeat center center;
+  background: url('http://www.chqco1.com/uploads/20250116/bg.png') no-repeat center center;
   background-size: cover; /* 背景铺满 */
 }
 .diygw-col-5{

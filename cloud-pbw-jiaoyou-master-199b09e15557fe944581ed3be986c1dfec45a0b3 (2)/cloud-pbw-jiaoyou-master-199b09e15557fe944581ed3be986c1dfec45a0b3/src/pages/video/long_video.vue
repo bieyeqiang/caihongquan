@@ -1,12 +1,12 @@
 <template>
 	<view class="container container331385">
-		<u-navbar :isSlot="true" :isFixed="true" :isMarginRight="false" :borderBottom="false" title="" :background="{ backgroundColor: '#ffffff' }" :backTextStyle="{ color: 'inherit' }" backIconColor="#fff" titleColor="inherit" :isHome="false" :isBack="false">
+		<!-- <u-navbar :isSlot="true" :isFixed="true" :isMarginRight="false" :borderBottom="false" title="" :background="{ backgroundColor: '#ffffff' }" :backTextStyle="{ color: 'inherit' }" backIconColor="#fff" titleColor="inherit" :isHome="false" :isBack="false">
 			<view class="flex align-center diygw-text-md text-bold align-center flex-nowrap diygw-col-24 flexbar-clz">
 				<text class="flex icon diygw-col-0 icon-clz diy-icon-back"></text>
 				<text class="diygw-col-23 text-clz"> 影片名字 </text>
 				<text class="flex icon1 diygw-col-0 diy-icon-forward"></text>
 			</view>
-		</u-navbar>
+		</u-navbar> -->
 		<view class="flex flex-wrap diygw-col-24 flex-direction-column flex35-clz">
 			<view class="flex diygw-col-24">
 				<video ref="refVideo" src="https://agent.diygw.com/diygwcom.mp4" style="width: 100%; height: 420rpx" object-fit="contain" title="视频标题" poster="/static/pic1.jpg"></video>
@@ -350,7 +350,7 @@
 		flex-shrink: 0;
 		background-repeat: no-repeat;
 		width: 160rpx !important;
-		background-image: url(/static/redozx.png);
+		// background-image: url(/static/redozx.png);
 		background-position: center left;
 		text-align: center;
 	}
@@ -965,7 +965,7 @@
 	.icon5-clz {
 		flex-shrink: 0;
 		width: 44rpx !important;
-		background-image: url(/static/maskgroup.png);
+		// background-image: url(/static/maskgroup.png);
 		height: 44rpx !important;
 	}
 	.icon5 {
