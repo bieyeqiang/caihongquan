@@ -1,6 +1,25 @@
+import {
+  GRAY_INFORM_TYPE_SINGLE,
+  GRAY_INFORM_MAP_SINGLE_TEXT,
+  GRAY_INFORM_TYPE_GROUP,
+  GRAY_INFORM_MAP_GROUP_TEXT,
+  GRAY_INFORM_TEMPLATE_NAME,
+} from './grayInform';
+/* 灰色通知类型 */
+export {
+  GRAY_INFORM_TYPE_SINGLE,
+  GRAY_INFORM_MAP_SINGLE_TEXT,
+  GRAY_INFORM_TYPE_GROUP,
+  GRAY_INFORM_MAP_GROUP_TEXT,
+  GRAY_INFORM_TEMPLATE_NAME,
+};
 export const CHAT_TYPE = {
   SINGLE_CHAT: 'singleChat',
   GROUP_CHAT: 'groupChat',
+};
+export const INFORM_TYPE = {
+  CONTACTS: 'contacts',
+  GROUPS: 'groups',
 };
 export const HANDLER_EVENT_NAME = {
   CONNECT_EVENT: 'connectEvent',
@@ -8,6 +27,7 @@ export const HANDLER_EVENT_NAME = {
   CONTACTS_EVENT: 'contactsEvent',
   GROUP_EVENT: 'groupEvent',
   ERROR_EVENT: 'errorEvent',
+  PRESENCE_EVENT: 'presenceEvent',
 };
 
 export const CONNECT_CALLBACK_TYPE = {
@@ -16,16 +36,39 @@ export const CONNECT_CALLBACK_TYPE = {
   RECONNECTING_CALLBACK: 'reconnecting',
   ERROR_CALLBACK: 'onerror',
 };
-
+//定义消息状态
+export const MESSAGE_STATUS = {
+  READ: 'read',
+  UNREAD: 'unread',
+  DELETE: 'deleted',
+  PENDING: 'pending',
+  RECALL: 'recalled',
+  FAIL: 'fail',
+};
 export const MESSAGE_TYPE = {
   IMAGE: 'img',
   TEXT: 'txt',
-  LOCATION: 'location',
+  LOCATION: 'loc',
   VIDEO: 'video',
   AUDIO: 'audio',
   EMOJI: 'emoji',
   FILE: 'file',
   CUSTOM: 'custom',
+  CMD: 'cmd',
+  GRAY_INFORM: 'gray_inform', //此类型非SDK正式类型，此类型为自定义的本地插入用于灰色通知类型。
+};
+export const SESSION_MESSAGE_TYPE = {
+  [MESSAGE_TYPE.IMAGE]: '[图片]',
+  [MESSAGE_TYPE.FILE]: '[文件]',
+  [MESSAGE_TYPE.AUDIO]: '[语音]',
+  [MESSAGE_TYPE.LOCATION]: '[位置]',
+  [MESSAGE_TYPE.VIDEO]: '[视频]',
+};
+export const CUSTOM_EVENT_NAME = {
+  USER_CARD: 'userCard',
+};
+export const CUSTOM_TYPE = {
+  [CUSTOM_EVENT_NAME.USER_CARD]: '个人名片',
 };
 
 export const EMOJI = {
@@ -121,4 +164,14 @@ export const EMOJIOBJ = {
   map6: {
     '[del]': 'del.png',
   },
+};
+export const GROUP_ROLE_TYPE_NAME = {
+  OWNER: 'owner',
+  ADMIN: 'admin',
+  MEMBER: 'member',
+};
+export const GROUP_ROLE_TYPE = {
+  [GROUP_ROLE_TYPE_NAME.OWNER]: 0,
+  [GROUP_ROLE_TYPE_NAME.ADMIN]: 1,
+  [GROUP_ROLE_TYPE_NAME.MEMBER]: 2,
 };

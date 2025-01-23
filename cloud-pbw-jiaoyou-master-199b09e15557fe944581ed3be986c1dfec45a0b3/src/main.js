@@ -101,8 +101,12 @@ Vue.prototype.$common = common
 Vue.config.productionTip = false
 App.mpType = 'app'
 
+
+import pinia from './store'
+
 const app = new Vue({
-  ...App
+  ...App,
+   store: pinia,
 })
 app.$mount()
 // #ifdef VUE3

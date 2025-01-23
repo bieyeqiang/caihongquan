@@ -255,7 +255,36 @@
     // #endif
     {
       "path": "pages/map/mianList"
-    }
+    },
+	{
+		"path": "pages/login/index",
+		"style": {
+			"navigationBarTitleText": "登录",
+			"app-plus": {
+				"titleNView": false,
+				"bounce": "none",
+				//关闭窗口回弹效果
+				"scrollIndicator": "none"
+			},
+			"navigationStyle": "custom",
+			"enablePullDownRefresh": false
+		}
+	},
+	{
+		"path": "pages/conversation/conversation",
+		"style": {
+			"navigationBarTitleText": "列表",
+			"app-plus": {
+				"titleNView": false,
+				"bounce": "none",
+				//关闭窗口回弹效果
+				"scrollIndicator": "none"
+			},
+			"navigationStyle": "custom",
+			"enablePullDownRefresh": false
+		}
+	}
+	
   ],
   "subPackages": [
     {

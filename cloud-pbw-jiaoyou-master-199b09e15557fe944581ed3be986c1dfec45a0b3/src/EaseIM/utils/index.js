@@ -1,5 +1,12 @@
 import paseEmoji from './paseEmoji';
 import getEMKey from './getEMKey';
+import convertGroupDetailsToGroupList from './convertGroupDetailsToGroupList';
 import emHandleReconnect from './emHandleReconnect';
-import { emInsertInformMessage } from './emInsertInformMessage';
-export { paseEmoji, getEMKey, emHandleReconnect, emInsertInformMessage };
+import handlePresence from './handlePresence';
+export {
+  paseEmoji,
+  getEMKey,
+  convertGroupDetailsToGroupList,
+  emHandleReconnect,
+  handlePresence,
+};

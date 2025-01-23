@@ -114,7 +114,7 @@ export default {
 		});
 		setTimeout(() => {
 		  uni.navigateTo({
-		    url: '/pages/video/login'
+		    url: '/pages/login/index'
 		  });
 		}, 1000);  
 	  }
@@ -145,7 +145,7 @@ export default {
   },
   onShow() {
     console.log('app show')
-    this.initLogin() // 登录状态及IM状态
+    // this.initLogin() // 登录状态及IM状态
     this.getUserCity() // 获取用户本地城市
 
     //4.在onShow生命周期，更改全局变量中app是否显示在前台为true
